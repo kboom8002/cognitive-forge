@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 
-export default async function DemoSuitePage({ params }: { params: Params }): Promise<React.ReactElement> {
+export default async function DemoSuitePage({ params }: { params: Params }) {
   const { slug } = await params;
   const suite    = getDemoSuite(slug);
 
