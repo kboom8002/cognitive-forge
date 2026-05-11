@@ -84,7 +84,7 @@ const STATS = [
   { value: "0",   label: "API Key Needed"},
 ];
 
-export default function DemoAppsPage(): React.ReactElement {
+export default function DemoAppsPage() {
   return (
     <div style={S.page}>
       <div style={S.container}>

@@ -176,7 +176,7 @@ const ARCH_NODES = [
   { label: "Final Output", color: "#fb923c" },
 ];
 
-export default function DemoPage(): React.ReactElement {
+export default function DemoPage() {
   return (
     <div style={S.page}>
       <div style={S.container}>
