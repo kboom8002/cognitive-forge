@@ -1,0 +1,36 @@
+{
+  "key": "pack.ai_training_practice.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "primary_app_slug": "ai-training-practice-suite",
+  "assets": {
+    "apps": [
+      {
+        "slug":      "ai-training-practice-suite",
+        "graph_key": "graph.practice_to_feedback.v1",
+        "title":     "AI Training Practice Suite"
+      },
+      {
+        "slug":         "prompt-improvement-practice",
+        "casepack_key": "casepack.prompt_improvement_practice.v1",
+        "title":        "Prompt Improvement Practice"
+      }
+    ],
+    "casepacks": [
+      "casepack.prompt_improvement_practice.v1",
+      "casepack.rubric_evaluation.v1",
+      "casepack.learner_feedback.v1"
+    ],
+    "bridges": [
+      "bridge.practice_output_to_rubric_evaluation.v1",
+      "bridge.rubric_evaluation_to_learner_feedback.v1"
+    ],
+    "graphs": [
+      "graph.practice_to_feedback.v1"
+    ]
+  },
+  "metadata": {
+    "title":       "AI Training Practice Pack",
+    "description": "Prompt engineering practice with AI feedback: diagnoses prompt weaknesses, produces an improved version, evaluates against a rubric, and delivers personalised coaching with a next practice challenge."
+  }
+}

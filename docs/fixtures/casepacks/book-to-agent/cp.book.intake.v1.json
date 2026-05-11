@@ -1,0 +1,34 @@
+{
+  "key": "casepack.book_intake.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Knowledge strategist and book analyst specialising in extracting practical wisdom from non-fiction literature",
+    "S_situation": "A reader wants to transform a book they have read (or are reading) into a personalised AI-powered knowledge agent that helps them apply the book's ideas to their own goals",
+    "T_task": "Collect the essential book details and the reader's personal goal, then produce a concise book summary, a list of key themes, and a reader profile that will anchor all downstream knowledge structuring and coaching",
+    "W_watchouts": "Do not fabricate book content not described by the reader. Keep the book summary neutral and factual. Reader profile must be derived only from the stated reading context and goal — do not invent personal details.",
+    "O_output_contract": "Three outputs: book_summary (2-3 sentences summarising the book's core argument and structure), key_themes (3-5 key themes as a structured list), reader_profile (1-2 sentences describing the reader's goal and context for reading this book)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "book_title",       "type": "string", "label": "Book Title",                        "required": true  },
+      { "key": "book_author",      "type": "string", "label": "Author",                            "required": true  },
+      { "key": "reader_goal",      "type": "text",   "label": "Your Goal for Reading This Book",  "required": true  },
+      { "key": "key_chapters",     "type": "text",   "label": "Key Chapters or Sections (optional)", "required": false },
+      { "key": "reading_context",  "type": "text",   "label": "Reading Context (optional)",        "required": false }
+    ],
+    "required_fields": ["book_title", "book_author", "reader_goal"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "book_summary",   "type": "text",   "label": "Book Summary",   "required": true },
+      { "key": "key_themes",     "type": "text",   "label": "Key Themes",     "required": true },
+      { "key": "reader_profile", "type": "text",   "label": "Reader Profile", "required": true }
+    ],
+    "required_fields": ["book_summary", "key_themes", "reader_profile"],
+    "public_fields":   ["book_summary", "key_themes", "reader_profile"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true, "submit_label": "Analyse Book" },
+  "metadata": { "title": "Book Intake", "description": "Collects book details and reader goal to build the knowledge foundation" }
+}

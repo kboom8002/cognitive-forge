@@ -1,0 +1,39 @@
+{
+  "key": "pack.corporate_pr.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "primary_app_slug": "corporate-pr-suite",
+  "assets": {
+    "apps": [
+      {
+        "slug":      "corporate-pr-suite",
+        "graph_key": "graph.corporate_pr_suite.v1",
+        "title":     "Corporate PR Turnkey Suite"
+      }
+    ],
+    "casepacks": [
+      "casepack.company_intake.v1",
+      "casepack.brand_positioning.v1",
+      "casepack.answer_card.v1",
+      "casepack.press_release.v1",
+      "casepack.company_profile.v1",
+      "casepack.web_brochure.v1",
+      "casepack.message_consistency_audit.v1"
+    ],
+    "bridges": [
+      "bridge.intake_to_positioning.v1",
+      "bridge.positioning_to_answer.v1",
+      "bridge.answer_to_press_release.v1",
+      "bridge.press_release_to_profile.v1",
+      "bridge.profile_to_brochure.v1",
+      "bridge.brochure_to_audit.v1"
+    ],
+    "graphs": [
+      "graph.corporate_pr_suite.v1"
+    ]
+  },
+  "metadata": {
+    "title":       "Corporate PR Turnkey Pack",
+    "description": "End-to-end PR material generation: from company intake through brand positioning, press release, company profile, web brochure, and message consistency audit"
+  }
+}

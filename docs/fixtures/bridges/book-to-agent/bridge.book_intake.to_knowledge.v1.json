@@ -1,0 +1,25 @@
+{
+  "key": "bridge.book_intake_to_knowledge.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.book_intake.v1",
+  "target_casepack_key": "casepack.book_knowledge_structurer.v1",
+  "source_pattern": { "book_summary": "string", "key_themes": "string", "reader_profile": "string" },
+  "target_pattern":  { "book_summary": "string", "key_themes": "string", "reader_profile": "string" },
+  "mapping_rules": [
+    { "source_field": "book_summary",   "target_field": "book_summary"   },
+    { "source_field": "key_themes",     "target_field": "key_themes"     },
+    { "source_field": "reader_profile", "target_field": "reader_profile" }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.book_intake.v1",
+    "target_casepack_key": "casepack.book_knowledge_structurer.v1",
+    "fields": [
+      { "key": "book_summary",   "type": "text", "label": "Book Summary",   "required": true },
+      { "key": "key_themes",     "type": "text", "label": "Key Themes",     "required": true },
+      { "key": "reader_profile", "type": "text", "label": "Reader Profile", "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Book Intake ??Knowledge Structurer Bridge" }
+}

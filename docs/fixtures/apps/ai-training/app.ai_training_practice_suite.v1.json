@@ -1,0 +1,15 @@
+{
+  "slug":       "ai-training-practice-suite",
+  "title":      "AI Training Practice Suite",
+  "description": "A complete 3-step AI training session: get your prompt diagnosed and improved, evaluate it against a professional rubric, and receive personalised coaching with a targeted next practice challenge.",
+  "type":       "graph",
+  "graph_key":  "graph.practice_to_feedback.v1",
+  "visibility": "public",
+  "pack_key":   "pack.ai_training_practice.v1",
+  "extra": {
+    "category":   "AI Training & Education",
+    "icon_url":   null,
+    "featured":   true,
+    "step_count": 3
+  }
+}

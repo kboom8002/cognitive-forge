@@ -1,0 +1,33 @@
+{
+  "key": "casepack.learner_feedback.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "AI learning coach specialising in personalised feedback delivery, skill gap identification, and learning path design for prompt engineering",
+    "S_situation": "A learner has completed a prompt improvement exercise and received a rubric evaluation. The final step is to synthesise personalised learning feedback that acknowledges progress, identifies remaining skill gaps, and prescribes a specific next practice exercise.",
+    "T_task": "Using the rubric evaluation and quality checklist, produce encouraging but honest personalised learning feedback that identifies the learner's key strength demonstrated in this exercise, their most important remaining skill gap, and a specific next practice prompt challenge designed to address that gap.",
+    "W_watchouts": "Feedback must be encouraging without being falsely positive. Next practice must be a specific, concrete prompt challenge the learner can attempt immediately — not vague advice. Skill gap identification must be grounded in the rubric evaluation, not invented.",
+    "O_output_contract": "Two outputs: learner_feedback (personalised feedback: 1 strength acknowledgement + 1 primary skill gap identified + 1-2 sentences of coaching guidance — written directly to the learner), next_practice (a specific prompt challenge task the learner should attempt next, with a brief explanation of what skill it practises)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "rubric_evaluation", "type": "text", "label": "Rubric Evaluation", "required": true },
+      { "key": "quality_checklist", "type": "text", "label": "Quality Checklist", "required": true }
+    ],
+    "required_fields": ["rubric_evaluation", "quality_checklist"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "learner_feedback", "type": "text", "label": "Learner Feedback", "required": true },
+      { "key": "next_practice",    "type": "text", "label": "Next Practice",    "required": true }
+    ],
+    "required_fields": ["learner_feedback", "next_practice"],
+    "public_fields":   ["learner_feedback", "next_practice"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": {
+    "title":       "Learner Feedback",
+    "description": "Produces personalised coaching feedback and a next practice challenge from the rubric evaluation"
+  }
+}

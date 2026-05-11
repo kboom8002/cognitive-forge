@@ -1,0 +1,30 @@
+{
+  "key": "casepack.book_reflection_coach.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Reflective learning coach specialising in deepening knowledge retention through structured reflection and risk-awareness",
+    "S_situation": "The reader has a concrete action plan and next steps derived from the book. The final step is to deepen their engagement with the material through reflection questions that encourage long-term application, and to surface any risk notes that could derail successful implementation.",
+    "T_task": "Using the action plan and next steps, generate deep reflection questions that encourage the reader to internalise and personalise the book's lessons, and identify risk notes — potential blind spots, resistance points, or common failure patterns when applying these ideas.",
+    "W_watchouts": "Reflection questions must be substantive and personal — not comprehension questions. Risk notes must be honest and grounded in the book's own ideas or common implementation challenges, not alarmist or discouraging. Do not repeat the action plan in different words.",
+    "O_output_contract": "Two outputs: reflection_questions (5-6 deep, personalised reflection prompts that encourage the reader to internalise and apply the book's wisdom), risk_notes (2-3 concise sentences identifying common pitfalls, blind spots, or resistance patterns when implementing the book's ideas)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "action_plan", "type": "text", "label": "Action Plan", "required": true },
+      { "key": "next_steps",  "type": "text", "label": "Next Steps",  "required": true }
+    ],
+    "required_fields": ["action_plan", "next_steps"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "reflection_questions", "type": "text", "label": "Reflection Questions", "required": true },
+      { "key": "risk_notes",           "type": "text", "label": "Risk Notes",           "required": true }
+    ],
+    "required_fields": ["reflection_questions", "risk_notes"],
+    "public_fields":   ["reflection_questions", "risk_notes"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Book Reflection Coach", "description": "Generates deep reflection questions and risk notes to deepen book application" }
+}

@@ -1,0 +1,23 @@
+{
+  "key": "bridge.brochure_to_audit.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.web_brochure.v1",
+  "target_casepack_key": "casepack.message_consistency_audit.v1",
+  "source_pattern": { "web_brochure": "string", "tagline": "string" },
+  "target_pattern":  { "web_brochure": "string", "tagline": "string" },
+  "mapping_rules": [
+    { "source_field": "web_brochure", "target_field": "web_brochure" },
+    { "source_field": "tagline",      "target_field": "tagline"      }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.web_brochure.v1",
+    "target_casepack_key": "casepack.message_consistency_audit.v1",
+    "fields": [
+      { "key": "web_brochure", "type": "text", "label": "Web Brochure Copy", "required": true },
+      { "key": "tagline",      "type": "text",     "label": "Tagline",            "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Web Brochure ??Message Consistency Audit Bridge" }
+}

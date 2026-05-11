@@ -1,0 +1,31 @@
+{
+  "key": "casepack.message_consistency_audit.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Senior communications strategist and brand auditor with expertise in message consistency and PR risk management",
+    "S_situation": "All PR materials have been drafted ??web brochure and tagline are the final produced assets. An audit is needed to ensure all materials are consistent and carry no inadvertent risk.",
+    "T_task": "Review the web brochure and tagline for message consistency, brand alignment, factual defensibility, and potential PR risks. Produce a structured consistency audit and a concise risk note.",
+    "W_watchouts": "Do not invent risks not evidenced in the materials. Do not exaggerate or dismiss genuine risks. Audit must be objective and actionable. Do not approve materials that contain unsubstantiated claims.",
+    "O_output_contract": "consistency_audit (structured audit covering: tone consistency, message alignment, factual defensibility, and overall assessment), risk_notes (1-3 concise sentences identifying any specific PR risks or caveats), audit_score (a rating string: 'Pass', 'Pass with minor notes', or 'Needs revision')"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "web_brochure", "type": "text", "label": "Web Brochure Copy", "required": true },
+      { "key": "tagline",      "type": "text",     "label": "Tagline",            "required": true }
+    ],
+    "required_fields": ["web_brochure", "tagline"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "consistency_audit", "type": "text", "label": "Consistency Audit", "required": true },
+      { "key": "risk_notes",        "type": "text", "label": "Risk Notes",        "required": true },
+      { "key": "audit_score",       "type": "text",     "label": "Audit Score",       "required": true }
+    ],
+    "required_fields": ["consistency_audit", "risk_notes", "audit_score"],
+    "public_fields":   ["consistency_audit", "risk_notes", "audit_score"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Message Consistency Audit", "description": "Audits final PR materials for message consistency, risk, and brand alignment" }
+}

@@ -1,0 +1,23 @@
+{
+  "key": "bridge.answer_to_press_release.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.answer_card.v1",
+  "target_casepack_key": "casepack.press_release.v1",
+  "source_pattern": { "answer_card": "string", "faq_summary": "string" },
+  "target_pattern":  { "answer_card": "string", "faq_summary": "string" },
+  "mapping_rules": [
+    { "source_field": "answer_card", "target_field": "answer_card" },
+    { "source_field": "faq_summary", "target_field": "faq_summary" }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.answer_card.v1",
+    "target_casepack_key": "casepack.press_release.v1",
+    "fields": [
+      { "key": "answer_card", "type": "text", "label": "Answer Card",  "required": true },
+      { "key": "faq_summary", "type": "text", "label": "FAQ Summary",  "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Answer Card ??Press Release Bridge" }
+}

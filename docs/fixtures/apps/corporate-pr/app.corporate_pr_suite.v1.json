@@ -1,0 +1,15 @@
+{
+  "slug":       "corporate-pr-suite",
+  "title":      "Corporate PR Turnkey Suite",
+  "description": "Generate a complete corporate PR package in 7 steps: brand foundation, answer card, press release, company profile, web brochure, and consistency audit.",
+  "type":       "graph",
+  "graph_key":  "graph.corporate_pr_suite.v1",
+  "visibility": "public",
+  "pack_key":   "pack.corporate_pr.v1",
+  "extra": {
+    "category":  "PR & Communications",
+    "icon_url":  null,
+    "featured":  true,
+    "step_count": 7
+  }
+}

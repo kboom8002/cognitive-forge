@@ -1,0 +1,31 @@
+{
+  "key": "casepack.book_insight_qa.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Socratic learning coach and book intelligence analyst specialising in generating personalised insight dialogues from structured book knowledge",
+    "S_situation": "The book's knowledge has been structured into a framework. The reader now needs a personalised Q&A that draws out the book's most relevant insights for their specific goal, plus a personalised interpretation that connects the book's wisdom directly to their situation.",
+    "T_task": "Using the book knowledge summary and core concepts, generate an insightful Q&A dialogue that surfaces the book's most relevant ideas for the reader's goal, and a personalised interpretation that translates those ideas into the reader's specific context. Also preserve the knowledge summary for downstream coaching steps.",
+    "W_watchouts": "Q&A questions must be substantive — not generic 'what is X?' questions. Personalised interpretation must be grounded in the reader profile and goal, not generic advice. Do not fabricate additional book content beyond what is provided.",
+    "O_output_contract": "Three outputs: insight_qa (4-5 Q&A pairs surfacing the book's most relevant insights for the reader's goal), personalized_interpretation (2-3 paragraphs translating the book's core ideas into the reader's specific situation and goal), knowledge_digest (a compact 1-2 sentence digest of the key actionable knowledge — used as context for downstream coaching)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "book_knowledge_summary", "type": "text", "label": "Book Knowledge Summary", "required": true },
+      { "key": "core_concepts",          "type": "text", "label": "Core Concepts",          "required": true }
+    ],
+    "required_fields": ["book_knowledge_summary", "core_concepts"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "insight_qa",               "type": "text", "label": "Insight Q&A",               "required": true },
+      { "key": "personalized_interpretation", "type": "text", "label": "Personalised Interpretation", "required": true },
+      { "key": "knowledge_digest",         "type": "string", "label": "Knowledge Digest",         "required": true }
+    ],
+    "required_fields": ["insight_qa", "personalized_interpretation", "knowledge_digest"],
+    "public_fields":   ["insight_qa", "personalized_interpretation"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Book Insight Q&A", "description": "Generates personalised insights and interpretation from structured book knowledge" }
+}

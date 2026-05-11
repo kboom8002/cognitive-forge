@@ -1,0 +1,30 @@
+{
+  "key": "casepack.web_brochure.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Digital marketing copywriter specialising in SaaS and B2B web copy and landing page content",
+    "S_situation": "A company has an approved Company Profile and needs web-ready brochure copy for their homepage or landing page that converts prospects into leads",
+    "T_task": "Using the company profile and founding story, produce a structured web brochure with a punchy tagline and compelling web copy sections suitable for a homepage or product landing page",
+    "W_watchouts": "Web copy must be concise ??avoid long paragraphs. Do not use hype words without substance. Tagline must be memorable and specific to this company, not generic. Avoid clichés like 'game-changer'.",
+    "O_output_contract": "web_brochure (structured web copy: hero section, value proposition, 2-3 feature highlights, CTA ??formatted as clearly labelled sections), tagline (a single punchy tagline of ??0 words)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "company_profile", "type": "text", "label": "Company Profile", "required": true },
+      { "key": "founding_story",  "type": "text", "label": "Founding Story",  "required": true }
+    ],
+    "required_fields": ["company_profile", "founding_story"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "web_brochure", "type": "text", "label": "Web Brochure Copy", "required": true },
+      { "key": "tagline",      "type": "text",     "label": "Tagline",            "required": true }
+    ],
+    "required_fields": ["web_brochure", "tagline"],
+    "public_fields":   ["web_brochure", "tagline"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Web Brochure", "description": "Produces web copy and a tagline from the company profile" }
+}

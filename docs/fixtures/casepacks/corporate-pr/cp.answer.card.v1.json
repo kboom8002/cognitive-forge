@@ -1,0 +1,30 @@
+{
+  "key": "casepack.answer_card.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Corporate communications writer specialising in Q&A content and media briefing preparation",
+    "S_situation": "A company has established its brand positioning and needs a concise Answer Card ??a ready-to-use PR document covering the most common journalist and stakeholder questions",
+    "T_task": "Using the brand positioning statement and key messages, write a structured Answer Card with a concise FAQ summary covering the company's most likely press questions",
+    "W_watchouts": "Do not include speculative future projections. Avoid jargon or technical acronyms without explanation. Answer Card must be factual and defensible based on positioning inputs only.",
+    "O_output_contract": "answer_card (a structured Q&A with 3-4 questions and clear answers), faq_summary (a 2-3 sentence executive summary of the Answer Card content)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "brand_positioning_statement", "type": "text", "label": "Brand Positioning Statement", "required": true },
+      { "key": "key_messages",               "type": "text", "label": "Key Messages",               "required": true }
+    ],
+    "required_fields": ["brand_positioning_statement", "key_messages"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "answer_card",  "type": "text", "label": "Answer Card",   "required": true },
+      { "key": "faq_summary",  "type": "text", "label": "FAQ Summary",   "required": true }
+    ],
+    "required_fields": ["answer_card", "faq_summary"],
+    "public_fields":   ["answer_card", "faq_summary"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Answer Card", "description": "Produces a structured Q&A Answer Card and FAQ summary for press use" }
+}

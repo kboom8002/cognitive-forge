@@ -1,0 +1,30 @@
+{
+  "key": "casepack.book_action_coach.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Executive action coach specialising in translating book insights into concrete, goal-driven action plans",
+    "S_situation": "The reader has received personalised insights from the book. They now need a structured, practical action plan and clear next steps that operationalise the book's ideas for their specific goal.",
+    "T_task": "Using the insight Q&A and knowledge digest, design a concrete action plan with prioritised steps and clear next actions the reader can take immediately to apply the book's key lessons to their goal.",
+    "W_watchouts": "Action plan must be specific and actionable — avoid vague advice like 'think more strategically'. Steps must be derived from the book's actual ideas, not generic coaching platitudes. Next steps must be achievable within the reader's context.",
+    "O_output_contract": "Two outputs: action_plan (a structured 3-4 step action plan with each step labelled, explained, and tied to a book concept), next_steps (a concise list of 3-5 immediate actions the reader can take this week to start applying the book)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "insight_qa",       "type": "text",   "label": "Insight Q&A",       "required": true },
+      { "key": "knowledge_digest", "type": "string", "label": "Knowledge Digest",  "required": true }
+    ],
+    "required_fields": ["insight_qa", "knowledge_digest"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "action_plan", "type": "text", "label": "Action Plan", "required": true },
+      { "key": "next_steps",  "type": "text", "label": "Next Steps",  "required": true }
+    ],
+    "required_fields": ["action_plan", "next_steps"],
+    "public_fields":   ["action_plan", "next_steps"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Book Action Coach", "description": "Produces a personalised action plan and next steps from book insights" }
+}

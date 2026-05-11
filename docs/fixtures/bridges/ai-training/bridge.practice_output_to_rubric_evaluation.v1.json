@@ -1,0 +1,30 @@
+{
+  "key": "bridge.practice_output_to_rubric_evaluation.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.prompt_improvement_practice.v1",
+  "target_casepack_key": "casepack.rubric_evaluation.v1",
+  "source_pattern": {
+    "diagnosis":               "string",
+    "improved_prompt":         "string",
+    "improvement_explanation": "string"
+  },
+  "target_pattern": {
+    "improved_prompt": "string",
+    "diagnosis":       "string"
+  },
+  "mapping_rules": [
+    { "source_field": "improved_prompt", "target_field": "improved_prompt" },
+    { "source_field": "diagnosis",       "target_field": "diagnosis"       }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.prompt_improvement_practice.v1",
+    "target_casepack_key": "casepack.rubric_evaluation.v1",
+    "fields": [
+      { "key": "improved_prompt", "type": "text", "label": "Improved Prompt",    "required": true },
+      { "key": "diagnosis",       "type": "text", "label": "Original Diagnosis", "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Practice Output → Rubric Evaluation Bridge" }
+}

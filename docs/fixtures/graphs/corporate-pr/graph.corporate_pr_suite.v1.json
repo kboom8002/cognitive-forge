@@ -1,0 +1,28 @@
+{
+  "key": "graph.corporate_pr_suite.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "entry_node": "company_intake",
+  "final_nodes": ["brand_positioning", "answer_card", "press_release", "company_profile", "web_brochure", "consistency_audit"],
+  "nodes": [
+    { "id": "company_intake",          "casepack_key": "casepack.company_intake.v1",          "label": "Company Intake"             },
+    { "id": "brand_positioning",       "casepack_key": "casepack.brand_positioning.v1",       "label": "Brand Positioning"          },
+    { "id": "answer_card",             "casepack_key": "casepack.answer_card.v1",             "label": "Answer Card"                },
+    { "id": "press_release",           "casepack_key": "casepack.press_release.v1",           "label": "Press Release"              },
+    { "id": "company_profile",         "casepack_key": "casepack.company_profile.v1",         "label": "Company Profile"            },
+    { "id": "web_brochure",            "casepack_key": "casepack.web_brochure.v1",            "label": "Web Brochure"               },
+    { "id": "consistency_audit",       "casepack_key": "casepack.message_consistency_audit.v1", "label": "Message Consistency Audit" }
+  ],
+  "edges": [
+    { "from": "company_intake",    "to": "brand_positioning", "bridge_key": "bridge.intake_to_positioning.v1",    "label": "Intake → Positioning"    },
+    { "from": "brand_positioning", "to": "answer_card",       "bridge_key": "bridge.positioning_to_answer.v1",    "label": "Positioning → Answer"    },
+    { "from": "answer_card",       "to": "press_release",     "bridge_key": "bridge.answer_to_press_release.v1",  "label": "Answer → Press Release"  },
+    { "from": "press_release",     "to": "company_profile",   "bridge_key": "bridge.press_release_to_profile.v1", "label": "Press Release → Profile" },
+    { "from": "company_profile",   "to": "web_brochure",      "bridge_key": "bridge.profile_to_brochure.v1",      "label": "Profile → Brochure"      },
+    { "from": "web_brochure",      "to": "consistency_audit", "bridge_key": "bridge.brochure_to_audit.v1",        "label": "Brochure → Audit"        }
+  ],
+  "metadata": {
+    "title":       "Corporate PR Turnkey Suite",
+    "description": "7-step linear PR pipeline: Intake → Positioning → Answer Card → Press Release → Profile → Web Brochure → Consistency Audit"
+  }
+}

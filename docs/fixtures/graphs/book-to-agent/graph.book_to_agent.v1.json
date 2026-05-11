@@ -1,0 +1,24 @@
+{
+  "key": "graph.book_to_agent.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "entry_node": "book_intake",
+  "final_nodes": ["book_knowledge", "book_insight_qa", "book_action_coach", "book_reflection_coach"],
+  "nodes": [
+    { "id": "book_intake",            "casepack_key": "casepack.book_intake.v1",               "label": "Book Intake"            },
+    { "id": "book_knowledge",         "casepack_key": "casepack.book_knowledge_structurer.v1",  "label": "Knowledge Structurer"   },
+    { "id": "book_insight_qa",        "casepack_key": "casepack.book_insight_qa.v1",            "label": "Insight Q&A"            },
+    { "id": "book_action_coach",      "casepack_key": "casepack.book_action_coach.v1",          "label": "Action Coach"           },
+    { "id": "book_reflection_coach",  "casepack_key": "casepack.book_reflection_coach.v1",      "label": "Reflection Coach"       }
+  ],
+  "edges": [
+    { "from": "book_intake",           "to": "book_knowledge",        "bridge_key": "bridge.book_intake_to_knowledge.v1",      "label": "Intake ??Knowledge"    },
+    { "from": "book_knowledge",        "to": "book_insight_qa",       "bridge_key": "bridge.book_knowledge_to_insight_qa.v1",  "label": "Knowledge ??Insight"   },
+    { "from": "book_insight_qa",       "to": "book_action_coach",     "bridge_key": "bridge.book_knowledge_to_action.v1",      "label": "Insight ??Action"      },
+    { "from": "book_action_coach",     "to": "book_reflection_coach", "bridge_key": "bridge.book_knowledge_to_reflection.v1",  "label": "Action ??Reflection"   }
+  ],
+  "metadata": {
+    "title":       "Book-to-Agent Suite",
+    "description": "5-step linear pipeline: Book Intake ??Knowledge Structurer ??Insight Q&A ??Action Coach ??Reflection Coach. Transforms any non-fiction book into a personalised knowledge agent."
+  }
+}

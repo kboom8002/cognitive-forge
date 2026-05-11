@@ -1,0 +1,33 @@
+{
+  "key": "bridge.book_knowledge_to_action.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.book_insight_qa.v1",
+  "target_casepack_key": "casepack.book_action_coach.v1",
+  "source_pattern": {
+    "insight_qa":               "string",
+    "personalized_interpretation": "string",
+    "knowledge_digest":         "string"
+  },
+  "target_pattern": {
+    "insight_qa":       "string",
+    "knowledge_digest": "string"
+  },
+  "mapping_rules": [
+    { "source_field": "insight_qa",       "target_field": "insight_qa"       },
+    { "source_field": "knowledge_digest", "target_field": "knowledge_digest" }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.book_insight_qa.v1",
+    "target_casepack_key": "casepack.book_action_coach.v1",
+    "fields": [
+      { "key": "insight_qa",       "type": "text",   "label": "Insight Q&A",       "required": true },
+      { "key": "knowledge_digest", "type": "string", "label": "Knowledge Digest",  "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": {
+    "title":       "Book Knowledge ??Action Coach Bridge",
+    "description": "Carries insight Q&A and knowledge digest (representing the book's core knowledge) from Insight Q&A into Action Coach"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "key": "casepack.rubric_evaluation.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "AI training assessment specialist with expertise in prompt engineering rubric design and structured quality evaluation",
+    "S_situation": "A learner has received an improved prompt and an explanation of the changes. The improved prompt now needs to be evaluated against a structured rubric to produce an objective quality score and a quality checklist the learner can use for self-assessment.",
+    "T_task": "Evaluate the improved prompt against a structured prompt engineering rubric covering: clarity of intent, specificity of output format, role/persona definition, constraint and boundary specification, context richness, and iterability. Produce a scored rubric evaluation and a practical quality checklist.",
+    "W_watchouts": "Rubric evaluation must be honest — do not inflate scores. If the improved prompt still has weaknesses, note them. The quality checklist must be actionable items the learner can apply to future prompts, not a description of this specific prompt.",
+    "O_output_contract": "Two outputs: rubric_evaluation (a structured evaluation scoring the improved prompt across 5-6 dimensions with brief justification for each score, plus an overall assessment), quality_checklist (a reusable checklist of 6-8 prompt quality criteria the learner should apply to every prompt they write)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "improved_prompt", "type": "text", "label": "Improved Prompt",   "required": true },
+      { "key": "diagnosis",       "type": "text", "label": "Original Diagnosis", "required": true }
+    ],
+    "required_fields": ["improved_prompt", "diagnosis"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "rubric_evaluation", "type": "text", "label": "Rubric Evaluation", "required": true },
+      { "key": "quality_checklist", "type": "text", "label": "Quality Checklist", "required": true }
+    ],
+    "required_fields": ["rubric_evaluation", "quality_checklist"],
+    "public_fields":   ["rubric_evaluation", "quality_checklist"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": {
+    "title":       "Rubric Evaluation",
+    "description": "Evaluates an improved prompt against a structured rubric and produces a reusable quality checklist"
+  }
+}

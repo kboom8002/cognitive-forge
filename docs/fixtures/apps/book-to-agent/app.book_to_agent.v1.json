@@ -1,0 +1,15 @@
+{
+  "slug":        "book-to-agent",
+  "title":       "Book-to-Agent Suite",
+  "description": "Transform any non-fiction book into a personalised AI knowledge agent. Get a structured knowledge summary, personalised insights, an action plan, and reflection questions — all tailored to your goal.",
+  "type":        "graph",
+  "graph_key":   "graph.book_to_agent.v1",
+  "visibility":  "public",
+  "pack_key":    "pack.book_to_agent.v1",
+  "extra": {
+    "category":   "Learning & Knowledge",
+    "icon_url":   null,
+    "featured":   true,
+    "step_count": 5
+  }
+}

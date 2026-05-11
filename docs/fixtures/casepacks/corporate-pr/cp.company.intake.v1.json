@@ -1,0 +1,47 @@
+{
+  "key": "casepack.company_intake.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Senior brand strategist and PR consultant with 15+ years of B2B and B2C experience",
+    "S_situation": "A company needs to establish a structured brand foundation for PR, marketing, and communications materials based on the details they provide",
+    "T_task": "Analyse the provided company details and produce a structured company overview, target audience profile, and key differentiators that will serve as the foundation for all downstream PR materials",
+    "W_watchouts": "Do not fabricate specific metrics, revenue figures, valuations, or unverified claims. Avoid vague generalities ??be specific based on the inputs provided. Do not make legal, regulatory, or compliance claims. Do not state facts about the company that were not given in the inputs.",
+    "O_output_contract": "Three structured outputs: (1) company_overview ??a concise 2-3 sentence paragraph describing what the company does and its core value proposition; (2) target_audience ??a 1-2 sentence description of the primary audience; (3) key_differentiators ??a structured list of 3-5 specific advantages or differentiating factors"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "company_name",  "type": "text",     "label": "Company Name",               "required": true  },
+      { "key": "industry",      "type": "text",     "label": "Industry / Sector",           "required": true  },
+      { "key": "announcement",  "type": "text", "label": "Key Announcement or News",    "required": true  },
+      { "key": "company_url",   "type": "text",     "label": "Company Website URL",         "required": false },
+      { "key": "founding_year", "type": "text",     "label": "Founding Year (optional)",    "required": false }
+    ],
+    "required_fields": ["company_name", "industry", "announcement"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "company_overview",     "type": "text", "label": "Company Overview",     "required": true },
+      { "key": "target_audience",      "type": "text",     "label": "Target Audience",      "required": true },
+      { "key": "key_differentiators",  "type": "text", "label": "Key Differentiators",  "required": true }
+    ],
+    "required_fields": ["company_overview", "target_audience", "key_differentiators"],
+    "public_fields":   ["company_overview", "target_audience", "key_differentiators"]
+  },
+  "runtime_contract": {
+    "execution_type": "single_casepack",
+    "provider": "openai",
+    "model": "gpt-4o"
+  },
+  "ui_schema": {
+    "app_mode":    "micro_app",
+    "layout":      "single_column",
+    "public_mode": false,
+    "trust_badge": true,
+    "submit_label": "Analyse"
+  },
+  "metadata": {
+    "title":       "Company Intake",
+    "description": "Collects company details and produces a structured brand foundation for downstream PR materials"
+  }
+}

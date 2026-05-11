@@ -1,0 +1,23 @@
+{
+  "key": "bridge.rubric_evaluation_to_learner_feedback.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.rubric_evaluation.v1",
+  "target_casepack_key": "casepack.learner_feedback.v1",
+  "source_pattern": { "rubric_evaluation": "string", "quality_checklist": "string" },
+  "target_pattern":  { "rubric_evaluation": "string", "quality_checklist": "string" },
+  "mapping_rules": [
+    { "source_field": "rubric_evaluation", "target_field": "rubric_evaluation" },
+    { "source_field": "quality_checklist", "target_field": "quality_checklist" }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.rubric_evaluation.v1",
+    "target_casepack_key": "casepack.learner_feedback.v1",
+    "fields": [
+      { "key": "rubric_evaluation", "type": "text", "label": "Rubric Evaluation", "required": true },
+      { "key": "quality_checklist", "type": "text", "label": "Quality Checklist", "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Rubric Evaluation → Learner Feedback Bridge" }
+}

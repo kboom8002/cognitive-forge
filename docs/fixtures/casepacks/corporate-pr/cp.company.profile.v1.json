@@ -1,0 +1,30 @@
+{
+  "key": "casepack.company_profile.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Corporate writer specialising in company profiles, about pages, and investor relations materials",
+    "S_situation": "A press release has been drafted and the company needs a formal Company Profile document for media kits, investor decks, and partner introductions",
+    "T_task": "Using the press release and headline, write a structured Company Profile that covers the company's mission, background, offerings, and a brief founding story suitable for media kit use",
+    "W_watchouts": "Do not invent founding dates, team sizes, funding rounds, or market share claims not provided in the inputs. Keep tone professional and factual. Profile must be suitable for a formal media kit.",
+    "O_output_contract": "company_profile (structured profile: 3-4 paragraphs covering mission, offerings, market context), founding_story (1-2 sentences about the company's origin or founding motivation)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "press_release", "type": "text", "label": "Press Release", "required": true },
+      { "key": "headline",      "type": "text",     "label": "Headline",      "required": true }
+    ],
+    "required_fields": ["press_release", "headline"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "company_profile", "type": "text", "label": "Company Profile", "required": true },
+      { "key": "founding_story",  "type": "text", "label": "Founding Story",  "required": true }
+    ],
+    "required_fields": ["company_profile", "founding_story"],
+    "public_fields":   ["company_profile", "founding_story"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Company Profile", "description": "Produces a formal company profile and founding story for media kit use" }
+}

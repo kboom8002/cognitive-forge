@@ -1,0 +1,23 @@
+{
+  "key": "bridge.press_release_to_profile.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.press_release.v1",
+  "target_casepack_key": "casepack.company_profile.v1",
+  "source_pattern": { "press_release": "string", "headline": "string" },
+  "target_pattern":  { "press_release": "string", "headline": "string" },
+  "mapping_rules": [
+    { "source_field": "press_release", "target_field": "press_release" },
+    { "source_field": "headline",      "target_field": "headline"      }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.press_release.v1",
+    "target_casepack_key": "casepack.company_profile.v1",
+    "fields": [
+      { "key": "press_release", "type": "text", "label": "Press Release", "required": true },
+      { "key": "headline",      "type": "text",     "label": "Headline",      "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Press Release ??Company Profile Bridge" }
+}

@@ -1,0 +1,32 @@
+{
+  "key": "casepack.brand_positioning.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Brand strategist specialising in corporate positioning and messaging frameworks",
+    "S_situation": "A company has completed intake and needs a brand position and key message architecture",
+    "T_task": "Using the company overview, target audience, and key differentiators, craft a brand positioning statement, key messages, and tone guidelines",
+    "W_watchouts": "Do not use generic terms like 'world-class' without substantiation. Do not invent claims not in the intake data. Avoid 'me too' positioning.",
+    "O_output_contract": "brand_positioning_statement (1-2 sentence statement), key_messages (3-4 core messages), tone_guidelines (2-3 sentences on tone and voice)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "company_overview",    "type": "text", "label": "Company Overview",    "required": true },
+      { "key": "target_audience",     "type": "text",     "label": "Target Audience",     "required": true },
+      { "key": "key_differentiators", "type": "text", "label": "Key Differentiators", "required": true }
+    ],
+    "required_fields": ["company_overview", "target_audience", "key_differentiators"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "brand_positioning_statement", "type": "text", "label": "Brand Positioning Statement", "required": true },
+      { "key": "key_messages",               "type": "text", "label": "Key Messages",               "required": true },
+      { "key": "tone_guidelines",            "type": "text", "label": "Tone Guidelines",            "required": true }
+    ],
+    "required_fields": ["brand_positioning_statement", "key_messages", "tone_guidelines"],
+    "public_fields":   ["brand_positioning_statement", "key_messages", "tone_guidelines"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Brand Positioning", "description": "Produces brand positioning statement, key messages, and tone guidelines" }
+}

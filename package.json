@@ -1,0 +1,46 @@
+{
+  "name": "cognitive-forge-os",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Cognitive Forge / Cognitive OS — Knowledge-to-AI-App platform monorepo",
+  "scripts": {
+    "build": "pnpm --recursive --parallel run build",
+    "typecheck": "pnpm --recursive --parallel run typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:integration": "vitest run tests/integration",
+    "dev": "pnpm --filter @cognitive-forge/web run dev",
+    "lint": "pnpm --recursive --parallel run lint",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:migrate": "supabase db push",
+    "db:types": "supabase gen types typescript --local --schema public > packages/core/src/types/supabase.ts",
+    "fixtures:validate": "tsx scripts/validate-fixtures.ts",
+    "seed:demo": "tsx scripts/seed-demo.ts",
+    "smoke:runtime": "tsx scripts/smoke-runtime.ts",
+    "release:check": "tsx scripts/release-check.ts"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.105.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "glob": "^13.0.6",
+    "jsdom": "^26.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.1.0",
+    "zod": "^3.23.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

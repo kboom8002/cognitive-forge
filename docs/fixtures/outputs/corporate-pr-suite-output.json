@@ -1,0 +1,6 @@
+{
+  "_note": "Final output from the consistency_audit node — represents the public-facing result of a full Corporate PR Suite graph run",
+  "consistency_audit": "Tone Consistency: All materials use a confident, professional tone aligned with a B2B AI SaaS brand. No material deviates into casual or overly technical language.\n\nMessage Alignment: The brand positioning statement ('AI-powered strategic clarity for mid-market leaders') is consistently reflected in the Answer Card, Press Release, Company Profile, and Web Brochure. Key messages about speed (10-minute plans), accessibility (mid-market focus), and AI differentiation appear across all materials.\n\nFactual Defensibility: The 10-minute claim is specific and should be supported by internal product benchmarking before public release. All other statements are positional rather than empirical and carry low factual risk.\n\nOverall Assessment: Materials are internally consistent and well-aligned to the brand positioning. One factual claim requires validation.",
+  "risk_notes": "The '10-minute' speed claim is repeated across multiple materials and is the primary factual risk. If not supported by documented benchmarks, it may attract media scrutiny. Recommend obtaining or documenting a specific benchmark before distribution.",
+  "audit_score": "Pass with minor notes"
+}

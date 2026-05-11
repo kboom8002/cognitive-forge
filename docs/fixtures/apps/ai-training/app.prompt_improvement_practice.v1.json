@@ -1,0 +1,15 @@
+{
+  "slug":        "prompt-improvement-practice",
+  "title":       "Prompt Improvement Practice",
+  "description": "Paste any prompt, get an expert diagnosis of its weaknesses, an improved version, and a clear explanation of what changed and why. Build your prompt engineering skills one practice at a time.",
+  "type":        "casepack",
+  "casepack_key": "casepack.prompt_improvement_practice.v1",
+  "visibility":  "public",
+  "pack_key":    "pack.ai_training_practice.v1",
+  "extra": {
+    "category":   "AI Training & Education",
+    "icon_url":   null,
+    "featured":   true,
+    "step_count": 1
+  }
+}

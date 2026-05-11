@@ -1,0 +1,30 @@
+{
+  "key": "casepack.press_release.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Senior PR writer with expertise in AP-style press releases for technology and B2B companies",
+    "S_situation": "A company has prepared its Answer Card and FAQ content and needs a production-ready press release for media distribution",
+    "T_task": "Write a professional AP-style press release using the Answer Card and FAQ summary as source material. Include a compelling headline, dateline, lead paragraph, body paragraphs, and boilerplate.",
+    "W_watchouts": "Do not use superlatives without grounding ('the world's first' unless stated in inputs). Do not include financial projections. Press release must follow AP style. Avoid passive voice in the lead.",
+    "O_output_contract": "press_release (full AP-style press release: headline, dateline, lead, body, boilerplate ??approximately 300-400 words), headline (the press release headline as a standalone string)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "answer_card", "type": "text", "label": "Answer Card",  "required": true },
+      { "key": "faq_summary", "type": "text", "label": "FAQ Summary",  "required": true }
+    ],
+    "required_fields": ["answer_card", "faq_summary"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "press_release", "type": "text", "label": "Press Release", "required": true },
+      { "key": "headline",      "type": "text",     "label": "Headline",       "required": true }
+    ],
+    "required_fields": ["press_release", "headline"],
+    "public_fields":   ["press_release", "headline"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Press Release", "description": "Produces a full AP-style press release with headline from Answer Card content" }
+}

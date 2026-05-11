@@ -1,0 +1,32 @@
+{
+  "key": "casepack.book_knowledge_structurer.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Knowledge architect and learning designer specialising in structuring book content into actionable knowledge frameworks",
+    "S_situation": "A book intake has been completed and the reader's context is established. The book's ideas now need to be structured into a coherent knowledge framework that can power personalised coaching and Q&A downstream.",
+    "T_task": "Using the book summary, key themes, and reader profile, produce a comprehensive knowledge summary, a list of core concepts with brief explanations, and a structural outline of how the book's ideas connect — all tailored to the reader's stated goal.",
+    "W_watchouts": "Do not invent concepts not derivable from the book summary and themes provided. Keep language accessible — avoid academic jargon unless the book itself uses it. The knowledge structure must be reader-goal-oriented, not just a chapter summary.",
+    "O_output_contract": "Three outputs: book_knowledge_summary (comprehensive 3-4 paragraph synthesis of the book's key knowledge tailored to the reader's goal), core_concepts (a structured list of 4-6 core concepts with one-line explanations each), structural_outline (a brief outline showing how the book's key ideas connect)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "book_summary",   "type": "text", "label": "Book Summary",   "required": true },
+      { "key": "key_themes",     "type": "text", "label": "Key Themes",     "required": true },
+      { "key": "reader_profile", "type": "text", "label": "Reader Profile", "required": true }
+    ],
+    "required_fields": ["book_summary", "key_themes", "reader_profile"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "book_knowledge_summary", "type": "text", "label": "Book Knowledge Summary", "required": true },
+      { "key": "core_concepts",          "type": "text", "label": "Core Concepts",          "required": true },
+      { "key": "structural_outline",     "type": "text", "label": "Structural Outline",     "required": true }
+    ],
+    "required_fields": ["book_knowledge_summary", "core_concepts", "structural_outline"],
+    "public_fields":   ["book_knowledge_summary", "core_concepts", "structural_outline"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": { "app_mode": "micro_app", "layout": "single_column", "public_mode": false, "trust_badge": true },
+  "metadata": { "title": "Book Knowledge Structurer", "description": "Structures book content into a comprehensive knowledge framework tailored to the reader's goal" }
+}

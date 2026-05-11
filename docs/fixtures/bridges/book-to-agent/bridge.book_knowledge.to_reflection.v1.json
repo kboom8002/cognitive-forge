@@ -1,0 +1,26 @@
+{
+  "key": "bridge.book_knowledge_to_reflection.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.book_action_coach.v1",
+  "target_casepack_key": "casepack.book_reflection_coach.v1",
+  "source_pattern": { "action_plan": "string", "next_steps": "string" },
+  "target_pattern":  { "action_plan": "string", "next_steps": "string" },
+  "mapping_rules": [
+    { "source_field": "action_plan", "target_field": "action_plan" },
+    { "source_field": "next_steps",  "target_field": "next_steps"  }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.book_action_coach.v1",
+    "target_casepack_key": "casepack.book_reflection_coach.v1",
+    "fields": [
+      { "key": "action_plan", "type": "text", "label": "Action Plan", "required": true },
+      { "key": "next_steps",  "type": "text", "label": "Next Steps",  "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": {
+    "title":       "Book Knowledge ??Reflection Coach Bridge",
+    "description": "Carries action plan and next steps (the book's operationalised knowledge) into Reflection Coach"
+  }
+}

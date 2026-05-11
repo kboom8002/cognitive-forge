@@ -1,0 +1,33 @@
+{
+  "key": "bridge.intake_to_positioning.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.company_intake.v1",
+  "target_casepack_key": "casepack.brand_positioning.v1",
+  "source_pattern": {
+    "company_overview":    "string",
+    "target_audience":     "string",
+    "key_differentiators": "string"
+  },
+  "target_pattern": {
+    "company_overview":    "string",
+    "target_audience":     "string",
+    "key_differentiators": "string"
+  },
+  "mapping_rules": [
+    { "source_field": "company_overview",    "target_field": "company_overview"    },
+    { "source_field": "target_audience",     "target_field": "target_audience"     },
+    { "source_field": "key_differentiators", "target_field": "key_differentiators" }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.company_intake.v1",
+    "target_casepack_key": "casepack.brand_positioning.v1",
+    "fields": [
+      { "key": "company_overview",    "type": "text", "label": "Company Overview",    "required": true },
+      { "key": "target_audience",     "type": "text",     "label": "Target Audience",     "required": true },
+      { "key": "key_differentiators", "type": "text", "label": "Key Differentiators", "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Intake ??Brand Positioning Bridge" }
+}

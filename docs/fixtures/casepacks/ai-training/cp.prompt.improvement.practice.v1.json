@@ -1,0 +1,41 @@
+{
+  "key": "casepack.prompt_improvement_practice.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "taskflow_cx": {
+    "R_role": "Expert AI prompt engineer and learning coach specialising in systematic prompt improvement and learner skill development",
+    "S_situation": "A learner has written a prompt they want to improve. They may be a beginner learning prompt engineering fundamentals or an intermediate practitioner refining their craft. An expert analysis and structured rewrite is needed.",
+    "T_task": "Analyse the learner's original prompt, diagnose its specific weaknesses (clarity, specificity, role definition, output format, constraints, context), produce an improved version that addresses those weaknesses, and explain the improvement in a way that teaches the learner what changed and why.",
+    "W_watchouts": "Do not simply rewrite the prompt without explaining the reasoning — the pedagogical value is in the explanation. Diagnosis must be specific to this prompt, not generic advice. Improved prompt must be directly usable, not theoretical. Adapt feedback depth to the learner's level.",
+    "O_output_contract": "Three outputs: diagnosis (a structured analysis identifying 2-4 specific weaknesses in the original prompt with one-line explanations), improved_prompt (the rewritten prompt — complete, usable, and clearly better than the original), improvement_explanation (a structured explanation of what was changed and why, tailored to the learner's level)"
+  },
+  "input_contract": {
+    "fields": [
+      { "key": "original_prompt", "type": "text",   "label": "Your Original Prompt",          "required": true,  "placeholder": "Paste the prompt you want to improve..." },
+      { "key": "task_context",    "type": "text",   "label": "Task Context (optional)",       "required": false, "placeholder": "What is this prompt trying to accomplish?" },
+      { "key": "learner_level",   "type": "select", "label": "Your Experience Level",         "required": false, "options": ["beginner", "intermediate", "advanced"], "default_value": "beginner" }
+    ],
+    "required_fields": ["original_prompt"]
+  },
+  "output_contract": {
+    "fields": [
+      { "key": "diagnosis",               "type": "text", "label": "Prompt Diagnosis",         "required": true },
+      { "key": "improved_prompt",         "type": "text", "label": "Improved Prompt",          "required": true },
+      { "key": "improvement_explanation", "type": "text", "label": "Improvement Explanation",  "required": true }
+    ],
+    "required_fields": ["diagnosis", "improved_prompt", "improvement_explanation"],
+    "public_fields":   ["diagnosis", "improved_prompt", "improvement_explanation"]
+  },
+  "runtime_contract": { "execution_type": "single_casepack", "provider": "openai", "model": "gpt-4o" },
+  "ui_schema": {
+    "app_mode":    "micro_app",
+    "layout":      "single_column",
+    "public_mode": false,
+    "trust_badge": true,
+    "submit_label": "Improve My Prompt"
+  },
+  "metadata": {
+    "title":       "Prompt Improvement Practice",
+    "description": "Diagnoses a learner's prompt, produces an improved version, and explains the changes to build prompt engineering skills"
+  }
+}

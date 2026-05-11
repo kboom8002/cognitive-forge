@@ -1,0 +1,35 @@
+{
+  "key": "pack.book_to_agent.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "primary_app_slug": "book-to-agent",
+  "assets": {
+    "apps": [
+      {
+        "slug":      "book-to-agent",
+        "graph_key": "graph.book_to_agent.v1",
+        "title":     "Book-to-Agent Suite"
+      }
+    ],
+    "casepacks": [
+      "casepack.book_intake.v1",
+      "casepack.book_knowledge_structurer.v1",
+      "casepack.book_insight_qa.v1",
+      "casepack.book_action_coach.v1",
+      "casepack.book_reflection_coach.v1"
+    ],
+    "bridges": [
+      "bridge.book_intake_to_knowledge.v1",
+      "bridge.book_knowledge_to_insight_qa.v1",
+      "bridge.book_knowledge_to_action.v1",
+      "bridge.book_knowledge_to_reflection.v1"
+    ],
+    "graphs": [
+      "graph.book_to_agent.v1"
+    ]
+  },
+  "metadata": {
+    "title":       "Book-to-Agent Pack",
+    "description": "Transforms any non-fiction book into a personalised AI knowledge agent ??producing knowledge summary, insight Q&A, personalised interpretation, action plan, next steps, reflection questions, and risk notes."
+  }
+}

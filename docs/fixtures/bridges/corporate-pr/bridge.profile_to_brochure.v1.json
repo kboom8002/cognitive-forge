@@ -1,0 +1,23 @@
+{
+  "key": "bridge.profile_to_brochure.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.company_profile.v1",
+  "target_casepack_key": "casepack.web_brochure.v1",
+  "source_pattern": { "company_profile": "string", "founding_story": "string" },
+  "target_pattern":  { "company_profile": "string", "founding_story": "string" },
+  "mapping_rules": [
+    { "source_field": "company_profile", "target_field": "company_profile" },
+    { "source_field": "founding_story",  "target_field": "founding_story"  }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.company_profile.v1",
+    "target_casepack_key": "casepack.web_brochure.v1",
+    "fields": [
+      { "key": "company_profile", "type": "text", "label": "Company Profile", "required": true },
+      { "key": "founding_story",  "type": "text", "label": "Founding Story",  "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Company Profile ??Web Brochure Bridge" }
+}

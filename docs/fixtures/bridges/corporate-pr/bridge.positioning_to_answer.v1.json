@@ -1,0 +1,30 @@
+{
+  "key": "bridge.positioning_to_answer.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "source_casepack_key": "casepack.brand_positioning.v1",
+  "target_casepack_key": "casepack.answer_card.v1",
+  "source_pattern": {
+    "brand_positioning_statement": "string",
+    "key_messages":               "string",
+    "tone_guidelines":            "string"
+  },
+  "target_pattern": {
+    "brand_positioning_statement": "string",
+    "key_messages":               "string"
+  },
+  "mapping_rules": [
+    { "source_field": "brand_positioning_statement", "target_field": "brand_positioning_statement" },
+    { "source_field": "key_messages",               "target_field": "key_messages"               }
+  ],
+  "handoff_contract": {
+    "source_casepack_key": "casepack.brand_positioning.v1",
+    "target_casepack_key": "casepack.answer_card.v1",
+    "fields": [
+      { "key": "brand_positioning_statement", "type": "text", "label": "Brand Positioning Statement", "required": true },
+      { "key": "key_messages",               "type": "text", "label": "Key Messages",               "required": true }
+    ],
+    "context_preservation": "partial"
+  },
+  "metadata": { "title": "Brand Positioning ??Answer Card Bridge" }
+}

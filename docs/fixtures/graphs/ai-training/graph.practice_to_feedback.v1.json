@@ -1,0 +1,20 @@
+{
+  "key": "graph.practice_to_feedback.v1",
+  "version": "1.0.0",
+  "status": "published",
+  "entry_node": "prompt_improvement",
+  "final_nodes": ["prompt_improvement", "rubric_evaluation", "learner_feedback"],
+  "nodes": [
+    { "id": "prompt_improvement", "casepack_key": "casepack.prompt_improvement_practice.v1", "label": "Prompt Improvement Practice" },
+    { "id": "rubric_evaluation",  "casepack_key": "casepack.rubric_evaluation.v1",           "label": "Rubric Evaluation"          },
+    { "id": "learner_feedback",   "casepack_key": "casepack.learner_feedback.v1",             "label": "Learner Feedback"           }
+  ],
+  "edges": [
+    { "from": "prompt_improvement", "to": "rubric_evaluation", "bridge_key": "bridge.practice_output_to_rubric_evaluation.v1", "label": "Practice → Rubric" },
+    { "from": "rubric_evaluation",  "to": "learner_feedback",  "bridge_key": "bridge.rubric_evaluation_to_learner_feedback.v1", "label": "Rubric → Feedback" }
+  ],
+  "metadata": {
+    "title":       "AI Training Practice Suite",
+    "description": "3-step linear pipeline: Prompt Improvement → Rubric Evaluation → Learner Feedback. Produces a complete AI training practice session with diagnosis, improved prompt, rubric scoring, and personalised next practice."
+  }
+}

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/*
+ * Cognitive Forge — Global Stylesheet
+ * Tailwind CSS v4 (CSS-first config — no tailwind.config.js required)
+ *
+ * Design tokens are declared as CSS custom properties so they are
+ * available to both Tailwind utilities and plain CSS rules.
+ * Sprint 05 (UI Forge) will expand these tokens when building
+ * DynamicForm, OutputCard, and CompositeAppRenderer.
+ */
+
+@theme {
+  /* ── Typography ────────────────────────────────────────────────────── */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Colour palette ─────────────────────────────────────────────────── */
+  --color-forge-900: #0a0a0f;
+  --color-forge-800: #13131f;
+  --color-forge-700: #1e1e30;
+  --color-forge-600: #2a2a42;
+  --color-forge-accent: #6c63ff;
+  --color-forge-accent-dim: #4f49c4;
+  --color-forge-text: #e8e8f0;
+  --color-forge-muted: #9090a8;
+  --color-forge-border: #2a2a42;
+
+  /* ── Spacing / sizing ────────────────────────────────────────────────── */
+  --radius-card: 0.75rem;
+  --radius-badge: 9999px;
+}
+
+/* ── Base resets ──────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-forge-900);
+    color: var(--color-forge-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Accessible focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-forge-accent);
+    outline-offset: 2px;
+  }
+
+  /* Smooth scrolling — respects user preference */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
