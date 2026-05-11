@@ -117,7 +117,7 @@ export function RuntimeTraceTimeline({
   events,
   completedSteps,
   accentColor,
-}: RuntimeTraceTimelineProps): React.ReactElement {
+}: RuntimeTraceTimelineProps) {
   const visibleEvents = events.slice(0, completedSteps);
   const totalMs = visibleEvents.reduce((sum, e) => sum + e.durationMs, 0);
 

@@ -127,7 +127,7 @@ export function CasePackGraphVisualizer({
   completedNodes = [],
   activeNode,
   accentColor,
-}: CasePackGraphVisualizerProps): React.ReactElement {
+}: CasePackGraphVisualizerProps) {
   return (
     <div style={S.wrapper} data-testid="casepack-graph-visualizer">
       <div style={S.sectionTitle}>Pipeline Architecture</div>

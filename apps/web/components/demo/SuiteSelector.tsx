@@ -110,7 +110,7 @@ const S = {
   },
 } as const;
 
-export function SuiteSelector({ suites, activeSuite }: SuiteSelectorProps): React.ReactElement {
+export function SuiteSelector({ suites, activeSuite }: SuiteSelectorProps) {
   return (
     <div style={S.grid}>
       {suites.map((suite) => {

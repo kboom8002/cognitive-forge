@@ -159,7 +159,7 @@ export function CompositeAppRenderer({
   onSubmit,
   renderOutput,
   publicMode = true,
-}: CompositeAppRendererProps): React.ReactElement {
+}: CompositeAppRendererProps) {
   // ── Form state ─────────────────────────────────────────────────────────────
   const [formState, setFormState] = useState<FormValues>(() => {
     const initial: FormValues = {};

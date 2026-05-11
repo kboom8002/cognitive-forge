@@ -133,7 +133,7 @@ function CopyButton({ text }: { text: string }) {
 function renderStringValue(
   field: FieldDef,
   value: string
-): React.ReactElement {
+) {
   const isMultiline = value.includes("\n") || field.type === "text" || value.length > 120;
 
   if (isMultiline) {
@@ -143,7 +143,7 @@ function renderStringValue(
   return <div style={S.inlineValue}>{value}</div>;
 }
 
-function renderArrayValue(items: string[]): React.ReactElement {
+function renderArrayValue(items: string[]) {
   if (items.length === 0) {
     return <p style={S.emptyState}>No items</p>;
   }
@@ -160,7 +160,7 @@ function renderArrayValue(items: string[]): React.ReactElement {
   );
 }
 
-function renderObjectValue(obj: Record<string, unknown>): React.ReactElement {
+function renderObjectValue(obj: Record<string, unknown>) {
   // Safe flat display: key: value pairs, no internals
   const entries = Object.entries(obj);
   if (entries.length === 0) return <p style={S.emptyState}>Empty</p>;
@@ -182,7 +182,7 @@ function renderObjectValue(obj: Record<string, unknown>): React.ReactElement {
 export function OutputFieldRenderer({
   field,
   value,
-}: OutputFieldRendererProps): React.ReactElement {
+}: OutputFieldRendererProps) {
   const isEmpty =
     value === undefined ||
     value === null ||

@@ -165,7 +165,7 @@ const S = {
   },
 } as const;
 
-export function SuiteDemoClient({ suite }: SuiteDemoClientProps): React.ReactElement {
+export function SuiteDemoClient({ suite }: SuiteDemoClientProps) {
   // ── Form state ─────────────────────────────────────────────────────────────
   const [formValues, setFormValues] = useState<Record<string, string>>(() => ({ ...suite.sampleInput }));
   const handleFieldChange = useCallback((key: string, value: string) => {

@@ -166,7 +166,7 @@ export function GraphStepper({
   steps,
   progressLabel,
   runStatus = "idle",
-}: GraphStepperProps): React.ReactElement {
+}: GraphStepperProps) {
   return (
     <div style={S.wrapper} data-testid="graph-stepper">
       {/* Keyframe animation for the active pulsing dot */}

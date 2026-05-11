@@ -71,7 +71,7 @@ const S = {
   },
 } as const;
 
-export function DemoHero({ title, subtitle, badge, actions }: DemoHeroProps): React.ReactElement {
+export function DemoHero({ title, subtitle, badge, actions }: DemoHeroProps) {
   return (
     <div style={S.hero}>
       {badge && (

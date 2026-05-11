@@ -76,7 +76,7 @@ const S = {
   },
 } as const;
 
-export function BridgeHandoffPanel({ edges }: BridgeHandoffPanelProps): React.ReactElement {
+export function BridgeHandoffPanel({ edges }: BridgeHandoffPanelProps) {
   if (edges.length === 0) {
     return (
       <div style={S.wrapper}>

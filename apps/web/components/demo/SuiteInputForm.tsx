@@ -85,7 +85,7 @@ export function SuiteInputForm({
   values,
   onChange,
   disabled = false,
-}: SuiteInputFormProps): React.ReactElement {
+}: SuiteInputFormProps) {
   return (
     <div style={S.wrapper} data-testid="suite-input-form">
       <div style={S.sectionTitle}>Input</div>

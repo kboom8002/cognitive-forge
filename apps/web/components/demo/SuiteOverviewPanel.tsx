@@ -75,7 +75,7 @@ const S = {
   }),
 } as const;
 
-export function SuiteOverviewPanel({ suite }: SuiteOverviewPanelProps): React.ReactElement {
+export function SuiteOverviewPanel({ suite }: SuiteOverviewPanelProps) {
   return (
     <div style={S.panel} data-testid="suite-overview-panel">
       <div style={S.header}>

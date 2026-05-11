@@ -94,7 +94,7 @@ export function DemoAppLauncher({
   onReset,
   isRunning,
   isComplete,
-}: DemoAppLauncherProps): React.ReactElement {
+}: DemoAppLauncherProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleRun = useCallback(() => {

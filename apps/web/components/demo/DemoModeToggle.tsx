@@ -59,7 +59,7 @@ const S = {
   },
 } as const;
 
-export function DemoModeToggle({ mode, onChange }: DemoModeToggleProps): React.ReactElement {
+export function DemoModeToggle({ mode, onChange }: DemoModeToggleProps) {
   return (
     <div style={S.wrapper} role="group" aria-label="Demo mode selector">
       <button

@@ -104,7 +104,7 @@ export function SuiteOutputPreview({
   sampleOutput,
   isVisible,
   accentColor: _accentColor,
-}: SuiteOutputPreviewProps): React.ReactElement {
+}: SuiteOutputPreviewProps) {
   return (
     <div style={S.wrapper} data-testid="suite-output-preview">
       <div style={S.header}>

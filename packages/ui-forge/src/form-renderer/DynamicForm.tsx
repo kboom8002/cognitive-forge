@@ -153,7 +153,7 @@ export function DynamicForm({
   submitting = false,
   errors: externalErrors,
   disabled = false,
-}: DynamicFormProps): React.ReactElement {
+}: DynamicFormProps) {
   // Client-side validation errors (cleared on each submit attempt)
   const [localErrors, setLocalErrors] = useState<Record<string, string>>({});
 

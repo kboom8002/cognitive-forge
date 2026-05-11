@@ -184,7 +184,7 @@ export function OutputCard({
   onCopy,
   onDownload,
   trustSignals,
-}: OutputCardProps): React.ReactElement {
+}: OutputCardProps) {
   // Determine which fields to render
   const publicSet = new Set(outputContract.public_fields ?? []);
 

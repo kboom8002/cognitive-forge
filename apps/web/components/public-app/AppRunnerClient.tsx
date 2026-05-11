@@ -150,7 +150,7 @@ export function AppRunnerClient({
   outputContract,
   uiSchema,
   graphNodes,
-}: AppRunnerClientProps): React.ReactElement {
+}: AppRunnerClientProps) {
   // ── CasePack-only state (graph uses CompositeAppRenderer) ─────────────────
   const [formState,  setFormState]  = useState<FormValues>(() => {
     const initial: FormValues = {};
