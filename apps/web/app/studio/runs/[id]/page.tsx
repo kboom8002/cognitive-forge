@@ -9,6 +9,11 @@ import {
 } from "@/lib/i18n/ko-labels";
 
 const STEP_NAME_KO: Record<string, string> = {
+  step_1: "1. 입력 점검",
+  step_2: "2. 누락 확인",
+  step_3: "3. 과업 수행",
+  step_4: "4. 규칙 검사",
+  step_5: "5. 산출물 생성",
   input_validation: "1. 입력 계약 검증",
   evidence_extraction: "2. 원문 출처 인용 추출",
   deliverable_synthesis: "3. 정형 산출물 합성",

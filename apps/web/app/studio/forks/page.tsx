@@ -98,7 +98,12 @@ export default function StudioForksPage() {
               </div>
 
               <div className="text-base font-extrabold text-white">
-                원작자 아트리뷰션: <span className="text-indigo-300">{f.attribution}</span>
+                원작자 아트리뷰션:{" "}
+                <span className="text-indigo-300">
+                  {f.attribution
+                    .replace(/^Forked from /, "원본 릴리스 복제 출처: ")
+                    .replace("Forge Knowledge Studio", "포지 지식구조화 스튜디오")}
+                </span>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3 rounded-xl border border-white/[0.06] bg-[#090d16] p-4">

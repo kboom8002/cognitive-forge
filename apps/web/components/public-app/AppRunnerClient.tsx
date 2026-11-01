@@ -59,7 +59,11 @@ const APP_KO_META: Record<
       target_audience: "금융·제조·법무·컨설팅 기업의 AI 전환(AX) 추진 부서",
       key_differentiator: "100% 원문 출처 인용(Evidence Pinning) 및 인간 전문가 검수 게이트 기본 내장",
       key_announcement: "36종 페르소나 에이전트 갤러리 및 8-블록 실행 계약 엔진 2.0 정식 출시",
+      announcement: "36종 페르소나 에이전트 갤러리 및 8-블록 실행 계약 엔진 2.0 정식 출시",
+      news_announcement: "36종 페르소나 에이전트 갤러리 및 8-블록 실행 계약 엔진 2.0 정식 출시",
       website_url: "https://cognitive-forge-two.vercel.app",
+      website: "https://cognitive-forge-two.vercel.app",
+      company_website: "https://cognitive-forge-two.vercel.app",
       founding_year: "2025",
     },
   },
@@ -130,7 +134,31 @@ const FIELD_LABEL_KO_MAP: Record<string, { label: string; placeholder: string }>
     label: "주요 발표 뉴스 또는 캠페인 주제",
     placeholder: "예: 에이전트 갤러리 2.0 및 36종 공인 카탈로그 정식 출시",
   },
+  announcement: {
+    label: "주요 발표 뉴스 또는 캠페인 주제",
+    placeholder: "예: 에이전트 갤러리 2.0 및 36종 공인 카탈로그 정식 출시",
+  },
+  news_announcement: {
+    label: "주요 발표 뉴스 또는 캠페인 주제",
+    placeholder: "예: 에이전트 갤러리 2.0 및 36종 공인 카탈로그 정식 출시",
+  },
+  "Key Announcement or News": {
+    label: "주요 발표 뉴스 또는 캠페인 주제",
+    placeholder: "예: 에이전트 갤러리 2.0 및 36종 공인 카탈로그 정식 출시",
+  },
   website_url: {
+    label: "공식 웹사이트 주소 (URL)",
+    placeholder: "예: https://cognitive-forge-two.vercel.app",
+  },
+  website: {
+    label: "공식 웹사이트 주소 (URL)",
+    placeholder: "예: https://cognitive-forge-two.vercel.app",
+  },
+  company_website: {
+    label: "공식 웹사이트 주소 (URL)",
+    placeholder: "예: https://cognitive-forge-two.vercel.app",
+  },
+  "Company Website URL": {
     label: "공식 웹사이트 주소 (URL)",
     placeholder: "예: https://cognitive-forge-two.vercel.app",
   },
@@ -181,8 +209,14 @@ export function AppRunnerClient({
     return {
       ...inputContract,
       fields: inputContract.fields.map((f) => {
-        const mapped = FIELD_LABEL_KO_MAP[f.key];
-        const sampleDefault = koMeta?.sampleInput[f.key];
+        const mapped = FIELD_LABEL_KO_MAP[f.key] ?? FIELD_LABEL_KO_MAP[f.label];
+        const sampleDefault =
+          koMeta?.sampleInput[f.key] ??
+          (f.label === "Key Announcement or News"
+            ? koMeta?.sampleInput["key_announcement"]
+            : f.label === "Company Website URL"
+              ? koMeta?.sampleInput["website_url"]
+              : undefined);
         return {
           ...f,
           label: mapped?.label ?? f.label,

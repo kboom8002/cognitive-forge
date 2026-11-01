@@ -231,7 +231,10 @@ export default async function GalleryDetailPage({
                     <p className="text-slate-400">{modeKo.description}</p>
                     <div className="border-t border-white/[0.06] pt-2 space-y-1 text-slate-300">
                       <div>
-                        <strong>납품 산출물:</strong> {off.deliverables.join(", ")}
+                        <strong>납품 산출물:</strong>{" "}
+                        {off.deliverables
+                          .map((d) => getCategoryKo(d).shortLabel !== d ? getCategoryKo(d).shortLabel : d)
+                          .join(", ")}
                       </div>
                       <div>
                         <strong>필수 입력 포맷:</strong> {off.required_inputs.join(", ")} ·{" "}
