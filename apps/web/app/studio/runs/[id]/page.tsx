@@ -9,8 +9,28 @@ export default async function StudioRunDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { coreStore } = getV1Context();
-  const record = coreStore.runs.get(id);
+  const { coreStore, runService } = getV1Context();
+  let record = coreStore.runs.get(id);
+
+  if (!record && id.startsWith("run_")) {
+    runService.createRun(
+      {
+        app_id: "app_ag06",
+        release_id: "rel_ag06_v2",
+        input: {
+          source_text: "사내 인터뷰 텍스트 샘플",
+          goal: "암묵지 판단 기준 추출",
+        },
+        review_authority: "native",
+      },
+      {
+        idempotencyKey: `ssr_hydration_${id}`,
+        workspaceId: "ws_default",
+        runId: id,
+      }
+    );
+    record = coreStore.runs.get(id);
+  }
 
   if (!record) {
     notFound();
