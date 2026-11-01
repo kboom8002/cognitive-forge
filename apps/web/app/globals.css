@@ -1,36 +1,28 @@
 @import "tailwindcss";
 
 /*
- * Cognitive Forge — Global Stylesheet
- * Tailwind CSS v4 (CSS-first config — no tailwind.config.js required)
- *
- * Design tokens are declared as CSS custom properties so they are
- * available to both Tailwind utilities and plain CSS rules.
- * Sprint 05 (UI Forge) will expand these tokens when building
- * DynamicForm, OutputCard, and CompositeAppRenderer.
+ * 코그니티브 포지 (Cognitive Forge OS) — SOTA 다크 글래스모피즘 디자인 시스템
+ * Pretendard Variable + Inter 한국어 최적화 및 고대비 다크 서피스 토큰
  */
 
 @theme {
-  /* ── Typography ────────────────────────────────────────────────────── */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Noto Sans KR", "Malgun Gothic", sans-serif;
 
-  /* ── Colour palette ─────────────────────────────────────────────────── */
-  --color-forge-900: #0a0a0f;
-  --color-forge-800: #13131f;
-  --color-forge-700: #1e1e30;
-  --color-forge-600: #2a2a42;
-  --color-forge-accent: #6c63ff;
-  --color-forge-accent-dim: #4f49c4;
-  --color-forge-text: #e8e8f0;
-  --color-forge-muted: #9090a8;
-  --color-forge-border: #2a2a42;
+  --color-forge-900: #07090e;
+  --color-forge-800: #0f1420;
+  --color-forge-700: #161d2f;
+  --color-forge-600: #232d46;
+  --color-forge-accent: #6366f1;
+  --color-forge-accent-dim: #4f46e5;
+  --color-forge-text: #f1f5f9;
+  --color-forge-muted: #94a3b8;
+  --color-forge-border: rgba(148, 163, 184, 0.16);
 
-  /* ── Spacing / sizing ────────────────────────────────────────────────── */
-  --radius-card: 0.75rem;
+  --radius-card: 1rem;
   --radius-badge: 9999px;
 }
 
-/* ── Base resets ──────────────────────────────────────────────────────── */
 @layer base {
   *,
   *::before,
@@ -42,24 +34,42 @@
     color-scheme: dark;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    word-break: keep-all;
   }
 
   body {
     margin: 0;
-    background-color: var(--color-forge-900);
-    color: var(--color-forge-text);
+    min-height: 100vh;
+    background-color: #07090e;
+    background-image:
+      radial-gradient(at 15% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 48%),
+      radial-gradient(at 85% 5%, rgba(14, 165, 233, 0.10) 0px, transparent 45%),
+      radial-gradient(at 50% 100%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: #f1f5f9;
     font-family: var(--font-sans);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Accessible focus ring */
+  input,
+  textarea,
+  select {
+    color: #f8fafc;
+    background-color: rgba(15, 20, 32, 0.85);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #64748b;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-forge-accent);
+    outline: 2px solid #6366f1;
     outline-offset: 2px;
   }
 
-  /* Smooth scrolling — respects user preference */
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
