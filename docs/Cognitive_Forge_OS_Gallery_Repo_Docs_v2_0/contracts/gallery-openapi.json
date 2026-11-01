@@ -1,0 +1,1857 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Forge Gallery API",
+    "version": "2.0.0"
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/v1/gallery/listings": {
+      "get": {
+        "operationId": "get_gallery_listings",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "items",
+                    "next_cursor"
+                  ],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GalleryListing"
+                      }
+                    },
+                    "next_cursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/gallery/listings/{listing_id}": {
+      "get": {
+        "operationId": "get_gallery_listings_listing_id",
+        "parameters": [
+          {
+            "name": "listing_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GalleryListing"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/creators/{creator_id}": {
+      "get": {
+        "operationId": "get_creators_creator_id",
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatorProfile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/gallery/forks": {
+      "post": {
+        "operationId": "post_gallery_forks",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForkLineage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForkCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gallery/comparisons": {
+      "post": {
+        "operationId": "post_gallery_comparisons",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComparisonSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gallery/comparisons/{comparison_id}": {
+      "get": {
+        "operationId": "get_gallery_comparisons_comparison_id",
+        "parameters": [
+          {
+            "name": "comparison_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComparisonSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects": {
+      "post": {
+        "operationId": "post_projects",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectBrief"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{brief_id}/matches": {
+      "get": {
+        "operationId": "get_projects_brief_id_matches",
+        "parameters": [
+          {
+            "name": "brief_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "정상 응답",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "items",
+                    "next_cursor"
+                  ],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/MatchCandidate"
+                      }
+                    },
+                    "next_cursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "요청 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "권한 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "없음 또는 비공개",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "버전·멱등 키 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "조건 미충족",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "호출 한도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "일시 장애",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "BenchmarkTask": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "BenchmarkTask",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "agent_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input": {
+            "type": "object"
+          },
+          "expected_checks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "forbidden_outputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "data_scope": {
+            "type": "string",
+            "enum": [
+              "synthetic_public",
+              "owner_private"
+            ]
+          }
+        },
+        "required": [
+          "task_id",
+          "version",
+          "agent_id",
+          "input",
+          "expected_checks",
+          "forbidden_outputs",
+          "data_scope"
+        ]
+      },
+      "CatalogEntry": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "CatalogEntry",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "primary_category": {
+            "type": "string",
+            "minLength": 1
+          },
+          "persona": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input_description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "deliverable": {
+            "type": "string",
+            "minLength": 1
+          },
+          "critical_rule": {
+            "type": "string",
+            "minLength": 1
+          },
+          "release_wave": {
+            "type": "string",
+            "minLength": 1
+          },
+          "maturity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "availability": {
+            "type": "string",
+            "minLength": 1
+          },
+          "origin": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expert_verified": {
+            "type": "boolean"
+          },
+          "capabilities_required": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "offering_modes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "fork_policy": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runtime_release_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "agent_id",
+          "name",
+          "primary_category",
+          "persona",
+          "input_description",
+          "deliverable",
+          "critical_rule",
+          "release_wave",
+          "maturity",
+          "availability",
+          "origin",
+          "expert_verified",
+          "capabilities_required",
+          "offering_modes",
+          "fork_policy",
+          "runtime_release_id"
+        ]
+      },
+      "ComparisonSession": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "ComparisonSession",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "comparison_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "workspace_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "task_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "release_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "uniqueItems": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "completed",
+              "failed"
+            ]
+          },
+          "data_scope": {
+            "type": "string",
+            "enum": [
+              "synthetic_public",
+              "owner_private"
+            ]
+          },
+          "run_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "comparison_id",
+          "workspace_id",
+          "task_id",
+          "release_ids",
+          "status",
+          "data_scope",
+          "run_ids"
+        ]
+      },
+      "CreatorProfile": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "CreatorProfile",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "creator_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bio": {
+            "type": "string",
+            "minLength": 1
+          },
+          "credential_status": {
+            "type": "string",
+            "enum": [
+              "self_declared",
+              "checked"
+            ]
+          },
+          "contributions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "private",
+              "public"
+            ]
+          }
+        },
+        "required": [
+          "creator_id",
+          "display_name",
+          "bio",
+          "credential_status",
+          "contributions",
+          "visibility"
+        ]
+      },
+      "ForkLineage": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "ForkLineage",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fork_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parent_release_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "child_pack_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner_workspace_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "license_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "attribution": {
+            "type": "string",
+            "minLength": 1
+          },
+          "copied_customer_data": {
+            "const": false
+          },
+          "inherited_verified_badge": {
+            "const": false
+          }
+        },
+        "required": [
+          "fork_id",
+          "parent_release_id",
+          "child_pack_id",
+          "owner_workspace_id",
+          "license_version",
+          "attribution",
+          "copied_customer_data",
+          "inherited_verified_badge"
+        ]
+      },
+      "GalleryListing": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "GalleryListing",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "listing_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "agent_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "creator_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "release_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "information",
+              "diagnosis",
+              "design",
+              "production",
+              "verification",
+              "continuous_work"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "public",
+              "hidden",
+              "archived"
+            ]
+          },
+          "availability": {
+            "type": "string",
+            "enum": [
+              "preview_only",
+              "test_ready",
+              "published_runnable",
+              "paused"
+            ]
+          },
+          "sample_origin": {
+            "type": "string",
+            "enum": [
+              "synthetic_fixture",
+              "real_run_with_permission"
+            ]
+          },
+          "offering_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "listing_id",
+          "agent_id",
+          "creator_id",
+          "release_id",
+          "category",
+          "status",
+          "availability",
+          "sample_origin",
+          "offering_ids"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "availability": {
+                  "const": "published_runnable"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "release_id": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        ]
+      },
+      "MatchCandidate": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "MatchCandidate",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "brief_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "offering_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "eligible": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "unmet_conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "needs_confirmation": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "brief_id",
+          "offering_id",
+          "eligible",
+          "reasons",
+          "unmet_conditions",
+          "needs_confirmation"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "eligible": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "unmet_conditions": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        ]
+      },
+      "PersonaProfile": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "PersonaProfile",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "persona_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "audience": {
+            "type": "string",
+            "minLength": 1
+          },
+          "behavior_rules": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "prohibited_claims": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "real_person_impersonation": {
+            "const": false
+          }
+        },
+        "required": [
+          "persona_id",
+          "role",
+          "audience",
+          "behavior_rules",
+          "prohibited_claims",
+          "real_person_impersonation"
+        ]
+      },
+      "PilotPack": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "PilotPack",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "pack_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "schema_version": {
+            "const": "2.0-draft"
+          },
+          "agent_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "specified"
+          },
+          "taskflow": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "A": {
+                "type": "string",
+                "minLength": 1
+              },
+              "S": {
+                "type": "string",
+                "minLength": 1
+              },
+              "T": {
+                "type": "string",
+                "minLength": 1
+              },
+              "K": {
+                "type": "string",
+                "minLength": 1
+              },
+              "W": {
+                "type": "string",
+                "minLength": 1
+              },
+              "F": {
+                "type": "string",
+                "minLength": 1
+              },
+              "L": {
+                "type": "string",
+                "minLength": 1
+              },
+              "O": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "A",
+              "S",
+              "T",
+              "K",
+              "W",
+              "F",
+              "L",
+              "O"
+            ]
+          },
+          "input_schema": {
+            "type": "object"
+          },
+          "output_schema": {
+            "type": "object"
+          },
+          "required_capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "benchmark_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "release_gate": {
+            "const": "actual_runtime_and_evaluation_required"
+          }
+        },
+        "required": [
+          "pack_id",
+          "schema_version",
+          "agent_id",
+          "status",
+          "taskflow",
+          "input_schema",
+          "output_schema",
+          "required_capabilities",
+          "benchmark_ids",
+          "release_gate"
+        ]
+      },
+      "ProjectBrief": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "ProjectBrief",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "brief_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "workspace_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "deliverable_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input_formats": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          },
+          "review_required": {
+            "type": "boolean"
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "submitted",
+              "matched",
+              "accepted",
+              "cancelled"
+            ]
+          }
+        },
+        "required": [
+          "brief_id",
+          "workspace_id",
+          "deliverable_type",
+          "input_formats",
+          "language",
+          "review_required",
+          "requirements",
+          "status"
+        ]
+      },
+      "ServiceOffering": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "ServiceOffering",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "offering_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "listing_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "creator_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "self_run",
+              "reviewed_delivery",
+              "custom_build",
+              "managed_operation"
+            ]
+          },
+          "deliverables": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "exclusions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required_inputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "human_review": {
+            "type": "boolean"
+          },
+          "price_status": {
+            "type": "string",
+            "enum": [
+              "quote_required",
+              "fixed"
+            ]
+          }
+        },
+        "required": [
+          "offering_id",
+          "listing_id",
+          "creator_id",
+          "mode",
+          "deliverables",
+          "exclusions",
+          "required_inputs",
+          "human_review",
+          "price_status"
+        ]
+      },
+      "ForkCreate": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "parent_release_id",
+          "display_name",
+          "license_version"
+        ],
+        "properties": {
+          "parent_release_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "license_version": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "ComparisonCreate": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "task_id",
+          "release_ids",
+          "data_scope"
+        ],
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "release_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "uniqueItems": true
+          },
+          "data_scope": {
+            "enum": [
+              "synthetic_public",
+              "owner_private"
+            ]
+          }
+        }
+      },
+      "ProjectCreate": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deliverable_type",
+          "input_formats",
+          "language",
+          "review_required",
+          "requirements"
+        ],
+        "properties": {
+          "deliverable_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input_formats": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          },
+          "review_required": {
+            "type": "boolean"
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "message",
+          "request_id"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,919 @@
+[
+  {
+    "agent_id": "AG01",
+    "name": "우리 회사 팩트북",
+    "primary_category": "information",
+    "persona": "기업 정보 에디터",
+    "input_description": "회사·제품 자료",
+    "deliverable": "출처가 연결된 회사 사실 목록",
+    "critical_rule": "상충 수치·기준일을 표시한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG02",
+    "name": "인터뷰 보물찾기",
+    "primary_category": "information",
+    "persona": "인터뷰 리서처",
+    "input_description": "인터뷰 녹취·메모",
+    "deliverable": "주장·인용·사례·추가 질문 목록",
+    "critical_rule": "인용을 원문과 대조한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG03",
+    "name": "회의의 결론",
+    "primary_category": "information",
+    "persona": "의사결정 기록관",
+    "input_description": "회의록",
+    "deliverable": "결정·담당·기한·미결정 목록",
+    "critical_rule": "미합의를 결정으로 바꾸지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG04",
+    "name": "고객의 속뜻",
+    "primary_category": "information",
+    "persona": "고객 문의 분석가",
+    "input_description": "후기·문의",
+    "deliverable": "문의 유형·구매 장애 후보와 원문",
+    "critical_rule": "심리 추정을 사실로 단정하지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG05",
+    "name": "근거 서랍",
+    "primary_category": "information",
+    "persona": "조사자료 큐레이터",
+    "input_description": "제공된 조사 자료",
+    "deliverable": "주장·출처·발표일·적용 범위",
+    "critical_rule": "재인용과 독립 근거를 구분한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG06",
+    "name": "내 노하우 채굴기",
+    "primary_category": "information",
+    "persona": "전문성 인터뷰어",
+    "input_description": "업무 경험·사례",
+    "deliverable": "입력·판단·실패·완료 기준 카드",
+    "critical_rule": "빈 기준은 질문하며 임의 전문성을 부여하지 않는다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG07",
+    "name": "홈페이지 첫인상 진단실",
+    "primary_category": "diagnosis",
+    "persona": "고객 경험 리뷰어",
+    "input_description": "페이지 텍스트·화면",
+    "deliverable": "고객 정보 누락과 개선 우선순위",
+    "critical_rule": "관측 없는 전환율을 추정하지 않는다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG08",
+    "name": "제안서 빈틈 찾기",
+    "primary_category": "diagnosis",
+    "persona": "제안 전략 리뷰어",
+    "input_description": "제안요청서·초안",
+    "deliverable": "누락·근거 부족·수정 우선순위",
+    "critical_rule": "요구사항별 원문 위치를 연결한다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG09",
+    "name": "업무 병목 탐정",
+    "primary_category": "diagnosis",
+    "persona": "업무 분석가",
+    "input_description": "업무 단계·소요시간",
+    "deliverable": "병목 후보와 확인 질문",
+    "critical_rule": "미측정 절감 효과를 확정하지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG10",
+    "name": "강의가 남기는 것",
+    "primary_category": "diagnosis",
+    "persona": "교육 과정 진단가",
+    "input_description": "교육 목표·교안·과제",
+    "deliverable": "목표·실습·평가 연결 진단",
+    "critical_rule": "수업 분량과 학습 성취를 혼동하지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG11",
+    "name": "고객 질문 사각지대",
+    "primary_category": "diagnosis",
+    "persona": "AEO 콘텐츠 진단가",
+    "input_description": "상품 자료·기존 답변",
+    "deliverable": "미충족 질문과 자료 보완 목록",
+    "critical_rule": "질문 후보와 실제 수요를 구분한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG12",
+    "name": "데이터 건강검진",
+    "primary_category": "diagnosis",
+    "persona": "데이터 품질 분석가",
+    "input_description": "CSV·표",
+    "deliverable": "누락·중복·단위 오류 보고",
+    "critical_rule": "원본 변경 없이 문제를 표시한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "deterministic_calculation"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG13",
+    "name": "이름의 가능성",
+    "primary_category": "design",
+    "persona": "네이밍 플래너",
+    "input_description": "고객·상품·브랜드 방향",
+    "deliverable": "이름 후보·의미·선택 기준",
+    "critical_rule": "상표 사용 가능성을 미확인 상태로 명시한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG14",
+    "name": "한 달 홍보 설계자",
+    "primary_category": "design",
+    "persona": "캠페인 플래너",
+    "input_description": "목표·예산·채널",
+    "deliverable": "활동·콘텐츠·측정 계획",
+    "critical_rule": "제공 예산·기간을 넘는 계획을 표시한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG15",
+    "name": "잘 팔리는 구성안",
+    "primary_category": "design",
+    "persona": "서비스 상품 기획자",
+    "input_description": "역량·고객 요구",
+    "deliverable": "패키지·포함·제외·검증 가설",
+    "critical_rule": "수요 가설과 확인 사실을 구분한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG16",
+    "name": "첫 3분 설계자",
+    "primary_category": "design",
+    "persona": "발표 구성가",
+    "input_description": "청중·목적·자료",
+    "deliverable": "핵심 메시지·발표 순서·예상 질문",
+    "critical_rule": "근거 없는 성과를 넣지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG17",
+    "name": "머릿속 이미지를 브리프로",
+    "primary_category": "design",
+    "persona": "비주얼 디렉터",
+    "input_description": "이미지 목적·제품·참조 설명",
+    "deliverable": "구도·색상·필수 요소·규격 브리프",
+    "critical_rule": "고객이 고정한 숫자와 제품 조건을 보존한다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG18",
+    "name": "반복 업무 자동화 설계실",
+    "primary_category": "design",
+    "persona": "자동화 아키텍트",
+    "input_description": "업무 진단·사용 도구",
+    "deliverable": "연결·권한·예외·승인 명세",
+    "critical_rule": "자동화 불가·미확인 범위를 표시한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG19",
+    "name": "회사 소개 완성실",
+    "primary_category": "production",
+    "persona": "기업 홍보 편집자",
+    "input_description": "확인된 회사 자료",
+    "deliverable": "기업 소개·제품 설명·PR 초안",
+    "critical_rule": "근거 없는 최초·최고 표현을 제외한다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG20",
+    "name": "고객 질문 답변실",
+    "primary_category": "production",
+    "persona": "안내 콘텐츠 에디터",
+    "input_description": "확인된 가격·정책·질문",
+    "deliverable": "FAQ·이용 안내",
+    "critical_rule": "모르는 조건은 질문하고 생성하지 않는다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG21",
+    "name": "영업자료 제작실",
+    "primary_category": "production",
+    "persona": "세일즈 콘텐츠 에디터",
+    "input_description": "제품 자료·고객 유형",
+    "deliverable": "소개문·미팅 후속 자료·제안 초안",
+    "critical_rule": "고객 가치 주장에 근거를 연결한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG22",
+    "name": "브랜드 이미지 제작실",
+    "primary_category": "production",
+    "persona": "시각 콘텐츠 제작자",
+    "input_description": "브리프·참조 이미지",
+    "deliverable": "규격별 이미지 시안",
+    "critical_rule": "제품 형태·문자·수치를 별도 검사한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "image_generation",
+      "image_review"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG23",
+    "name": "실습이 있는 교안",
+    "primary_category": "production",
+    "persona": "교육 콘텐츠 제작자",
+    "input_description": "교육 설계·대상자 수준",
+    "deliverable": "설명·실습·워크북·평가 자료",
+    "critical_rule": "각 실습을 목표와 평가 기준에 연결한다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG24",
+    "name": "독자에 맞게 다시 쓰기",
+    "primary_category": "production",
+    "persona": "현지화 에디터",
+    "input_description": "원문·언어·독자",
+    "deliverable": "현지화·쉬운 표현·채널 변환본",
+    "critical_rule": "수치·조건·주장의 의미를 보존한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG25",
+    "name": "근거 없는 한 문장",
+    "primary_category": "verification",
+    "persona": "주장 검수자",
+    "input_description": "결과물·근거 자료",
+    "deliverable": "미지원 주장·확인 필요 목록",
+    "critical_rule": "확인 불가와 거짓 판정을 구분한다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG26",
+    "name": "숫자와 조건 지킴이",
+    "primary_category": "verification",
+    "persona": "정합성 검수자",
+    "input_description": "여러 문서·기준 자료",
+    "deliverable": "수치·날짜·조건 차이 목록",
+    "critical_rule": "계산은 검증 가능한 도구로 확인한다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "deterministic_calculation"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG27",
+    "name": "납품 기준 체크메이트",
+    "primary_category": "verification",
+    "persona": "요구사항 검수자",
+    "input_description": "작업 명세·결과물",
+    "deliverable": "요구사항별 충족·미충족·미검증",
+    "critical_rule": "증거 없이 통과로 판정하지 않는다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG28",
+    "name": "브랜드 결 지킴이",
+    "primary_category": "verification",
+    "persona": "브랜드 일관성 리뷰어",
+    "input_description": "브랜드 규칙·문서·이미지",
+    "deliverable": "문체·시각 규칙 위반과 수정안",
+    "critical_rule": "주관적 선호와 규칙 위반을 구분한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "image_review"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG29",
+    "name": "읽히는 문장 검사실",
+    "primary_category": "verification",
+    "persona": "쉬운 언어 편집자",
+    "input_description": "안내문·독자 수준",
+    "deliverable": "어려운 표현·대체 문장",
+    "critical_rule": "쉬운 표현으로 조건을 삭제하지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG30",
+    "name": "에이전트 시험관",
+    "primary_category": "verification",
+    "persona": "AI 서비스 평가자",
+    "input_description": "팩 정의·실행 출력·시험 과제",
+    "deliverable": "과제별 평가 보고",
+    "critical_rule": "실행하지 않은 항목은 NOT_RUN으로 남긴다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG31",
+    "name": "상담 전 정리 매니저",
+    "primary_category": "continuous_work",
+    "persona": "업무 접수 코디네이터",
+    "input_description": "고객 문의·접수 기준",
+    "deliverable": "추가 질문·접수 요약·인계 상태",
+    "critical_rule": "권한 없는 고객 데이터에 접근하지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "persistent_state"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG32",
+    "name": "이번 주 운영보고",
+    "primary_category": "continuous_work",
+    "persona": "정기 보고 매니저",
+    "input_description": "고정 지표·자료원·일정",
+    "deliverable": "기간별 보고와 변경 기록",
+    "critical_rule": "미수집 자료와 비교 불가를 표시한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "persistent_state",
+      "scheduler",
+      "source_connector"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG33",
+    "name": "바뀐 정보 알리미",
+    "primary_category": "continuous_work",
+    "persona": "콘텐츠 갱신 매니저",
+    "input_description": "기준 자료·연결 콘텐츠",
+    "deliverable": "영향받은 문서와 수정 대기 목록",
+    "critical_rule": "승인 없는 공개 변경을 수행하지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "persistent_state",
+      "scheduler",
+      "source_connector"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG34",
+    "name": "고객 후속 연락 도우미",
+    "primary_category": "continuous_work",
+    "persona": "관계 관리 코디네이터",
+    "input_description": "허용된 고객 기록·연락 조건",
+    "deliverable": "후속 과제·메시지 초안·처리 상태",
+    "critical_rule": "동의·권한 없는 발송을 수행하지 않는다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "persistent_state",
+      "crm_connector",
+      "authorized_send"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG35",
+    "name": "내 작업 실력 코치",
+    "primary_category": "continuous_work",
+    "persona": "실습 피드백 튜터",
+    "input_description": "과제·제출물·루브릭",
+    "deliverable": "근거 있는 피드백·다음 연습",
+    "critical_rule": "관찰하지 않은 실력을 단정하지 않는다",
+    "release_wave": "pilot",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "persistent_state"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  },
+  {
+    "agent_id": "AG36",
+    "name": "프로젝트 다음 행동",
+    "primary_category": "continuous_work",
+    "persona": "수행 코디네이터",
+    "input_description": "업무 명세·담당·산출물",
+    "deliverable": "다음 행동·대기 사유·진행 상태",
+    "critical_rule": "실행 완료와 고객 인수를 구분한다",
+    "release_wave": "later",
+    "maturity": "specified",
+    "availability": "preview_only",
+    "origin": "platform_seed",
+    "expert_verified": false,
+    "capabilities_required": [
+      "text_generation",
+      "structured_output",
+      "persistent_state"
+    ],
+    "offering_modes": [
+      "self_run",
+      "reviewed_delivery",
+      "custom_build"
+    ],
+    "fork_policy": "attribution_required",
+    "runtime_release_id": null
+  }
+]

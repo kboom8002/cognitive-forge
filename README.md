@@ -47,28 +47,33 @@ pnpm dev          # Start Next.js dev server on localhost:3000
 ## Scripts
 
 ```bash
-pnpm build        # Build all packages and apps
-pnpm typecheck    # TypeScript check across all workspaces
-pnpm test         # Run Vitest test suite
-pnpm dev          # Start Next.js dev server
+pnpm build             # Build all packages and apps
+pnpm typecheck         # TypeScript check across all workspaces
+pnpm test              # Run Vitest test suite
+pnpm fixtures:validate # Validate all 37 fixture JSONs against Zod schemas
+pnpm smoke:runtime     # Run in-memory SingleCasePack + SequentialGraph smoke check
+pnpm smoke:api         # Run API health & management auth guard smoke check
+pnpm smoke:security    # Run public no-leak sanitizer smoke check
+pnpm release:check     # Run all commercial release gates
+pnpm dev               # Start Next.js dev server
 ```
 
 ## Sprint Sequence
 
-| Sprint | Name |
-|--------|------|
-| 00 | Repo Bootstrap ← **current** |
-| 01 | Core Types & Object Schemas |
-| 02 | Database / RLS |
-| 03 | CasePack + Domain Pack Registry |
-| 04 | Seed Fixtures |
-| 05 | UI Forge MVP |
-| 06 | Runtime MVP |
-| 07 | Bridge / Graph MVP |
-| 08 | Corporate PR Pack |
-| 09 | Book-to-Agent Pack |
-| 10 | AI Training Practice Pack |
-| 11 | E2E / Security / Release |
+| Sprint | Name | Status |
+|--------|------|--------|
+| 00 | Repo Bootstrap | ✅ Complete |
+| 01 | Core Types & Object Schemas | ✅ Complete |
+| 02 | Database / RLS | ✅ Complete |
+| 03 | CasePack + Domain Pack Registry | ✅ Complete |
+| 04 | Seed Fixtures | ✅ Complete |
+| 05 | UI Forge MVP | ✅ Complete |
+| 06 | Runtime MVP | ✅ Complete |
+| 07 | Bridge / Graph MVP | ✅ Complete |
+| 08 | Corporate PR Pack | ✅ Complete |
+| 09 | Book-to-Agent Pack | ✅ Complete |
+| 10 | AI Training Practice Pack | ✅ Complete |
+| 11 | E2E / Security / Release | ✅ Complete ← **current** |
 
 ## Documentation
 

@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PilotPack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "pack_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "2.0-draft"
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "const": "specified"
+    },
+    "taskflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "A": {
+          "type": "string",
+          "minLength": 1
+        },
+        "S": {
+          "type": "string",
+          "minLength": 1
+        },
+        "T": {
+          "type": "string",
+          "minLength": 1
+        },
+        "K": {
+          "type": "string",
+          "minLength": 1
+        },
+        "W": {
+          "type": "string",
+          "minLength": 1
+        },
+        "F": {
+          "type": "string",
+          "minLength": 1
+        },
+        "L": {
+          "type": "string",
+          "minLength": 1
+        },
+        "O": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "A",
+        "S",
+        "T",
+        "K",
+        "W",
+        "F",
+        "L",
+        "O"
+      ]
+    },
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "required_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "benchmark_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "release_gate": {
+      "const": "actual_runtime_and_evaluation_required"
+    }
+  },
+  "required": [
+    "pack_id",
+    "schema_version",
+    "agent_id",
+    "status",
+    "taskflow",
+    "input_schema",
+    "output_schema",
+    "required_capabilities",
+    "benchmark_ids",
+    "release_gate"
+  ]
+}

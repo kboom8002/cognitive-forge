@@ -1,0 +1,12 @@
+{
+  "brief_id": "brief-demo",
+  "offering_id": "offer-demo",
+  "eligible": true,
+  "reasons": [
+    "결과물 유형 일치"
+  ],
+  "unmet_conditions": [],
+  "needs_confirmation": [
+    "일정 확인"
+  ]
+}

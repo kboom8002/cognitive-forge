@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProjectBrief",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "brief_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "deliverable_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_formats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_required": {
+      "type": "boolean"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "submitted",
+        "matched",
+        "accepted",
+        "cancelled"
+      ]
+    }
+  },
+  "required": [
+    "brief_id",
+    "workspace_id",
+    "deliverable_type",
+    "input_formats",
+    "language",
+    "review_required",
+    "requirements",
+    "status"
+  ]
+}

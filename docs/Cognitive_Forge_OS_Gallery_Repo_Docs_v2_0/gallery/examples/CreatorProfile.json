@@ -1,0 +1,10 @@
+{
+  "creator_id": "creator-demo",
+  "display_name": "합성 예시 제작자",
+  "bio": "실제 전문가 경력 없음",
+  "credential_status": "self_declared",
+  "contributions": [
+    "제작"
+  ],
+  "visibility": "public"
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ForkLineage",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fork_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "child_pack_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "license_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attribution": {
+      "type": "string",
+      "minLength": 1
+    },
+    "copied_customer_data": {
+      "const": false
+    },
+    "inherited_verified_badge": {
+      "const": false
+    }
+  },
+  "required": [
+    "fork_id",
+    "parent_release_id",
+    "child_pack_id",
+    "owner_workspace_id",
+    "license_version",
+    "attribution",
+    "copied_customer_data",
+    "inherited_verified_badge"
+  ]
+}

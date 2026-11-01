@@ -11,6 +11,7 @@ import { z } from "zod";
 import { apiSuccess, handleRouteError } from "../../../../../lib/api/response";
 import { validateBody } from "../../../../../lib/api/validate";
 import { createCasePackService } from "../../../../../lib/api/casepack-factory";
+import { requireManagementAuth } from "../../../../../lib/api/auth";
 
 const CreateVersionBodySchema = z.object({
   version: z
@@ -28,6 +29,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const { id } = await params;
     const body   = await validateBody(req, CreateVersionBodySchema);
     const svc    = createCasePackService();

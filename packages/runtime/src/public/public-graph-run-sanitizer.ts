@@ -17,6 +17,8 @@ import type { ValidationReport } from "@cognitive-forge/core";
 import { deepSanitize } from "@cognitive-forge/validation";
 import type { GraphRunResult } from "../runner/sequential-graph-runner";
 import type { PublicTraceSummary } from "../trace/trace-summary-builder";
+import type { PublicTrustSignalSummary } from "./trust-sanitizer";
+import type { BuilderInspectionSummary } from "../builder/builder-sanitizer";
 
 import { FORBIDDEN_PUBLIC_KEYS } from "@cognitive-forge/validation";
 
@@ -59,6 +61,10 @@ export interface PublicGraphRunResult {
   validation_status: "pass" | "fail" | "warning";
   /** Human-readable timeline of what happened, safe for public. */
   trace_summary?: PublicTraceSummary[] | undefined;
+  /** Sanitized trust signals for TrustExplanationSection. */
+  trust_signals?: PublicTrustSignalSummary | undefined;
+  /** Safe builder inspection summary for BuilderModeView. */
+  builder_summary?: BuilderInspectionSummary | undefined;
 }
 
 /**
@@ -81,11 +87,13 @@ export interface PublicGraphRunRecord extends PublicGraphRunResult {
  */
 export function sanitizeGraphRunResult(
   result: {
-    status:         "success" | "failed" | "partial";
-    final_output:   Record<string, unknown>;
-    validation:     { status: string };
-    completed_nodes: string[];
-    trace_summary?: any[];
+    status:           "success" | "failed" | "partial";
+    final_output:     Record<string, unknown>;
+    validation:       { status: string };
+    completed_nodes:  string[];
+    trace_summary?:   any[];
+    trust_signals?:   PublicTrustSignalSummary | undefined;
+    builder_summary?: BuilderInspectionSummary | undefined;
   },
   graphRunId: string
 ): PublicGraphRunRecord {
@@ -109,6 +117,8 @@ export function sanitizeGraphRunResult(
     completed_nodes:      result.completed_nodes,
     validation_status:    (result.validation.status as "pass" | "fail" | "warning") ?? "fail",
     trace_summary:        result.trace_summary,
+    ...(result.trust_signals !== undefined ? { trust_signals: result.trust_signals } : {}),
+    ...(result.builder_summary !== undefined ? { builder_summary: result.builder_summary } : {}),
   };
 }
 

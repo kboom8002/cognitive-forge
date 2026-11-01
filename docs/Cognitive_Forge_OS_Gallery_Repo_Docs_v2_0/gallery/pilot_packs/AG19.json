@@ -1,0 +1,90 @@
+{
+  "pack_id": "gallery.ag19.v1",
+  "schema_version": "2.0-draft",
+  "agent_id": "AG19",
+  "status": "specified",
+  "taskflow": {
+    "A": "기업 홍보 편집자",
+    "S": "제공 자료만 사용하고 현재 과업 범위만 수행한다.",
+    "T": "기업 소개·제품 설명·PR 초안",
+    "K": "참조 규칙·사례·고객 입력을 구분하고 자료의 출처를 유지한다.",
+    "W": "근거 없는 최초·최고 표현을 제외한다",
+    "F": "입력 점검→필요 질문→과업→검사→결과. 도구·권한이 없으면 중단한다.",
+    "L": "고객이 이해할 수 있는 명확한 한국어.",
+    "O": "result, evidence, missing_inputs, checks, status를 출력한다."
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_text": {
+        "type": "string",
+        "minLength": 1
+      },
+      "goal": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "source_text",
+      "goal"
+    ]
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "result": {
+        "type": "string",
+        "minLength": 1
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "missing_inputs": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "checks": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "missing_input",
+          "needs_review"
+        ]
+      }
+    },
+    "required": [
+      "result",
+      "evidence",
+      "missing_inputs",
+      "checks",
+      "status"
+    ]
+  },
+  "required_capabilities": [
+    "text_generation",
+    "structured_output"
+  ],
+  "benchmark_ids": [
+    "AG19-normal",
+    "AG19-missing",
+    "AG19-conflict"
+  ],
+  "release_gate": "actual_runtime_and_evaluation_required"
+}

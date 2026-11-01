@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import { BridgeCompatibilityPanel } from "@cognitive-forge/ui-forge";
 import type { DemoBridgeEdge } from "../../app/demo/_lib/demo-registry";
 
 interface BridgeHandoffPanelProps {
@@ -101,6 +102,16 @@ export function BridgeHandoffPanel({ edges }: BridgeHandoffPanelProps) {
             </div>
           </div>
         ))}
+      </div>
+      <div style={{ marginTop: "1rem" }}>
+        <BridgeCompatibilityPanel
+          report={{
+            status: "compatible",
+            score: 100,
+            missing_mappings: [],
+            warnings: [],
+          }}
+        />
       </div>
     </div>
   );

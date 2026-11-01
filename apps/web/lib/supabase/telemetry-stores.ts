@@ -1,16 +1,27 @@
 /**
- * SupabaseTraceStore + SupabaseUsageStore — runtime telemetry persistence.
+ * SupabaseTraceStore + SupabaseUsageStore + SupabaseNodeRunStore +
+ * SupabaseHandoffEventStore + SupabaseValidationStore — runtime telemetry persistence.
  *
- * Implements ITraceStore and IUsageStore from @cognitive-forge/runtime,
- * writing to runtime_trace_events and usage_events tables.
+ * Implements store interfaces from @cognitive-forge/runtime and @cognitive-forge/bridge,
+ * writing to runtime_trace_events, usage_events, node_runs, handoff_events,
+ * and validation_results tables.
  *
  * Lives in apps/web — the only layer allowed to import Supabase directly.
- * The trace_payload column is FORBIDDEN for public API responses.
+ * FORBIDDEN columns are never exposed to public API responses.
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { ITraceStore, IUsageStore, TraceRecord, UsageRecord } from "@cognitive-forge/runtime";
+import type {
+  ITraceStore,
+  IUsageStore,
+  INodeRunStore,
+  IValidationStore,
+  TraceRecord,
+  UsageRecord,
+} from "@cognitive-forge/runtime";
+import type { IHandoffEventStore, HandoffEvent } from "@cognitive-forge/bridge";
 import { AppError, AppErrorCode } from "@cognitive-forge/core";
+import type { ValidationReport } from "@cognitive-forge/core";
 
 function assertNoError(error: unknown, context: string): void {
   if (error) {
@@ -63,5 +74,87 @@ export class SupabaseUsageStore implements IUsageStore {
         created_at:      event.created_at,
       });
     assertNoError(error, "SupabaseUsageStore.write");
+  }
+}
+
+// ── SupabaseNodeRunStore ──────────────────────────────────────────────────────
+
+export class SupabaseNodeRunStore implements INodeRunStore {
+  constructor(private readonly db: SupabaseClient) {}
+
+  async write(params: {
+    graph_run_id: string;
+    node_id:      string;
+    casepack_key: string;
+    status:       string;
+    input_json:   Record<string, unknown>;
+    output_json?: Record<string, unknown> | undefined;
+    started_at:   string;
+    completed_at: string;
+  }): Promise<void> {
+    const { error } = await this.db
+      .from("node_runs")
+      .insert({
+        graph_run_id: params.graph_run_id,
+        node_id:      params.node_id,
+        casepack_key: params.casepack_key,
+        status:       params.status,
+        input_json:   params.input_json,
+        output_json:  params.output_json ?? null,
+        started_at:   params.started_at,
+        completed_at: params.completed_at,
+      });
+    assertNoError(error, "SupabaseNodeRunStore.write");
+  }
+}
+
+// ── SupabaseHandoffEventStore ─────────────────────────────────────────────────
+
+export class SupabaseHandoffEventStore implements IHandoffEventStore {
+  constructor(private readonly db: SupabaseClient) {}
+
+  async write(event: HandoffEvent): Promise<void> {
+    const { error } = await this.db
+      .from("handoff_events")
+      .insert({
+        graph_run_id:            event.graph_run_id,
+        source_node_id:          event.source_node_id,
+        target_node_id:          event.target_node_id,
+        bridge_key:              event.bridge_key,
+        source_output_json:      event.source_output_json      ?? null,
+        target_input_json:       event.target_input_json       ?? null,
+        context_checkpoint_json: event.context_checkpoint_json ?? null,
+        bridge_output_json:      event.bridge_output_json      ?? {
+          validation_passed: event.validation_passed,
+          error_count:       event.error_count,
+        },
+        created_at:              event.created_at,
+      });
+    assertNoError(error, "SupabaseHandoffEventStore.write");
+  }
+}
+
+// ── SupabaseValidationStore ───────────────────────────────────────────────────
+
+export class SupabaseValidationStore implements IValidationStore {
+  constructor(private readonly db: SupabaseClient) {}
+
+  async write(params: {
+    run_id:   string;
+    run_type: "casepack" | "graph" | "node";
+    report:   ValidationReport;
+  }): Promise<void> {
+    const { error } = await this.db
+      .from("validation_results")
+      .insert({
+        run_id:     params.run_id,
+        run_type:   params.run_type,
+        valid:      params.report.valid,
+        status:     params.report.status,
+        errors:     params.report.errors,
+        warnings:   params.report.warnings ?? [],
+        checked_at: params.report.checked_at,
+      });
+    assertNoError(error, "SupabaseValidationStore.write");
   }
 }

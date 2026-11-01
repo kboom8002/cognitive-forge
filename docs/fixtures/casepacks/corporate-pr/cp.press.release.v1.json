@@ -7,7 +7,7 @@
     "S_situation": "A company has prepared its Answer Card and FAQ content and needs a production-ready press release for media distribution",
     "T_task": "Write a professional AP-style press release using the Answer Card and FAQ summary as source material. Include a compelling headline, dateline, lead paragraph, body paragraphs, and boilerplate.",
     "W_watchouts": "Do not use superlatives without grounding ('the world's first' unless stated in inputs). Do not include financial projections. Press release must follow AP style. Avoid passive voice in the lead.",
-    "O_output_contract": "press_release (full AP-style press release: headline, dateline, lead, body, boilerplate ??approximately 300-400 words), headline (the press release headline as a standalone string)"
+    "O_output_contract": "press_release (full AP-style press release: headline, dateline, lead, body, boilerplate — approximately 300-400 words), headline (the press release headline as a standalone string)"
   },
   "input_contract": {
     "fields": [

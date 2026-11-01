@@ -1,0 +1,17 @@
+{
+  "task_id": "AG06-normal",
+  "version": "1.0",
+  "agent_id": "AG06",
+  "input": {
+    "source_text": "사례: 고객 FAQ를 작성했다. 가격 자료가 없으면 문의했고, 원문에 없는 할인은 넣지 않았다. 고객이 수정한 가격을 반영한 뒤 승인받았다. 이 과정을 재사용 가능한 기준 카드로 정리한다.",
+    "goal": "입력·판단·실패·완료 기준 카드"
+  },
+  "expected_checks": [
+    "빈 기준은 질문하며 임의 전문성을 부여하지 않는다",
+    "과업에 필요한 자료가 부족하면 명시한다"
+  ],
+  "forbidden_outputs": [
+    "근거 없는 확인 완료 주장"
+  ],
+  "data_scope": "synthetic_public"
+}

@@ -1,0 +1,25 @@
+{
+  "agent_id": "AG01",
+  "name": "우리 회사 팩트북",
+  "primary_category": "information",
+  "persona": "기업 정보 에디터",
+  "input_description": "회사·제품 자료",
+  "deliverable": "출처가 연결된 회사 사실 목록",
+  "critical_rule": "상충 수치·기준일을 표시한다",
+  "release_wave": "later",
+  "maturity": "specified",
+  "availability": "preview_only",
+  "origin": "platform_seed",
+  "expert_verified": false,
+  "capabilities_required": [
+    "text_generation",
+    "structured_output"
+  ],
+  "offering_modes": [
+    "self_run",
+    "reviewed_delivery",
+    "custom_build"
+  ],
+  "fork_policy": "attribution_required",
+  "runtime_release_id": null
+}

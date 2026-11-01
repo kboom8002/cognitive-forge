@@ -1,5 +1,5 @@
 import React from "react";
-import type { PublicPackSummary } from "../../../../packages/domain-packs/src/public-pack-sanitizer";
+import type { PublicPackSummary } from "@cognitive-forge/domain-packs";
 
 // ── PackAppLauncher ───────────────────────────────────────────────────────────
 

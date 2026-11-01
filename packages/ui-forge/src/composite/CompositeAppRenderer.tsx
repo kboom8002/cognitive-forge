@@ -28,6 +28,7 @@ import { DynamicForm } from "../form-renderer/DynamicForm";
 import type { FormValues } from "../form-renderer/DynamicForm";
 import { OutputCard } from "../output-renderer/OutputCard";
 import type { OutputValue } from "../output-renderer/OutputFieldRenderer";
+import { TrustSignalPanel } from "../output-renderer/TrustSignalPanel";
 import { GraphStepper } from "../progress/GraphStepper";
 import type { GraphStep } from "../progress/GraphStepper";
 
@@ -43,6 +44,7 @@ export interface PublicGraphRunResult {
   progress_label?:      string;
   validation_status:    string;
   trace_summary?:       any[];
+  trust_signals?:       any;
   builder_summary?:     any;
 }
 
@@ -179,6 +181,7 @@ export function CompositeAppRenderer({
   const [errorMessage,    setErrorMessage]    = useState<string | undefined>(undefined);
   const [apiRunStatus,    setApiRunStatus]    = useState<PublicGraphRunResult["status"] | undefined>(undefined);
   const [traceSummaries,  setTraceSummaries]  = useState<any[]>([]);
+  const [trustSignals,    setTrustSignals]    = useState<any>(undefined);
   const [builderSummary,  setBuilderSummary]  = useState<any>(undefined);
 
   const handleFieldChange = useCallback((key: string, value: FormValues[string]) => {
@@ -190,6 +193,7 @@ export function CompositeAppRenderer({
     setErrorMessage(undefined);
     setFinalOutput({});
     setCompletedNodes([]);
+    setTrustSignals(undefined);
     setProgressLabel("Starting graph run…");
 
     // Simulate per-node progress during execution by marking steps active
@@ -202,6 +206,7 @@ export function CompositeAppRenderer({
       setProgressLabel(result.progress_label);
       setFinalOutput(result.final_output as Record<string, OutputValue>);
       setTraceSummaries(result.trace_summary ?? []);
+      setTrustSignals(result.trust_signals);
       setBuilderSummary(result.builder_summary);
 
       if (result.status === "success") {
@@ -277,7 +282,12 @@ export function CompositeAppRenderer({
       {/* ── Final output card ─────────────────────────────────────────────── */}
       {showOutput && (
         renderOutput ? (
-          renderOutput({ status: outputStatus, finalOutput })
+          <>
+            {trustSignals && (
+              <TrustSignalPanel signals={trustSignals} publicMode={publicMode} />
+            )}
+            {renderOutput({ status: outputStatus, finalOutput })}
+          </>
         ) : (
           <OutputCard
             outputContract={outputContract}
@@ -285,6 +295,7 @@ export function CompositeAppRenderer({
             publicMode={publicMode}
             status={outputStatus}
             nodeLabel={outputLabel}
+            trustSignals={trustSignals}
             {...(errorMessage !== undefined ? { errorMessage } : {})}
           />
         )

@@ -1,0 +1,74 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "Forge webhook events",
+    "version": "1.0.0"
+  },
+  "channels": {
+    "runEvents": {
+      "address": "registered-callback",
+      "messages": {
+        "runEvent": {
+          "payload": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "$id": "urn:forge:EventEnvelope:1",
+            "title": "EventEnvelope",
+            "type": "object",
+            "required": [
+              "event_id",
+              "event_type",
+              "schema_version",
+              "occurred_at",
+              "workspace_id",
+              "run_id",
+              "correlation_id",
+              "payload"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "event_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schema_version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "occurred_at": {
+                "type": "string",
+                "minLength": 1
+              },
+              "workspace_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "run_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "correlation_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "payload": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "operations": {
+    "emitRunEvent": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/runEvents"
+      }
+    }
+  }
+}

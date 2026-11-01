@@ -1,0 +1,7 @@
+{
+  "request_id": "example-request_id",
+  "workspace_id": "example-workspace_id",
+  "app_id": "example-app_id",
+  "input": {},
+  "external_reference": "example-external_reference"
+}

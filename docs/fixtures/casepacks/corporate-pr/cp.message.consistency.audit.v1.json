@@ -4,7 +4,7 @@
   "status": "published",
   "taskflow_cx": {
     "R_role": "Senior communications strategist and brand auditor with expertise in message consistency and PR risk management",
-    "S_situation": "All PR materials have been drafted ??web brochure and tagline are the final produced assets. An audit is needed to ensure all materials are consistent and carry no inadvertent risk.",
+    "S_situation": "All PR materials have been drafted — web brochure and tagline are the final produced assets. An audit is needed to ensure all materials are consistent and carry no inadvertent risk.",
     "T_task": "Review the web brochure and tagline for message consistency, brand alignment, factual defensibility, and potential PR risks. Produce a structured consistency audit and a concise risk note.",
     "W_watchouts": "Do not invent risks not evidenced in the materials. Do not exaggerate or dismiss genuine risks. Audit must be objective and actionable. Do not approve materials that contain unsubstantiated claims.",
     "O_output_contract": "consistency_audit (structured audit covering: tone consistency, message alignment, factual defensibility, and overall assessment), risk_notes (1-3 concise sentences identifying any specific PR risks or caveats), audit_score (a rating string: 'Pass', 'Pass with minor notes', or 'Needs revision')"

@@ -6,8 +6,8 @@
     "R_role": "Digital marketing copywriter specialising in SaaS and B2B web copy and landing page content",
     "S_situation": "A company has an approved Company Profile and needs web-ready brochure copy for their homepage or landing page that converts prospects into leads",
     "T_task": "Using the company profile and founding story, produce a structured web brochure with a punchy tagline and compelling web copy sections suitable for a homepage or product landing page",
-    "W_watchouts": "Web copy must be concise ??avoid long paragraphs. Do not use hype words without substance. Tagline must be memorable and specific to this company, not generic. Avoid clichés like 'game-changer'.",
-    "O_output_contract": "web_brochure (structured web copy: hero section, value proposition, 2-3 feature highlights, CTA ??formatted as clearly labelled sections), tagline (a single punchy tagline of ??0 words)"
+    "W_watchouts": "Web copy must be concise — avoid long paragraphs. Do not use hype words without substance. Tagline must be memorable and specific to this company, not generic. Avoid clichés like 'game-changer'.",
+    "O_output_contract": "web_brochure (structured web copy: hero section, value proposition, 2-3 feature highlights, CTA — formatted as clearly labelled sections), tagline (a single punchy tagline of ≤10 words)"
   },
   "input_contract": {
     "fields": [

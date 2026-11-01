@@ -11,6 +11,7 @@ import { z } from "zod";
 import { apiSuccess, handleRouteError } from "../../../lib/api/response";
 import { validateBody, requireQuery } from "../../../lib/api/validate";
 import { createCasePackService } from "../../../lib/api/casepack-factory";
+import { requireManagementAuth } from "../../../lib/api/auth";
 
 // ── Input schemas ─────────────────────────────────────────────────────────────
 
@@ -29,6 +30,7 @@ const CreateCasePackBodySchema = z.object({
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const url         = new URL(req.url);
     const workspaceId = requireQuery(url, "workspaceId");
     const status      = url.searchParams.get("status") as "draft" | "published" | null;
@@ -49,6 +51,7 @@ export async function GET(req: Request): Promise<NextResponse> {
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const body = await validateBody(req, CreateCasePackBodySchema);
     const svc  = createCasePackService();
     const pack = await svc.create({

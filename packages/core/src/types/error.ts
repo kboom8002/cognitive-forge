@@ -9,6 +9,8 @@
 export enum AppErrorCode {
   /** Schema or contract validation failed. */
   VALIDATION_ERROR = "VALIDATION_ERROR",
+  /** Alias for OpenAPI / request validation failures (HTTP 400). */
+  VALIDATION_FAILED = "VALIDATION_FAILED",
   /** A cross-reference rule was violated (e.g. unknown node referenced). */
   SCHEMA_VIOLATION = "SCHEMA_VIOLATION",
   /** A requested resource was not found. */
@@ -27,6 +29,18 @@ export enum AppErrorCode {
   CONTRACT_VIOLATION = "CONTRACT_VIOLATION",
   /** A public response failed sanitization (forbidden keys present). */
   SANITIZATION_ERROR = "SANITIZATION_ERROR",
+  /** Optimistic concurrency revision mismatch, idempotency conflict, or hash mismatch (HTTP 409). */
+  CONFLICT = "CONFLICT",
+  /** Precondition or release gate unmet (HTTP 422). */
+  UNPROCESSABLE_ENTITY = "UNPROCESSABLE_ENTITY",
+  /** Rate limit or quota exceeded (HTTP 429). */
+  RATE_LIMITED = "RATE_LIMITED",
+  /** Model output was not valid JSON (distinct from HTTP/timeout errors). */
+  INVALID_MODEL_JSON = "INVALID_MODEL_JSON",
+  /** AI provider HTTP error (4xx/5xx from upstream provider). */
+  PROVIDER_HTTP_ERROR = "PROVIDER_HTTP_ERROR",
+  /** Run exceeded token or cost budget cap. */
+  BUDGET_EXCEEDED = "BUDGET_EXCEEDED",
 }
 
 /**

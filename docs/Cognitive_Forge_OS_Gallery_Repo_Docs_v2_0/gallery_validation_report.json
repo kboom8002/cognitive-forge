@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "checks": [
+    "schema_example:BenchmarkTask",
+    "schema_example:CatalogEntry",
+    "schema_example:ComparisonSession",
+    "schema_example:CreatorProfile",
+    "schema_example:ForkLineage",
+    "schema_example:GalleryListing",
+    "schema_example:MatchCandidate",
+    "schema_example:PersonaProfile",
+    "schema_example:PilotPack",
+    "schema_example:ProjectBrief",
+    "schema_example:ServiceOffering",
+    "36_unique_6x6_preview_only",
+    "12_packs_36_benchmark_inputs",
+    "negative:실행 가능 표시지만 릴리스 없음",
+    "negative:검증 배지 상속",
+    "negative:필수 미충족인데 적합 판정",
+    "negative:같은 릴리스 중복 비교",
+    "internal_refs:contracts/openapi.json",
+    "internal_refs:contracts/gallery-openapi.json",
+    "internal_refs:contracts/asyncapi.json"
+  ],
+  "actual_model": "NOT_RUN",
+  "UI_E2E": "NOT_RUN",
+  "database_RLS": "NOT_RUN",
+  "live_API": "NOT_RUN",
+  "official_OpenAPI_AsyncAPI_validator": "NOT_RUN",
+  "pilot_quality": "NOT_MEASURED"
+}

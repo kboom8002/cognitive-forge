@@ -8,6 +8,7 @@ import { z } from "zod";
 import { apiSuccess, handleRouteError } from "../../../lib/api/response";
 import { validateBody } from "../../../lib/api/validate";
 import { createGraphService } from "../../../lib/api/graph-app-factory";
+import { requireManagementAuth } from "../../../lib/api/auth";
 
 const CreateGraphBodySchema = z.object({
   workspace_id: z.string().uuid().optional().nullable(),
@@ -19,6 +20,7 @@ const CreateGraphBodySchema = z.object({
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const url = new URL(req.url);
     const svc = createGraphService();
     const graphs = await svc.list({
@@ -33,6 +35,7 @@ export async function GET(req: Request): Promise<NextResponse> {
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const body  = await validateBody(req, CreateGraphBodySchema);
     const svc   = createGraphService();
     const graph = await svc.create({

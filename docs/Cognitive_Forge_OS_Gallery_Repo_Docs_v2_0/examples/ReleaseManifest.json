@@ -1,0 +1,8 @@
+{
+  "release_id": "example-release_id",
+  "pack_id": "example-pack_id",
+  "pack_version": "example-pack_version",
+  "compiler_version": "example-compiler_version",
+  "evaluation_suite_version": "example-evaluation_suite_version",
+  "content_hash": "example-content_hash"
+}

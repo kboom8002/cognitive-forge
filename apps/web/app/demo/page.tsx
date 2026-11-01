@@ -10,7 +10,33 @@ import Link from "next/link";
 import React from "react";
 import { DemoHero }       from "../../components/demo/DemoHero";
 import { SuiteSelector }  from "../../components/demo/SuiteSelector";
+import { PackGalleryLite } from "../../components/public-app/PackGalleryLite";
+import type { PublicPackSummary } from "@cognitive-forge/domain-packs";
 import { DEMO_SUITES }    from "./_lib/demo-registry";
+
+const DEMO_PACKS: PublicPackSummary[] = [
+  {
+    name: "Corporate PR Turnkey Pack",
+    description: "End-to-end corporate PR strategy, press release generation, FAQ, media pitch, and channel repurposing.",
+    domain: "Corporate PR",
+    primary_app_slug: "corporate-pr-suite",
+    status: "production",
+  },
+  {
+    name: "Book-to-Agent Pack",
+    description: "Transform long-form books and manuscripts into structured knowledge cores, personas, Q&A banks, and agent blueprints.",
+    domain: "Book-to-Agent",
+    primary_app_slug: "book-to-agent-suite",
+    status: "production",
+  },
+  {
+    name: "AI Training Practice Pack",
+    description: "Interactive prompt engineering practice loop: analyze prompts, diagnose failure modes, and generate improved versions.",
+    domain: "AI Training",
+    primary_app_slug: "ai-training-practice-suite",
+    status: "production",
+  },
+];
 
 export const metadata: Metadata = {
   title:       "Demo — Product Walkthrough",
@@ -240,6 +266,16 @@ export default function DemoPage() {
             <p style={S.sectionDesc}>Three production-ready AI suites, each with a full graph pipeline, static demo mode, and a live app launcher.</p>
           </div>
           <SuiteSelector suites={DEMO_SUITES} />
+        </div>
+
+        {/* ── Domain Pack Gallery Lite ───────────────────────────────────── */}
+        <div style={{ ...S.section, paddingBottom: "2rem" }}>
+          <div style={S.sectionHeader}>
+            <span style={S.sectionLabel}>Domain Packs</span>
+            <h2 style={S.sectionTitle}>Installed Domain Packs</h2>
+            <p style={S.sectionDesc}>Launch live runtime apps directly from each Domain Pack manifest.</p>
+          </div>
+          <PackGalleryLite packs={DEMO_PACKS} />
         </div>
 
         <div style={S.divider} aria-hidden />

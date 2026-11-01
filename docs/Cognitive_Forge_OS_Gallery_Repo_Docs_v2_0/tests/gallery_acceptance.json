@@ -1,0 +1,130 @@
+[
+  {
+    "id": "GT01",
+    "title": "샘플과 실행 구분",
+    "given": "preview_only 목록",
+    "when": "실행 버튼/API 요청",
+    "then": "샘플 표시는 유지하고 실실행은 차단",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT02",
+    "title": "기본 제작",
+    "given": "초기 팩과 제작자",
+    "when": "업무 기준을 수정·저장",
+    "then": "새 비공개 draft와 차이 기록 생성",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT03",
+    "title": "권리 제한",
+    "given": "fork 금지 릴리스",
+    "when": "복제 요청",
+    "then": "403과 원본 미변경",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT04",
+    "title": "배지 상속 방지",
+    "given": "검증된 원본",
+    "when": "파생 생성",
+    "then": "원본 평가·경력 미상속",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT05",
+    "title": "고객 자료 격리",
+    "given": "비공개 고객 입력 존재",
+    "when": "팩 복제",
+    "then": "고객 원문·키·비공개 평가 제외",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT06",
+    "title": "실행 승격",
+    "given": "실제 평가 없음",
+    "when": "runnable 게시 요청",
+    "then": "gate 실패와 이유 반환",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT07",
+    "title": "비교 조건",
+    "given": "동일 과제와 두 릴리스",
+    "when": "비교 실행",
+    "then": "입력·버전·설정 차이 표시",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT08",
+    "title": "비교 동의",
+    "given": "비공개 입력",
+    "when": "다른 제작자에 전달 시도",
+    "then": "허용된 수신자만 접근",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT09",
+    "title": "추천 필터",
+    "given": "언어 미지원 후보",
+    "when": "매칭 요청",
+    "then": "eligible=false와 미충족 이유",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT10",
+    "title": "추천과 계약 구분",
+    "given": "적합 후보",
+    "when": "추천 반환",
+    "then": "계약·결제·자료 공유 자동 실행 없음",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT11",
+    "title": "다른 작업공간",
+    "given": "B의 brief",
+    "when": "A가 조회",
+    "then": "접근 거부",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT12",
+    "title": "멱등 복제",
+    "given": "동일 요청과 키",
+    "when": "두 번 요청",
+    "then": "한 draft와 한 lineage",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT13",
+    "title": "비교 과금",
+    "given": "부분 실행 실패",
+    "when": "재개",
+    "then": "완료한 run 중복 실행·계측 방지",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT14",
+    "title": "버전 피드백",
+    "given": "v1 결과 의견",
+    "when": "v2 공개",
+    "then": "의견의 v1 대상 유지",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT15",
+    "title": "공개 취소",
+    "given": "paused 목록",
+    "when": "새 실행과 기존 이력 조회",
+    "then": "새 실행 차단·권한 있는 이력 보존",
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "GT16",
+    "title": "독립 완주",
+    "given": "외부 시스템 없음",
+    "when": "체험→특화→시험→게시→의뢰",
+    "then": "Forge 안에서 납품 검수까지 가능",
+    "status": "NOT_RUN"
+  }
+]

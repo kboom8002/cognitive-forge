@@ -8,6 +8,7 @@ import { z } from "zod";
 import { apiSuccess, handleRouteError } from "../../../lib/api/response";
 import { validateBody } from "../../../lib/api/validate";
 import { createDomainPackService } from "../../../lib/api/domain-pack-factory";
+import { requireManagementAuth } from "../../../lib/api/auth";
 
 const CreatePackBodySchema = z.object({
   workspace_id:     z.string().uuid().optional().nullable(),
@@ -23,6 +24,7 @@ const CreatePackBodySchema = z.object({
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const url         = new URL(req.url);
     const workspaceId = url.searchParams.get("workspaceId");
     const status      = url.searchParams.get("status") as "draft" | "published" | null;
@@ -43,6 +45,7 @@ export async function GET(req: Request): Promise<NextResponse> {
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const body = await validateBody(req, CreatePackBodySchema);
     const svc  = createDomainPackService();
     const pack = await svc.create({

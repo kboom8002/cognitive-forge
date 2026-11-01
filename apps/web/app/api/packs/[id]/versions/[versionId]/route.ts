@@ -6,17 +6,26 @@
  */
 
 import { NextResponse } from "next/server";
+import { AppError, AppErrorCode } from "@cognitive-forge/core";
 import { apiSuccess, handleRouteError } from "../../../../../../lib/api/response";
 import { createDomainPackService } from "../../../../../../lib/api/domain-pack-factory";
+import { requireManagementAuth } from "../../../../../../lib/api/auth";
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ id: string; versionId: string }> }
 ): Promise<NextResponse> {
   try {
-    const { versionId } = await params;
+    await requireManagementAuth(req);
+    const { id, versionId } = await params;
     const svc     = createDomainPackService();
     const version = await svc.getVersion(versionId);
+    if (version.domain_pack_id !== id) {
+      throw new AppError(
+        AppErrorCode.NOT_FOUND,
+        `Version "${versionId}" does not belong to Domain Pack "${id}"`
+      );
+    }
     return apiSuccess(version);
   } catch (err) {
     return handleRouteError(err);

@@ -150,3 +150,9 @@ export type {
 // UsageEvent
 export { UsageEventSchema } from "./schemas/usage-event";
 export type { UsageEvent } from "./schemas/usage-event";
+
+// ── v2.0 Canonical Schemas & State Machine ──────────────────────────────────
+export * from "./schemas/v2-canonical";
+export * from "./schemas/v2-gallery";
+export * from "./state/state-machine";
+

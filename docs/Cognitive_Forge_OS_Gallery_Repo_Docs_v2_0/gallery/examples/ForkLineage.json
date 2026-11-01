@@ -1,0 +1,10 @@
+{
+  "fork_id": "fork-demo",
+  "parent_release_id": "parent-demo",
+  "child_pack_id": "child-demo",
+  "owner_workspace_id": "workspace-demo",
+  "license_version": "1",
+  "attribution": "Forge 기본 예시",
+  "copied_customer_data": false,
+  "inherited_verified_badge": false
+}

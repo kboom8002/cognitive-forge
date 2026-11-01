@@ -23,6 +23,7 @@ const DEFAULT_TAB = "brand_positioning";
 
 export function PROutputPackage({ status, finalOutput, errorMessage }: PROutputPackageProps) {
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
+  const [downloaded, setDownloaded] = useState(false);
 
   if (status === "idle" || status === "running") {
     return null;
@@ -37,7 +38,33 @@ export function PROutputPackage({ status, finalOutput, errorMessage }: PROutputP
   }
 
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text);
+    }
+  };
+
+  const handleDownloadPackage = () => {
+    const sections = TABS.map((t) => {
+      const val = (finalOutput[t.key] as string) || "";
+      return `## ${t.label}\n\n${val}`;
+    });
+    if (finalOutput.risk_notes) {
+      sections.push(`## Risk Notes\n\n${String(finalOutput.risk_notes)}`);
+    }
+    const md = `# Corporate PR Package\n\n${sections.join("\n\n---\n\n")}\n`;
+    if (typeof URL !== "undefined" && typeof URL.createObjectURL === "function") {
+      const blob = new Blob([md], { type: "text/markdown" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "corporate_pr_package.md";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    setDownloaded(true);
+    setTimeout(() => setDownloaded(false), 2000);
   };
 
   const activeTabData = TABS.find((t) => t.id === activeTab);
@@ -54,13 +81,23 @@ export function PROutputPackage({ status, finalOutput, errorMessage }: PROutputP
               {String(finalOutput.audit_score)}
             </div>
           )}
-          <button 
+          <button
             data-testid="download-pr-package"
-            disabled
-            style={{ padding: "0.5rem 1rem", background: "var(--color-forge-700)", color: "var(--color-forge-muted)", border: "1px solid var(--color-forge-border)", borderRadius: "0.25rem", cursor: "not-allowed" }}
-            title="Package downloading will be available soon"
+            type="button"
+            onClick={handleDownloadPackage}
+            style={{
+              padding: "0.5rem 1rem",
+              background: "rgba(108, 99, 255, 0.15)",
+              color: "#e8e8f0",
+              border: "1px solid rgba(108, 99, 255, 0.35)",
+              borderRadius: "0.25rem",
+              cursor: "pointer",
+              fontWeight: 600,
+              fontSize: "0.875rem",
+            }}
+            title="Download complete Corporate PR package as Markdown"
           >
-            Download Package (Soon)
+            {downloaded ? "Downloaded!" : "Download Package"}
           </button>
         </div>
       </div>
@@ -107,7 +144,7 @@ export function PROutputPackage({ status, finalOutput, errorMessage }: PROutputP
             <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit", margin: 0, color: "var(--color-forge-text)", lineHeight: 1.6 }}>
               {content}
             </pre>
-            
+
             {/* Risk Notes specific to Consistency Audit tab */}
             {activeTabData.id === "consistency_audit" && finalOutput.risk_notes && (
               <div data-testid="risk-notes-card" style={{ marginTop: "1.5rem", padding: "1rem", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "0.5rem", color: "#f87171" }}>

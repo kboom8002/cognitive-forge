@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:forge:RunReceipt:1",
+  "title": "RunReceipt",
+  "type": "object",
+  "required": [
+    "run_id",
+    "workspace_id",
+    "release_id",
+    "revision",
+    "status",
+    "artifact_ids",
+    "evaluation_status",
+    "review_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "queued",
+        "running",
+        "waiting_input",
+        "waiting_review",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "artifact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evaluation_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "not_run",
+        "pass",
+        "fail",
+        "error"
+      ]
+    },
+    "review_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "not_required",
+        "pending",
+        "approved",
+        "changes_requested"
+      ]
+    }
+  }
+}

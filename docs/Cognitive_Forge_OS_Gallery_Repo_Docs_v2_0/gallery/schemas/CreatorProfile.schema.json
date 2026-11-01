@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreatorProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "creator_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bio": {
+      "type": "string",
+      "minLength": 1
+    },
+    "credential_status": {
+      "type": "string",
+      "enum": [
+        "self_declared",
+        "checked"
+      ]
+    },
+    "contributions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "private",
+        "public"
+      ]
+    }
+  },
+  "required": [
+    "creator_id",
+    "display_name",
+    "bio",
+    "credential_status",
+    "contributions",
+    "visibility"
+  ]
+}

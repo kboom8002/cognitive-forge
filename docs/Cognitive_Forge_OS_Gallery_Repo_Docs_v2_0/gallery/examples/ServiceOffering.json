@@ -1,0 +1,17 @@
+{
+  "offering_id": "offer-demo",
+  "listing_id": "listing-ag19",
+  "creator_id": "creator-demo",
+  "mode": "reviewed_delivery",
+  "deliverables": [
+    "소개문"
+  ],
+  "exclusions": [
+    "외부 게시"
+  ],
+  "required_inputs": [
+    "회사 자료"
+  ],
+  "human_review": true,
+  "price_status": "quote_required"
+}

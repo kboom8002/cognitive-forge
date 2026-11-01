@@ -16,6 +16,7 @@ export default defineConfig({
       "@cognitive-forge/bridge":       pkg("bridge"),
       "@cognitive-forge/ui-forge":     pkg("ui-forge"),
       "@cognitive-forge/validation":   pkg("validation"),
+      "@":                             resolve(__dirname, "apps", "web"),
     },
   },
   test: {

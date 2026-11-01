@@ -24,7 +24,11 @@ import { NextResponse } from "next/server";
 import { apiSuccess, apiError, handleRouteError } from "../../../../../../lib/api/response";
 import { createServiceClient } from "../../../../../../lib/supabase/client";
 import { createRuntimeComponents } from "../../../../../../lib/api/runtime-factory";
-import { runSingleCasePack } from "@cognitive-forge/runtime";
+import {
+  runSingleCasePack,
+  sanitizeTrustSignals,
+  buildSafeBuilderSummary,
+} from "@cognitive-forge/runtime";
 import { CasePackMAOSchema, AppError, AppErrorCode } from "@cognitive-forge/core";
 import { deepSanitize } from "@cognitive-forge/validation";
 
@@ -131,23 +135,52 @@ export async function POST(
     const runtime = createRuntimeComponents(db);
 
     const runResult = await runSingleCasePack({
-      workspace_id: runtime.workspaceId,
-      casepack_key: app.casepack_key as string,
+      workspace_id:    runtime.workspaceId,
+      casepack_key:    app.casepack_key as string,
       mao,
-      user_input:   userInput,
-      adapter:      runtime.adapter,
-      traceWriter:  runtime.traceWriter,
-      usageWriter:  runtime.usageWriter,
-      runStore:     runtime.runStore,
-      publicMode:   true,   // sanitize output through PublicOutputSanitizer
+      user_input:      userInput,
+      adapter:         runtime.adapter,
+      traceWriter:     runtime.traceWriter,
+      usageWriter:     runtime.usageWriter,
+      runStore:        runtime.runStore,
+      validationStore: runtime.validationStore,
+      publicMode:      true,   // sanitize output through PublicOutputSanitizer
+    });
+
+    const requiredFields = mao.output_contract.required_fields ?? [];
+    const presentCount = requiredFields.filter(
+      (f) => runResult.output[f] !== undefined && runResult.output[f] !== null && runResult.output[f] !== ""
+    ).length;
+    const completenessScore = requiredFields.length > 0
+      ? Math.round((presentCount / requiredFields.length) * 100)
+      : 100;
+
+    const trustSignals = sanitizeTrustSignals({
+      validation_status: (runResult.validation.status as "pass" | "warning" | "fail") ?? "pass",
+      completeness_score: completenessScore,
+      is_export_ready: runResult.status === "success" || runResult.status === "repaired",
+      ...(runResult.validation.warnings && runResult.validation.warnings.length > 0
+        ? { risk_notes: runResult.validation.warnings }
+        : {}),
+    });
+
+    const builderSummary = buildSafeBuilderSummary({
+      casepack_keys:     [app.casepack_key],
+      validation_status: runResult.validation.status,
+      contracts: {
+        input:  mao.input_contract,
+        output: mao.output_contract,
+      },
     });
 
     // ── 7. Return sanitized output ──────────────────────────────────────────
     // runResult.output is already sanitized (publicMode=true strips forbidden fields)
     // NEVER include: execution_plan, repair_attempts, trace_payload, run_id (internal)
     return apiSuccess(deepSanitize({
-      status:  runResult.status,
-      output:  runResult.output,
+      status:          runResult.status,
+      output:          runResult.output,
+      trust_signals:   trustSignals,
+      builder_summary: builderSummary,
     }));
   } catch (err) {
     // AppError(VALIDATION_ERROR) from runSingleCasePack = bad input from user

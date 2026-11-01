@@ -23,7 +23,7 @@ export class ReleaseChecker {
         name: "typecheck passes",
         isBlocker: true,
         check: () => {
-          childProcess.execSync("pnpm tsc --noEmit", { stdio: "pipe" });
+          childProcess.execSync("pnpm -r exec tsc --noEmit", { stdio: "pipe" });
         }
       },
       {
@@ -51,27 +51,34 @@ export class ReleaseChecker {
         name: "smoke runtime passes",
         isBlocker: true,
         check: () => {
-          // Placeholder for smoke test
           if (!fs.existsSync("packages/runtime/src/index.ts")) {
             throw new Error("Runtime package missing");
           }
+          childProcess.execSync("pnpm tsx scripts/smoke-runtime.ts", { stdio: "pipe" });
         }
       },
       {
         name: "smoke security passes",
         isBlocker: true,
         check: () => {
-          // Placeholder for security smoke test
           if (!fs.existsSync("packages/validation/src/index.ts")) {
             throw new Error("Validation package missing");
           }
+          childProcess.execSync("pnpm tsx scripts/smoke-security.ts", { stdio: "pipe" });
         }
       },
       {
         name: "E2E tests pass",
-        isBlocker: false, // Might be warned in some environments if not fully setup
+        isBlocker: true,
         check: () => {
-          // Placeholder for E2E
+          childProcess.execSync("pnpm vitest run tests/integration/e2e-golden-path.test.ts", { stdio: "pipe" });
+        }
+      },
+      {
+        name: "gallery v2 validation passes",
+        isBlocker: true,
+        check: () => {
+          childProcess.execSync("pnpm tsx scripts/validate-gallery-v2.ts", { stdio: "pipe" });
         }
       },
       {

@@ -29,6 +29,15 @@ export type {
 export { MockAIProvider } from "./ai/mock-ai-provider";
 export type { MockOutputMap } from "./ai/mock-ai-provider";
 
+export { OpenAIAdapter } from "./ai/openai-provider";
+export type { OpenAIAdapterOptions } from "./ai/openai-provider";
+
+export { AnthropicAdapter } from "./ai/anthropic-provider";
+export type { AnthropicAdapterOptions } from "./ai/anthropic-provider";
+
+export { GeminiAdapter } from "./ai/gemini-provider";
+export type { GeminiAdapterOptions } from "./ai/gemini-provider";
+
 export { createProvider } from "./ai/provider-factory";
 export type { ProviderName, ProviderFactoryOptions } from "./ai/provider-factory";
 
@@ -74,7 +83,7 @@ export type { BuilderInspectionSummary } from "./builder/builder-sanitizer";
 
 // ── Single CasePack Runner ────────────────────────────────────────────────────
 export { runSingleCasePack } from "./runner/single-casepack-runner";
-export type { RunContext, RunResult, IRunStore } from "./runner/single-casepack-runner";
+export type { RunContext, RunResult, IRunStore, IValidationStore } from "./runner/single-casepack-runner";
 
 // ── Graph Runner ──────────────────────────────────────────────────────────────
 export { runSequentialGraph } from "./runner/sequential-graph-runner";
@@ -83,7 +92,35 @@ export type {
   GraphRunResult,
   NodeRunResult,
   IGraphRunStore,
+  INodeRunStore,
 } from "./runner/sequential-graph-runner";
 
 // ── Fixtures (test/demo only) ─────────────────────────────────────────────────
 export { MOCK_OUTPUT_MAP } from "./fixtures/index";
+
+// ── v2.0 Canonical Runtime Service & Webhook Protocol ─────────────────────────
+export {
+  WEBHOOK_REPLAY_WINDOW_SECONDS,
+  signWebhookPayload,
+  verifyWebhookSignature,
+  WebhookDeduplicator,
+} from "./webhook/webhook-protocol";
+export type { WebhookHeaders } from "./webhook/webhook-protocol";
+
+export {
+  InMemoryV2CoreStore,
+} from "./service/v2-store";
+export type {
+  V2RunInternalRecord,
+  IdempotencyRecord,
+  RetentionPurgeResult,
+} from "./service/v2-store";
+
+export {
+  V2RunService,
+} from "./service/run-service";
+export type {
+  SimulatedExecutionFault,
+  CreateRunOptions,
+} from "./service/run-service";
+

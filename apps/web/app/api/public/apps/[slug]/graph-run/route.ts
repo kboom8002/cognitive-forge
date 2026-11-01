@@ -27,7 +27,12 @@ import { NextResponse } from "next/server";
 import { apiSuccess, apiError, handleRouteError } from "../../../../../../lib/api/response";
 import { createServiceClient } from "../../../../../../lib/supabase/client";
 import { createGraphRuntimeComponents } from "../../../../../../lib/api/runtime-factory";
-import { runSequentialGraph, sanitizeGraphRunResult } from "@cognitive-forge/runtime";
+import {
+  runSequentialGraph,
+  sanitizeGraphRunResult,
+  sanitizeTrustSignals,
+  buildSafeBuilderSummary,
+} from "@cognitive-forge/runtime";
 import {
   CasePackMAOSchema,
   CasePackGraphSchema,
@@ -226,33 +231,65 @@ export async function POST(
       maoMap,
       bridgeMap,
       userInput,
-      adapter:       runtime.adapter,
-      traceWriter:   runtime.graphTraceWriter,
-      usageWriter:   runtime.usageWriter,
-      runStore:      runtime.runStore,
-      graphRunStore: runtime.graphRunStore,
-      workspace_id:  runtime.workspaceId,
-      publicMode:    true,
+      adapter:           runtime.adapter,
+      traceWriter:       runtime.graphTraceWriter,
+      usageWriter:       runtime.usageWriter,
+      runStore:          runtime.runStore,
+      graphRunStore:     runtime.graphRunStore,
+      nodeRunStore:      runtime.nodeRunStore,
+      handoffEventStore: runtime.handoffEventStore,
+      validationStore:   runtime.validationStore,
+      workspace_id:      runtime.workspaceId,
+      publicMode:        true,
     });
 
     // ── 7. Fetch Trace Summary ────────────────────────────────────────────────
-    const { data: traces } = await db
+    const traceQuery = db
       .from("runtime_trace_events")
       .select("*")
-      .eq("run_id", graphRunResult.graph_run_id)
-      .order("sequence", { ascending: true });
+      .eq("run_id", graphRunResult.graph_run_id);
+    const { data: traces } = typeof (traceQuery as any).order === "function"
+      ? await (traceQuery as any).order("sequence", { ascending: true })
+      : await (traceQuery as any).maybeSingle?.() ?? { data: null };
 
     let trace_summary: any[] = [];
-    if (traces && traces.length > 0) {
+    if (Array.isArray(traces) && traces.length > 0) {
       const { TraceSummaryBuilder } = await import("@cognitive-forge/runtime");
       trace_summary = TraceSummaryBuilder.buildPublicSummary(traces);
     }
+
+    const totalNodes = graph.nodes.length;
+    const completedCount = graphRunResult.completed_nodes.length;
+    const completenessScore = totalNodes > 0
+      ? Math.round((completedCount / totalNodes) * 100)
+      : 100;
+
+    const trust_signals = sanitizeTrustSignals({
+      validation_status: (graphRunResult.validation.status as "pass" | "warning" | "fail") ?? "pass",
+      completeness_score: completenessScore,
+      is_export_ready: graphRunResult.status === "success",
+      ...(graphRunResult.validation.warnings && graphRunResult.validation.warnings.length > 0
+        ? { risk_notes: graphRunResult.validation.warnings }
+        : {}),
+    });
+
+    const builder_summary = buildSafeBuilderSummary({
+      graph_key:         graph.key,
+      casepack_keys:     graph.nodes.map((n) => n.casepack_key),
+      bridges:           graph.edges.filter((e) => Boolean(e.bridge_key)).map((e) => ({
+        from:       e.from,
+        to:         e.to,
+        bridge_key: e.bridge_key,
+      })),
+      validation_status: graphRunResult.validation.status,
+      trace_events:      trace_summary,
+    });
 
     // ── 8. Sanitize and return ────────────────────────────────────────────────
     // PublicGraphRunSanitizer strips: node_results, token counts, repair attempts,
     // accumulated context, trace payloads, and all FORBIDDEN_PUBLIC_KEYS.
     const publicResult = sanitizeGraphRunResult(
-      { ...graphRunResult, trace_summary }, 
+      { ...graphRunResult, trace_summary, trust_signals, builder_summary },
       graphRunResult.graph_run_id
     );
 

@@ -1,0 +1,11 @@
+{
+  "listing_id": "listing-ag19",
+  "agent_id": "AG19",
+  "creator_id": "creator-demo",
+  "release_id": null,
+  "category": "production",
+  "status": "public",
+  "availability": "preview_only",
+  "sample_origin": "synthetic_fixture",
+  "offering_ids": []
+}

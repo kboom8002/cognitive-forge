@@ -1,0 +1,11 @@
+{
+  "decision_id": "example-decision_id",
+  "workspace_id": "example-workspace_id",
+  "run_id": "example-run_id",
+  "actor_id": "example-actor_id",
+  "artifact_id": "example-artifact_id",
+  "artifact_version": 1,
+  "content_hash": "example-content_hash",
+  "decision": "approve",
+  "expected_revision": 1
+}

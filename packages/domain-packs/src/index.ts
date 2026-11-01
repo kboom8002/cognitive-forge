@@ -43,3 +43,44 @@ export type {
 // ── Sanitizers ────────────────────────────────────────────────────────────────
 export { sanitizePackManifest } from "./public-pack-sanitizer";
 export type { PublicPackSummary } from "./public-pack-sanitizer";
+
+// ── Gallery v2.0 Catalog, Listing, Fork, Comparison & Matching Services ───────
+export {
+  loadGalleryCatalog,
+} from "./gallery/catalog-loader";
+export type {
+  TaxonomyCategory,
+  GalleryTaxonomy,
+  GalleryBundle,
+  LoadedGalleryCatalog,
+} from "./gallery/catalog-loader";
+
+export {
+  GalleryV2Service,
+} from "./gallery/gallery-service";
+export type {
+  ForkPolicyType,
+  ReleaseGalleryMeta,
+  ListGalleryListingsQuery,
+} from "./gallery/gallery-service";
+
+export {
+  ForkV2Service,
+} from "./gallery/fork-service";
+export type {
+  ForkedChildDraftPack,
+} from "./gallery/fork-service";
+
+export {
+  ComparisonV2Service,
+} from "./gallery/comparison-service";
+export type {
+  CandidateRunDetail,
+  ComparisonConfigDiff,
+  ReleaseFeedbackEntry,
+} from "./gallery/comparison-service";
+
+export {
+  MatchingV2Service,
+} from "./gallery/matching-service";
+

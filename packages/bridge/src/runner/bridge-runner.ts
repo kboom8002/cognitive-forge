@@ -56,6 +56,10 @@ export interface HandoffEvent {
   readonly target_casepack_key: string;
   readonly validation_passed:   boolean;
   readonly error_count:         number;
+  readonly source_output_json?:      Record<string, unknown> | undefined;
+  readonly target_input_json?:       Record<string, unknown> | undefined;
+  readonly context_checkpoint_json?: Record<string, unknown> | undefined;
+  readonly bridge_output_json?:      Record<string, unknown> | undefined;
   readonly created_at:          string;
 }
 
@@ -212,15 +216,23 @@ export async function runBridge(ctx: BridgeRunContext): Promise<BridgeRunResult>
 
   if (graphRunId && handoffEventStore) {
     const event: HandoffEvent = {
-      graph_run_id:         graphRunId,
-      bridge_key:           bridge.key,
-      source_node_id:       sourceNodeId,
-      target_node_id:       targetNodeId,
-      source_casepack_key:  bridge.source_casepack_key,
-      target_casepack_key:  bridge.target_casepack_key,
-      validation_passed:    isValid,
-      error_count:          handoffValidation.errors.length + targetValidation.missing.length,
-      created_at:           new Date().toISOString(),
+      graph_run_id:            graphRunId,
+      bridge_key:              bridge.key,
+      source_node_id:          sourceNodeId,
+      target_node_id:          targetNodeId,
+      source_casepack_key:     bridge.source_casepack_key,
+      target_casepack_key:     bridge.target_casepack_key,
+      validation_passed:       isValid,
+      error_count:             handoffValidation.errors.length + targetValidation.missing.length,
+      source_output_json:      sourceOutput,
+      target_input_json:       mapped,
+      context_checkpoint_json: checkpoint as unknown as Record<string, unknown>,
+      bridge_output_json: {
+        mapped,
+        validation_passed: isValid,
+        error_count:       handoffValidation.errors.length + targetValidation.missing.length,
+      },
+      created_at:              new Date().toISOString(),
     };
     await handoffEventStore.write(event);
   }

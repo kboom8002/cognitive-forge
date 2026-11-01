@@ -57,6 +57,15 @@ export interface IRunStore {
   }): Promise<void>;
 }
 
+/** Minimal interface for persisting validation_results rows. */
+export interface IValidationStore {
+  write(params: {
+    run_id:   string;
+    run_type: "casepack" | "graph" | "node";
+    report:   ValidationReport;
+  }): Promise<void>;
+}
+
 // ── RunContext — everything the runner needs ───────────────────────────────────
 
 export interface RunContext {
@@ -78,6 +87,8 @@ export interface RunContext {
   usageWriter:  UsageWriter;
   /** RunStore for casepack_runs row management. */
   runStore:     IRunStore;
+  /** Optional ValidationStore for persisting validation_results rows. */
+  validationStore?: IValidationStore | undefined;
   /** When true, output is sanitized through PublicOutputSanitizer. */
   publicMode:   boolean;
   /** When true, trace and usage events are NOT persisted. */
@@ -99,6 +110,10 @@ export interface RunResult {
   repair_attempts: number;
   /** Whether fallback output was used. */
   fallback_used:   boolean;
+  /** Total input tokens consumed by this run (including repair calls). */
+  tokens_in:       number;
+  /** Total output tokens produced by this run (including repair calls). */
+  tokens_out:      number;
 }
 
 // ── Runner ────────────────────────────────────────────────────────────────────
@@ -368,6 +383,13 @@ async function finalizeRun(
       tokens_out:      tokensOut,
       repair_attempts: repairAttempts,
     });
+    if (ctx.validationStore) {
+      await ctx.validationStore.write({
+        run_id:   runId,
+        run_type: "casepack",
+        report:   validation,
+      });
+    }
   }
 
   // ── Sanitize if public mode ───────────────────────────────────────────────
@@ -382,5 +404,7 @@ async function finalizeRun(
     validation,
     repair_attempts: repairAttempts,
     fallback_used:   fallbackUsed,
+    tokens_in:       tokensIn,
+    tokens_out:      tokensOut,
   };
 }

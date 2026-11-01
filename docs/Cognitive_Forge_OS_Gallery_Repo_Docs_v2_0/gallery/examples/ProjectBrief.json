@@ -1,0 +1,14 @@
+{
+  "brief_id": "brief-demo",
+  "workspace_id": "ws-demo",
+  "deliverable_type": "회사 소개",
+  "input_formats": [
+    "text"
+  ],
+  "language": "ko",
+  "review_required": true,
+  "requirements": [
+    "근거 유지"
+  ],
+  "status": "submitted"
+}

@@ -27,3 +27,24 @@ export const VALIDATION_VERSION = "0.0.1" as const;
 export * from "./constants";
 export { validateInput, validateOutput } from "./validators";
 export { sanitizePublicResponse, deepSanitize } from "./sanitize";
+
+// ── v2.0 Evidence Grounding & Release Evaluation ─────────────────────────────
+export {
+  detectFactConflicts,
+} from "./evidence/fact-conflict-detector";
+export type {
+  SourceDocumentInput,
+  FactConflictItem,
+  FactConflictReport,
+} from "./evidence/fact-conflict-detector";
+
+export {
+  runEvaluationSuite,
+  qualifyRelease,
+} from "./evaluation/evaluation-runner";
+export type {
+  EvaluationRunInput,
+  EvaluationCheckResult,
+  QualifyReleaseInput,
+} from "./evaluation/evaluation-runner";
+

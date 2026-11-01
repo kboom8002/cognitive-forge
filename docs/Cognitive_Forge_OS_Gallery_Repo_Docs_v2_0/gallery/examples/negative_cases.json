@@ -1,0 +1,39 @@
+[
+  {
+    "schema": "GalleryListing",
+    "case": "실행 가능 표시지만 릴리스 없음",
+    "patch": {
+      "availability": "published_runnable"
+    },
+    "base": "GalleryListing"
+  },
+  {
+    "schema": "ForkLineage",
+    "case": "검증 배지 상속",
+    "patch": {
+      "inherited_verified_badge": true
+    },
+    "base": "ForkLineage"
+  },
+  {
+    "schema": "MatchCandidate",
+    "case": "필수 미충족인데 적합 판정",
+    "patch": {
+      "unmet_conditions": [
+        "언어 미지원"
+      ]
+    },
+    "base": "MatchCandidate"
+  },
+  {
+    "schema": "ComparisonSession",
+    "case": "같은 릴리스 중복 비교",
+    "patch": {
+      "release_ids": [
+        "r1",
+        "r1"
+      ]
+    },
+    "base": "ComparisonSession"
+  }
+]

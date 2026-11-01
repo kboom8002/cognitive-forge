@@ -1,0 +1,12 @@
+{
+  "comparison_id": "cmp-demo",
+  "workspace_id": "ws-demo",
+  "task_id": "AG19-normal",
+  "release_ids": [
+    "r1",
+    "r2"
+  ],
+  "status": "queued",
+  "data_scope": "synthetic_public",
+  "run_ids": []
+}

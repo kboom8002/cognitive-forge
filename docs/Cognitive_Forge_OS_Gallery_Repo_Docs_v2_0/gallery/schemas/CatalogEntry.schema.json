@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CatalogEntry",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "primary_category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "persona": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "deliverable": {
+      "type": "string",
+      "minLength": 1
+    },
+    "critical_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_wave": {
+      "type": "string",
+      "minLength": 1
+    },
+    "maturity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "availability": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expert_verified": {
+      "type": "boolean"
+    },
+    "capabilities_required": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "offering_modes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "fork_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runtime_release_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "agent_id",
+    "name",
+    "primary_category",
+    "persona",
+    "input_description",
+    "deliverable",
+    "critical_rule",
+    "release_wave",
+    "maturity",
+    "availability",
+    "origin",
+    "expert_verified",
+    "capabilities_required",
+    "offering_modes",
+    "fork_policy",
+    "runtime_release_id"
+  ]
+}

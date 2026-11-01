@@ -1,0 +1,70 @@
+[
+  {
+    "bundle_id": "SMB",
+    "name": "고객 안내팩",
+    "agent_ids": [
+      "AG04",
+      "AG11",
+      "AG20",
+      "AG26"
+    ],
+    "status": "specified",
+    "human_delivery_required": true
+  },
+  {
+    "bundle_id": "SALES",
+    "name": "기업 영업자료팩",
+    "agent_ids": [
+      "AG01",
+      "AG08",
+      "AG21",
+      "AG27"
+    ],
+    "status": "specified",
+    "human_delivery_required": true
+  },
+  {
+    "bundle_id": "EXPERT",
+    "name": "전문가 서비스 출시팩",
+    "agent_ids": [
+      "AG06",
+      "AG15",
+      "AG30"
+    ],
+    "status": "specified",
+    "human_delivery_required": true
+  },
+  {
+    "bundle_id": "IMAGE",
+    "name": "브랜드 이미지팩",
+    "agent_ids": [
+      "AG17",
+      "AG22",
+      "AG28"
+    ],
+    "status": "specified",
+    "human_delivery_required": true
+  },
+  {
+    "bundle_id": "EDU",
+    "name": "실습형 교육팩",
+    "agent_ids": [
+      "AG10",
+      "AG23",
+      "AG35"
+    ],
+    "status": "specified",
+    "human_delivery_required": true
+  },
+  {
+    "bundle_id": "AUTO",
+    "name": "자동화 설계팩",
+    "agent_ids": [
+      "AG09",
+      "AG18",
+      "AG27"
+    ],
+    "status": "specified",
+    "human_delivery_required": true
+  }
+]

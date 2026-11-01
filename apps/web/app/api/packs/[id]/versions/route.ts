@@ -11,6 +11,7 @@ import { z } from "zod";
 import { apiSuccess, handleRouteError } from "../../../../../lib/api/response";
 import { validateBody } from "../../../../../lib/api/validate";
 import { createDomainPackService } from "../../../../../lib/api/domain-pack-factory";
+import { requireManagementAuth } from "../../../../../lib/api/auth";
 
 const CreateVersionBodySchema = z.object({
   version:       z.string().regex(/^\d+\.\d+\.\d+$/, {
@@ -25,6 +26,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const { id } = await params;
     const body    = await validateBody(req, CreateVersionBodySchema);
     const svc     = createDomainPackService();

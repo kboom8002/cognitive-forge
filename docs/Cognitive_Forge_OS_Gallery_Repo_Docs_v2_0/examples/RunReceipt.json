@@ -1,0 +1,10 @@
+{
+  "run_id": "example-run_id",
+  "workspace_id": "example-workspace_id",
+  "release_id": "example-release_id",
+  "revision": 1,
+  "status": "waiting_review",
+  "artifact_ids": [],
+  "evaluation_status": "pass",
+  "review_status": "pending"
+}

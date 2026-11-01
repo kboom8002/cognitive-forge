@@ -8,6 +8,7 @@ import { z } from "zod";
 import { apiSuccess, handleRouteError } from "../../../lib/api/response";
 import { validateBody } from "../../../lib/api/validate";
 import { createAppService } from "../../../lib/api/graph-app-factory";
+import { requireManagementAuth } from "../../../lib/api/auth";
 
 const CreateAppBodySchema = z.object({
   workspace_id: z.string().uuid().optional().nullable(),
@@ -26,6 +27,7 @@ const CreateAppBodySchema = z.object({
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const url = new URL(req.url);
     const svc = createAppService();
     const apps = await svc.list({
@@ -41,6 +43,7 @@ export async function GET(req: Request): Promise<NextResponse> {
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
+    await requireManagementAuth(req);
     const body = await validateBody(req, CreateAppBodySchema);
     const svc  = createAppService();
     const app  = await svc.create({

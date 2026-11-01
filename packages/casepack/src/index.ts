@@ -59,3 +59,27 @@ export type {
   CreateGraphVersionParams,
   CreateAppParams,
 } from "./service/graph-app.service";
+
+// ── v2.0 TASKFLOW-CX Compiler & Legacy Adapter ────────────────────────────────
+export {
+  adaptLegacyTaskflow,
+  adaptLegacyCasePack,
+  adaptPilotPackToCanonical,
+} from "./compiler/legacy-adapter";
+export type {
+  LegacyAdapterResult,
+  LegacyTaskflowInput,
+  TaskflowCX20,
+} from "./compiler/legacy-adapter";
+
+export {
+  compileTaskflow,
+  PLATFORM_SUPPORTED_TOOLS,
+} from "./compiler/taskflow-compiler";
+export type {
+  PlatformSupportedTool,
+  CompiledStep,
+  CompiledTaskflowPlan,
+  CompileTaskflowOptions,
+} from "./compiler/taskflow-compiler";
+

@@ -35,7 +35,7 @@ import type { CasePackGraph, CasePackMAO, OutputContract, ValidationReport, Brid
 import { runBridge } from "@cognitive-forge/bridge";
 import type { IHandoffEventStore } from "@cognitive-forge/bridge";
 import { runSingleCasePack } from "./single-casepack-runner";
-import type { IRunStore } from "./single-casepack-runner";
+import type { IRunStore, IValidationStore } from "./single-casepack-runner";
 import { validateOutput } from "../validators/output-validator";
 import { sanitizePublicOutput } from "../public/public-output-sanitizer";
 import type { AIProviderAdapter } from "../ai/ai-provider";
@@ -63,6 +63,22 @@ export interface IGraphRunStore {
     final_output_json?: Record<string, unknown> | undefined;
     completed_at?:      string | undefined;
     node_count?:        number | undefined;
+  }): Promise<void>;
+}
+
+/**
+ * Minimal interface for persisting node_runs rows within a graph execution.
+ */
+export interface INodeRunStore {
+  write(params: {
+    graph_run_id: string;
+    node_id:      string;
+    casepack_key: string;
+    status:       string;
+    input_json:   Record<string, unknown>;
+    output_json?: Record<string, unknown> | undefined;
+    started_at:   string;
+    completed_at: string;
   }): Promise<void>;
 }
 
@@ -146,6 +162,10 @@ export interface GraphRunContext {
    * If absent, handoff events are not persisted (acceptable for tests).
    */
   handoffEventStore?: IHandoffEventStore | undefined;
+  /** Optional: store for writing node_runs rows. */
+  nodeRunStore?:      INodeRunStore | undefined;
+  /** Optional: store for writing validation_results rows. */
+  validationStore?:   IValidationStore | undefined;
   /** Workspace ID for telemetry. */
   workspace_id:     string;
   /** Optional authenticated user ID. */
@@ -315,6 +335,7 @@ export async function runSequentialGraph(ctx: GraphRunContext): Promise<GraphRun
       }, node.casepack_key);
     }
 
+    const nodeStartedAt = new Date().toISOString();
     let nodeResult: Awaited<ReturnType<typeof runSingleCasePack>>;
     try {
       nodeResult = await runSingleCasePack({
@@ -326,6 +347,7 @@ export async function runSequentialGraph(ctx: GraphRunContext): Promise<GraphRun
         traceWriter,
         usageWriter,
         runStore:     makeNodeRunStore(runStore),
+        validationStore: ctx.validationStore,
         publicMode:   false,   // Always internal — graph runner sanitizes final output
         zeroRetention: ctx.zeroRetention,
         ...(ctx.user_id !== undefined ? { user_id: ctx.user_id } : {}),
@@ -333,6 +355,17 @@ export async function runSequentialGraph(ctx: GraphRunContext): Promise<GraphRun
     } catch (err) {
       // Node failed — record and abort the graph
       const completedAt = new Date().toISOString();
+      if (ctx.nodeRunStore) {
+        await ctx.nodeRunStore.write({
+          graph_run_id: graphRunId,
+          node_id:      nodeId,
+          casepack_key: node.casepack_key,
+          status:       "failed",
+          input_json:   currentNodeInput,
+          started_at:   nodeStartedAt,
+          completed_at: completedAt,
+        });
+      }
       await graphRunStore.update(graphRunId, {
         status:       "failed",
         completed_at: completedAt,
@@ -370,18 +403,34 @@ export async function runSequentialGraph(ctx: GraphRunContext): Promise<GraphRun
     }
 
     // ── 5b: Record node result ─────────────────────────────────────────────
+    const nodeCompletedAt = new Date().toISOString();
+    if (ctx.nodeRunStore) {
+      await ctx.nodeRunStore.write({
+        graph_run_id: graphRunId,
+        node_id:      nodeId,
+        casepack_key: node.casepack_key,
+        status:       nodeResult.status,
+        input_json:   currentNodeInput,
+        output_json:  nodeResult.output,
+        started_at:   nodeStartedAt,
+        completed_at: nodeCompletedAt,
+      });
+    }
+
     const nodeRunResult: NodeRunResult = {
       node_id:         nodeId,
       casepack_key:    node.casepack_key,
       status:          nodeResult.status,
       output:          nodeResult.output,
-      tokens_in:       0,   // runSingleCasePack doesn't surface individual tokens in RunResult
-      tokens_out:      0,   // token totals are in usage_events written by the node runner
+      tokens_in:       nodeResult.tokens_in,
+      tokens_out:      nodeResult.tokens_out,
       repair_attempts: nodeResult.repair_attempts,
     };
     nodeResults.push(nodeRunResult);
     completedNodes.push(nodeId);
-    totalRepairs += nodeResult.repair_attempts;
+    totalTokensIn  += nodeResult.tokens_in;
+    totalTokensOut += nodeResult.tokens_out;
+    totalRepairs   += nodeResult.repair_attempts;
 
     // ── 5c: Merge node output into accumulatedContext ──────────────────────
     // Namespaced by node_id to prevent key collisions.
@@ -547,6 +596,9 @@ export async function runSequentialGraph(ctx: GraphRunContext): Promise<GraphRun
 
   // ── Step 7: Validate final output against merged final nodes output_contract ───────
   const finalContract: OutputContract = { fields: [], required_fields: [], public_fields: [] };
+  const seenFieldKeys = new Set<string>();
+  const seenRequired  = new Set<string>();
+  const seenPublic    = new Set<string>();
   let hasContract = false;
 
   for (const finalNodeId of graph.final_nodes) {
@@ -554,10 +606,25 @@ export async function runSequentialGraph(ctx: GraphRunContext): Promise<GraphRun
     const finalMao = finalNode ? maoMap.get(finalNode.casepack_key) : undefined;
     if (finalMao?.output_contract) {
       hasContract = true;
-      finalContract.fields.push(...finalMao.output_contract.fields);
-      finalContract.required_fields.push(...finalMao.output_contract.required_fields);
+      for (const field of finalMao.output_contract.fields) {
+        if (!seenFieldKeys.has(field.key)) {
+          seenFieldKeys.add(field.key);
+          finalContract.fields.push(field);
+        }
+      }
+      for (const reqKey of finalMao.output_contract.required_fields) {
+        if (!seenRequired.has(reqKey)) {
+          seenRequired.add(reqKey);
+          finalContract.required_fields.push(reqKey);
+        }
+      }
       if (finalMao.output_contract.public_fields) {
-        finalContract.public_fields!.push(...finalMao.output_contract.public_fields);
+        for (const pubKey of finalMao.output_contract.public_fields) {
+          if (!seenPublic.has(pubKey)) {
+            seenPublic.add(pubKey);
+            finalContract.public_fields!.push(pubKey);
+          }
+        }
       }
     }
   }
@@ -581,6 +648,14 @@ export async function runSequentialGraph(ctx: GraphRunContext): Promise<GraphRun
     completed_at:      completedAt,
     node_count:        nodeResults.length,
   });
+
+  if (shouldTrace && ctx.validationStore) {
+    await ctx.validationStore.write({
+      run_id:   graphRunId,
+      run_type: "graph",
+      report:   finalValidation,
+    });
+  }
 
   // ── Step 9: Write graph-level usage event ─────────────────────────────────
   // Note: Individual node usage events are already written by runSingleCasePack.

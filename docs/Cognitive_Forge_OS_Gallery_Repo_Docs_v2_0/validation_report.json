@@ -1,0 +1,17 @@
+{
+  "schema_checks": "PASS",
+  "positive_examples": 9,
+  "negative_missing_required_examples": 9,
+  "documents": 28,
+  "api_paths": 7,
+  "runtime_tests": "NOT_RUN",
+  "ui_e2e": "NOT_RUN",
+  "api_server_contract_tests": "NOT_RUN",
+  "openapi_asyncapi_official_validator": "NOT_RUN",
+  "limitations": [
+    "API·이벤트 실서버 검증은 구현 후 수행",
+    "일부 object 내부 도메인 규칙은 명세와 구현 검증을 함께 적용"
+  ],
+  "version": "2.0.0",
+  "gallery_report": "gallery_validation_report.json"
+}

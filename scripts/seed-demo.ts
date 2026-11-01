@@ -118,6 +118,7 @@ async function runValidation(): Promise<void> {
   const patterns = [
     "docs/fixtures/packs/**/*.json",
     "docs/fixtures/casepacks/**/*.json",
+    "docs/fixtures/bridges/**/*.json",
     "docs/fixtures/graphs/**/*.json",
     "docs/fixtures/apps/**/*.json",
   ];
@@ -266,6 +267,44 @@ async function seedCasePacks(sb: SupabaseClient): Promise<void> {
     await (sb.from("casepack_versions") as any).update({ is_current: true  }).eq("casepack_id", caId).eq("version", version);
 
     console.log(`    ↳ version ${version} (current)`);
+  }
+}
+
+// ── Bridges ───────────────────────────────────────────────────────────────────
+
+async function seedBridges(sb: SupabaseClient): Promise<void> {
+  console.log("\n── Bridges");
+
+  const files = await glob("docs/fixtures/bridges/**/*.json", { cwd: ROOT, absolute: true });
+
+  for (const filePath of files.sort()) {
+    const data    = loadJson(filePath) as Record<string, unknown>;
+    const key     = data["key"]     as string;
+    const version = data["version"] as string;
+    const status  = (data["status"] as string | undefined) ?? "published";
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: bErr } = await (sb.from("bridge_versions") as any)
+      .upsert(
+        {
+          bridge_key:   key,
+          version,
+          status,
+          bridge_json:  data,
+          is_current:   true,
+          workspace_id: null,
+        },
+        { onConflict: "bridge_key,version" }
+      );
+
+    if (bErr) abort(`[bridge_versions] upsert failed for ${key}: ${bErr.message}`);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (sb.from("bridge_versions") as any).update({ is_current: false }).eq("bridge_key", key).neq("version", version);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (sb.from("bridge_versions") as any).update({ is_current: true  }).eq("bridge_key", key).eq("version", version);
+
+    console.log(`  ✓ bridge: ${key} (version ${version})`);
   }
 }
 
@@ -446,6 +485,7 @@ async function main(): Promise<void> {
   // 4. Seed in dependency order
   await ensureWorkspace(sb);
   await seedCasePacks(sb);
+  await seedBridges(sb);
   await seedGraphs(sb);
   await seedDomainPacks(sb);
   await seedApps(sb);

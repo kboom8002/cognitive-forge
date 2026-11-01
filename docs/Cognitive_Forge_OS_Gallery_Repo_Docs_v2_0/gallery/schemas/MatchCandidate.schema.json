@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MatchCandidate",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "brief_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "offering_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "eligible": {
+      "type": "boolean"
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "unmet_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "needs_confirmation": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "brief_id",
+    "offering_id",
+    "eligible",
+    "reasons",
+    "unmet_conditions",
+    "needs_confirmation"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "eligible": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unmet_conditions": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
+}

@@ -24,10 +24,12 @@ import {
   DynamicForm,
   OutputCard,
   CompositeAppRenderer,
+  BuilderInspectionPanel,
 } from "@cognitive-forge/ui-forge";
 import type { FormValues, OutputValue, PublicGraphRunResult } from "@cognitive-forge/ui-forge";
 import { PROutputPackage } from "./PROutputPackage";
 import { AITrainingOutputPackage } from "./AITrainingOutputPackage";
+import { BookToAgentOutputPackage } from "./BookToAgentOutputPackage";
 import type { InputContract, OutputContract, UISchema } from "@cognitive-forge/core";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -162,9 +164,12 @@ export function AppRunnerClient({
     return initial;
   });
 
-  const [runState,  setRunState]  = useState<RunState>("idle");
-  const [runOutput, setRunOutput] = useState<Record<string, OutputValue>>({});
-  const [runError,  setRunError]  = useState<string | undefined>(undefined);
+  const [runState,       setRunState]       = useState<RunState>("idle");
+  const [runOutput,      setRunOutput]      = useState<Record<string, OutputValue>>({});
+  const [runError,       setRunError]       = useState<string | undefined>(undefined);
+  const [trustSignals,   setTrustSignals]   = useState<any>(undefined);
+  const [builderSummary, setBuilderSummary] = useState<any>(undefined);
+  const [inspectorMode,  setInspectorMode]  = useState<boolean>(false);
 
   const handleFieldChange = useCallback((key: string, value: FormValues[string]) => {
     setFormState((prev) => ({ ...prev, [key]: value }));
@@ -174,6 +179,8 @@ export function AppRunnerClient({
     setRunState("running");
     setRunError(undefined);
     setRunOutput({});
+    setTrustSignals(undefined);
+    setBuilderSummary(undefined);
 
     try {
       const res = await fetch(`/api/public/apps/${slug}/run`, {
@@ -195,6 +202,12 @@ export function AppRunnerClient({
       if (data?.["output"]) {
         setRunOutput(data["output"] as Record<string, OutputValue>);
       }
+      if (data?.["trust_signals"]) {
+        setTrustSignals(data["trust_signals"]);
+      }
+      if (data?.["builder_summary"]) {
+        setBuilderSummary(data["builder_summary"]);
+      }
       setRunState("complete");
     } catch (e) {
       setRunState("error");
@@ -210,8 +223,27 @@ export function AppRunnerClient({
         <div style={S.container}>
           {/* Header */}
           <div style={S.header}>
-            <div style={S.typeBadge(appType)}>
-              ⟐ Graph App
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
+              <div style={S.typeBadge(appType)}>
+                ⟐ Graph App
+              </div>
+              <button
+                type="button"
+                data-testid="toggle-inspector-mode"
+                onClick={() => setInspectorMode((prev) => !prev)}
+                style={{
+                  background: inspectorMode ? "rgba(108, 99, 255, 0.2)" : "transparent",
+                  border: "1px solid var(--color-forge-border, #2a2a42)",
+                  borderRadius: "0.375rem",
+                  padding: "0.25rem 0.625rem",
+                  color: inspectorMode ? "#6c63ff" : "var(--color-forge-muted, #9090a8)",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                {inspectorMode ? "Inspector Mode: ON" : "Inspector Mode: OFF"}
+              </button>
             </div>
             <h1 style={S.title}>{title}</h1>
             {description && <p style={S.description}>{description}</p>}
@@ -227,11 +259,14 @@ export function AppRunnerClient({
             {...(uiSchema ? { uiSchema } : {})}
             graphNodes={graphNodes ?? []}
             onSubmit={graphSubmitFn}
+            publicMode={!inspectorMode}
             renderOutput={
-              slug === "corporate-pr-suite" 
+              slug === "corporate-pr-suite"
                 ? (props) => <PROutputPackage status={props.status} finalOutput={props.finalOutput} />
                 : slug === "ai-training-practice-suite"
                 ? (props) => <AITrainingOutputPackage status={props.status} finalOutput={props.finalOutput} />
+                : slug === "book-to-agent"
+                ? (props) => <BookToAgentOutputPackage status={props.status} finalOutput={props.finalOutput} />
                 : undefined
             }
           />
@@ -246,8 +281,27 @@ export function AppRunnerClient({
       <div style={S.container}>
         {/* Header */}
         <div style={S.header}>
-          <div style={S.typeBadge(appType)}>
-            ◆ Micro App
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
+            <div style={S.typeBadge(appType)}>
+              ◆ Micro App
+            </div>
+            <button
+              type="button"
+              data-testid="toggle-inspector-mode"
+              onClick={() => setInspectorMode((prev) => !prev)}
+              style={{
+                background: inspectorMode ? "rgba(108, 99, 255, 0.2)" : "transparent",
+                border: "1px solid var(--color-forge-border, #2a2a42)",
+                borderRadius: "0.375rem",
+                padding: "0.25rem 0.625rem",
+                color: inspectorMode ? "#6c63ff" : "var(--color-forge-muted, #9090a8)",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              {inspectorMode ? "Inspector Mode: ON" : "Inspector Mode: OFF"}
+            </button>
           </div>
           <h1 style={S.title}>{title}</h1>
           {description && <p style={S.description}>{description}</p>}
@@ -269,10 +323,15 @@ export function AppRunnerClient({
         <OutputCard
           outputContract={outputContract}
           values={runOutput}
-          publicMode={true}
+          publicMode={!inspectorMode}
           status={runState}
+          trustSignals={trustSignals}
           {...(runError !== undefined ? { errorMessage: runError } : {})}
         />
+
+        {builderSummary && inspectorMode && (
+          <BuilderInspectionPanel summary={builderSummary} publicMode={false} />
+        )}
       </div>
     </div>
   );

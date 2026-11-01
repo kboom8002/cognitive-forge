@@ -87,10 +87,55 @@ async function resolveApp(slug: string): Promise<ResolvedApp | null> {
     const entryNode = nodes.find((n) => n.id === graph.entry_node);
     const entryMao = entryNode ? await resolveCurrentMao(db, entryNode.casepack_key) : null;
 
-    // Resolve final node for output_contract
-    const finalNodeId = (graph.final_nodes as string[])?.[0];
-    const finalNode = finalNodeId ? nodes.find((n) => n.id === finalNodeId) : null;
-    const finalMao = finalNode ? await resolveCurrentMao(db, finalNode.casepack_key) : null;
+    // Resolve final node(s) for output_contract (merge across all final_nodes, deduplicating field keys)
+    const finalNodeIds = (graph.final_nodes as string[]) ?? [];
+    const mergedOutputContract: {
+      fields: Array<Record<string, unknown>>;
+      required_fields: string[];
+      public_fields: string[];
+    } = {
+      fields: [],
+      required_fields: [],
+      public_fields: [],
+    };
+    const seenFieldKeys = new Set<string>();
+    const seenRequired  = new Set<string>();
+    const seenPublic    = new Set<string>();
+    let hasFinalContract = false;
+
+    for (const fnId of finalNodeIds) {
+      const fnNode = nodes.find((n) => n.id === fnId);
+      const fnMao = fnNode ? await resolveCurrentMao(db, fnNode.casepack_key) : null;
+      const outContract = fnMao?.["output_contract"] as
+        | {
+            fields?: Array<Record<string, unknown>>;
+            required_fields?: string[];
+            public_fields?: string[];
+          }
+        | undefined;
+      if (outContract) {
+        hasFinalContract = true;
+        for (const f of outContract.fields ?? []) {
+          const k = typeof f["key"] === "string" ? f["key"] : "";
+          if (k && !seenFieldKeys.has(k)) {
+            seenFieldKeys.add(k);
+            mergedOutputContract.fields.push(f);
+          }
+        }
+        for (const req of outContract.required_fields ?? []) {
+          if (!seenRequired.has(req)) {
+            seenRequired.add(req);
+            mergedOutputContract.required_fields.push(req);
+          }
+        }
+        for (const pub of outContract.public_fields ?? []) {
+          if (!seenPublic.has(pub)) {
+            seenPublic.add(pub);
+            mergedOutputContract.public_fields.push(pub);
+          }
+        }
+      }
+    }
 
     return {
       slug:            app.slug,
@@ -98,7 +143,7 @@ async function resolveApp(slug: string): Promise<ResolvedApp | null> {
       description:     app.description,
       type:            "graph",
       input_contract:  entryMao?.["input_contract"] ?? null,
-      output_contract: finalMao?.["output_contract"] ?? null,
+      output_contract: hasFinalContract ? mergedOutputContract : null,
       ui_schema:       entryMao?.["ui_schema"] ?? null,
       graph_nodes:     nodes.map((n) => ({ id: n.id, label: n.label ?? n.id })),
     };

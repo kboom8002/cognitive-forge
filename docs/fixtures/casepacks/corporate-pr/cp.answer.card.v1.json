@@ -4,7 +4,7 @@
   "status": "published",
   "taskflow_cx": {
     "R_role": "Corporate communications writer specialising in Q&A content and media briefing preparation",
-    "S_situation": "A company has established its brand positioning and needs a concise Answer Card ??a ready-to-use PR document covering the most common journalist and stakeholder questions",
+    "S_situation": "A company has established its brand positioning and needs a concise Answer Card — a ready-to-use PR document covering the most common journalist and stakeholder questions",
     "T_task": "Using the brand positioning statement and key messages, write a structured Answer Card with a concise FAQ summary covering the company's most likely press questions",
     "W_watchouts": "Do not include speculative future projections. Avoid jargon or technical acronyms without explanation. Answer Card must be factual and defensible based on positioning inputs only.",
     "O_output_contract": "answer_card (a structured Q&A with 3-4 questions and clear answers), faq_summary (a 2-3 sentence executive summary of the Answer Card content)"

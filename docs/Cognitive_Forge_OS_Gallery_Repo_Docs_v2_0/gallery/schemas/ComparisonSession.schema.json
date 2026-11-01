@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComparisonSession",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "comparison_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 2,
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed"
+      ]
+    },
+    "data_scope": {
+      "type": "string",
+      "enum": [
+        "synthetic_public",
+        "owner_private"
+      ]
+    },
+    "run_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "comparison_id",
+    "workspace_id",
+    "task_id",
+    "release_ids",
+    "status",
+    "data_scope",
+    "run_ids"
+  ]
+}

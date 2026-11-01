@@ -1,0 +1,9 @@
+{
+  "artifact_id": "example-artifact_id",
+  "workspace_id": "example-workspace_id",
+  "run_id": "example-run_id",
+  "version": 1,
+  "content_hash": "example-content_hash",
+  "content": {},
+  "evidence": []
+}

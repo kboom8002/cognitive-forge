@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GalleryListing",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "listing_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "creator_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "information",
+        "diagnosis",
+        "design",
+        "production",
+        "verification",
+        "continuous_work"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "public",
+        "hidden",
+        "archived"
+      ]
+    },
+    "availability": {
+      "type": "string",
+      "enum": [
+        "preview_only",
+        "test_ready",
+        "published_runnable",
+        "paused"
+      ]
+    },
+    "sample_origin": {
+      "type": "string",
+      "enum": [
+        "synthetic_fixture",
+        "real_run_with_permission"
+      ]
+    },
+    "offering_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "listing_id",
+    "agent_id",
+    "creator_id",
+    "release_id",
+    "category",
+    "status",
+    "availability",
+    "sample_origin",
+    "offering_ids"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "availability": {
+            "const": "published_runnable"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "release_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -6,6 +6,8 @@ export interface OutputActionsProps {
   publicMode?: boolean;
   isSuite?: boolean;
   sectionName?: string;
+  onCopy?: (() => void) | undefined;
+  onDownload?: (() => void) | undefined;
 }
 
 const S = {
@@ -35,28 +37,44 @@ const S = {
   },
 } as const;
 
-export function OutputActions({ data, publicMode = true, isSuite = false, sectionName = "Output" }: OutputActionsProps) {
+export function OutputActions({
+  data,
+  publicMode = true,
+  isSuite = false,
+  sectionName = "Output",
+  onCopy,
+  onDownload,
+}: OutputActionsProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
+    onCopy?.();
     const md = formatToMarkdown(data);
-    navigator.clipboard.writeText(md).then(() => {
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(md).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    } else {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    });
+    }
   };
 
   const handleDownloadMd = () => {
+    onDownload?.();
     const md = formatToMarkdown(data);
-    const blob = new Blob([md], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${sectionName.toLowerCase().replace(/\s+/g, "_")}.md`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    if (typeof URL !== "undefined" && typeof URL.createObjectURL === "function") {
+      const blob = new Blob([md], { type: "text/markdown" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${sectionName.toLowerCase().replace(/\s+/g, "_")}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   };
 
   const handleDownloadJson = () => {

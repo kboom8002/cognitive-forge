@@ -4,10 +4,15 @@
  * Unit tests for MockAIProvider and ProviderFactory.
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { MockAIProvider } from "@cognitive-forge/runtime";
-import { createProvider } from "@cognitive-forge/runtime";
-import { MOCK_OUTPUT_MAP } from "@cognitive-forge/runtime";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import {
+  MockAIProvider,
+  OpenAIAdapter,
+  AnthropicAdapter,
+  GeminiAdapter,
+  createProvider,
+  MOCK_OUTPUT_MAP,
+} from "@cognitive-forge/runtime";
 import { AppError } from "@cognitive-forge/core";
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
@@ -104,12 +109,112 @@ describe("ProviderFactory (createProvider)", () => {
     expect(adapter.provider).toBe("mock");
   });
 
-  it("throws for provider='openai' (not yet implemented)", () => {
+  it("throws for provider='openai' when apiKey is missing", () => {
     expect(() => createProvider("openai")).toThrow();
   });
 
-  it("throws for provider='anthropic' (not yet implemented)", () => {
+  it("throws for provider='anthropic' when apiKey is missing", () => {
     expect(() => createProvider("anthropic")).toThrow();
+  });
+
+  it("throws for provider='gemini' when apiKey is missing", () => {
+    expect(() => createProvider("gemini")).toThrow();
+  });
+
+  it("creates OpenAIAdapter when provider='openai' and apiKey is provided", () => {
+    const adapter = createProvider("openai", { apiKey: "sk-test-123" });
+    expect(adapter).toBeInstanceOf(OpenAIAdapter);
+    expect(adapter.provider).toBe("openai");
+  });
+
+  it("creates AnthropicAdapter when provider='anthropic' and apiKey is provided", () => {
+    const adapter = createProvider("anthropic", { apiKey: "sk-ant-test-123" });
+    expect(adapter).toBeInstanceOf(AnthropicAdapter);
+    expect(adapter.provider).toBe("anthropic");
+  });
+
+  it("creates GeminiAdapter when provider='gemini' and apiKey is provided", () => {
+    const adapter = createProvider("gemini", { apiKey: "gemini-test-123" });
+    expect(adapter).toBeInstanceOf(GeminiAdapter);
+    expect(adapter.provider).toBe("gemini");
+  });
+});
+
+// ── Live AI Provider Adapters (with mocked fetch) ─────────────────────────────
+
+describe("Live AI Provider Adapters", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("OpenAIAdapter formats Chat Completions request and parses JSON output + token usage", async () => {
+    const mockFetch = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          model: "gpt-4o-2024-08-06",
+          choices: [{ message: { content: '{"summary":"OpenAI response"}' } }],
+          usage: { prompt_tokens: 42, completion_tokens: 18 },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
+    );
+
+    const adapter = new OpenAIAdapter({ apiKey: "sk-test-key" });
+    const res = await adapter.call("Produce summary JSON", { model: "gpt-4o" });
+
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(res.provider).toBe("openai");
+    expect(res.model).toBe("gpt-4o-2024-08-06");
+    expect(res.raw_text).toBe('{"summary":"OpenAI response"}');
+    expect(res.tokens_in).toBe(42);
+    expect(res.tokens_out).toBe(18);
+  });
+
+  it("AnthropicAdapter strips optional markdown JSON fences and parses usage", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          model: "claude-3-5-sonnet-20241022",
+          content: [{ type: "text", text: "```json\n{\"summary\":\"Claude response\"}\n```" }],
+          usage: { input_tokens: 55, output_tokens: 24 },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
+    );
+
+    const adapter = new AnthropicAdapter({ apiKey: "sk-ant-test-key" });
+    const res = await adapter.call("Produce summary JSON", { model: "claude-3-5-sonnet-latest" });
+
+    expect(res.provider).toBe("anthropic");
+    expect(res.raw_text).toBe('{"summary":"Claude response"}');
+    expect(res.tokens_in).toBe(55);
+    expect(res.tokens_out).toBe(24);
+  });
+
+  it("GeminiAdapter parses candidate text and usageMetadata", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          candidates: [
+            {
+              content: {
+                parts: [{ text: '{"summary":"Gemini response"}' }],
+              },
+            },
+          ],
+          usageMetadata: { promptTokenCount: 30, candidatesTokenCount: 15 },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
+    );
+
+    const adapter = new GeminiAdapter({ apiKey: "gemini-key" });
+    const res = await adapter.call("Produce summary JSON", { model: "gemini-2.0-flash" });
+
+    expect(res.provider).toBe("gemini");
+    expect(res.raw_text).toBe('{"summary":"Gemini response"}');
+    expect(res.tokens_in).toBe(30);
+    expect(res.tokens_out).toBe(15);
   });
 });
 

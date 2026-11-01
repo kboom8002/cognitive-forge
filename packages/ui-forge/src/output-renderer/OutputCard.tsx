@@ -228,14 +228,16 @@ export function OutputCard({
               </div>
             </div>
 
-            {status === "complete" && (onCopy || onDownload) && (
+            {status === "complete" && (
               <div style={S.actionsRow}>
-              <OutputActions 
-                data={values} 
-                publicMode={publicMode} 
-                sectionName={nodeLabel || "Output"} 
-                isSuite={false} 
-              />
+                <OutputActions
+                  data={values}
+                  publicMode={publicMode}
+                  sectionName={nodeLabel || "Output"}
+                  isSuite={false}
+                  onCopy={onCopy}
+                  onDownload={onDownload}
+                />
               </div>
             )}
           </div>

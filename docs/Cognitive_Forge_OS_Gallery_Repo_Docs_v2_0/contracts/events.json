@@ -1,0 +1,16 @@
+{
+  "delivery": "at_least_once",
+  "ordering": "not_guaranteed",
+  "events": [
+    "run.started",
+    "run.input_required",
+    "review.requested",
+    "run.completed",
+    "run.failed",
+    "run.cancelled",
+    "artifact.ready"
+  ],
+  "schema": "../schemas/EventEnvelope.schema.json",
+  "deduplicate_by": "event_id",
+  "reconcile": "GET /api/v1/runs/{run_id}"
+}

@@ -1,0 +1,90 @@
+{
+  "pack_id": "gallery.ag23.v1",
+  "schema_version": "2.0-draft",
+  "agent_id": "AG23",
+  "status": "specified",
+  "taskflow": {
+    "A": "교육 콘텐츠 제작자",
+    "S": "제공 자료만 사용하고 현재 과업 범위만 수행한다.",
+    "T": "설명·실습·워크북·평가 자료",
+    "K": "참조 규칙·사례·고객 입력을 구분하고 자료의 출처를 유지한다.",
+    "W": "각 실습을 목표와 평가 기준에 연결한다",
+    "F": "입력 점검→필요 질문→과업→검사→결과. 도구·권한이 없으면 중단한다.",
+    "L": "고객이 이해할 수 있는 명확한 한국어.",
+    "O": "result, evidence, missing_inputs, checks, status를 출력한다."
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_text": {
+        "type": "string",
+        "minLength": 1
+      },
+      "goal": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "source_text",
+      "goal"
+    ]
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "result": {
+        "type": "string",
+        "minLength": 1
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "missing_inputs": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "checks": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "missing_input",
+          "needs_review"
+        ]
+      }
+    },
+    "required": [
+      "result",
+      "evidence",
+      "missing_inputs",
+      "checks",
+      "status"
+    ]
+  },
+  "required_capabilities": [
+    "text_generation",
+    "structured_output"
+  ],
+  "benchmark_ids": [
+    "AG23-normal",
+    "AG23-missing",
+    "AG23-conflict"
+  ],
+  "release_gate": "actual_runtime_and_evaluation_required"
+}

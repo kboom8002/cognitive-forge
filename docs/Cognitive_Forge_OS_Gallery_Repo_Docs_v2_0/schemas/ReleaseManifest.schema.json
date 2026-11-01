@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:forge:ReleaseManifest:1",
+  "title": "ReleaseManifest",
+  "type": "object",
+  "required": [
+    "release_id",
+    "pack_id",
+    "pack_version",
+    "compiler_version",
+    "evaluation_suite_version",
+    "content_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pack_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pack_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "compiler_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evaluation_suite_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_hash": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -134,7 +134,8 @@ async function main(): Promise<void> {
 
   const sections: Array<{ label: string; pattern: string }> = [
     { label: "Domain Pack manifests",     pattern: "docs/fixtures/packs/**/*.json"     },
-    { label: "CasePack / Bridge objects", pattern: "docs/fixtures/casepacks/**/*.json" },
+    { label: "CasePack objects",          pattern: "docs/fixtures/casepacks/**/*.json" },
+    { label: "Bridge objects",            pattern: "docs/fixtures/bridges/**/*.json"   },
     { label: "Graph definitions",         pattern: "docs/fixtures/graphs/**/*.json"    },
     { label: "App objects",               pattern: "docs/fixtures/apps/**/*.json"      },
   ];

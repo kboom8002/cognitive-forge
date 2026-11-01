@@ -5,7 +5,7 @@ import React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { PackGalleryLite } from "../../../apps/web/components/public-app/PackGalleryLite";
-import { sanitizePackManifest } from "../../../packages/domain-packs/src/public-pack-sanitizer";
+import { sanitizePackManifest } from "@cognitive-forge/domain-packs";
 import type { DomainPackManifest } from "@cognitive-forge/core";
 
 describe("PackGalleryLite UI & Sanitization", () => {

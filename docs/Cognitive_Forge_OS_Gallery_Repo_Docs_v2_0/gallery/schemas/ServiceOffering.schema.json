@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServiceOffering",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "offering_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "listing_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "creator_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "self_run",
+        "reviewed_delivery",
+        "custom_build",
+        "managed_operation"
+      ]
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "human_review": {
+      "type": "boolean"
+    },
+    "price_status": {
+      "type": "string",
+      "enum": [
+        "quote_required",
+        "fixed"
+      ]
+    }
+  },
+  "required": [
+    "offering_id",
+    "listing_id",
+    "creator_id",
+    "mode",
+    "deliverables",
+    "exclusions",
+    "required_inputs",
+    "human_review",
+    "price_status"
+  ]
+}

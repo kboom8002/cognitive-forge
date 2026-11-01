@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:forge:ReviewDecision:1",
+  "title": "ReviewDecision",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "workspace_id",
+    "run_id",
+    "actor_id",
+    "artifact_id",
+    "artifact_version",
+    "content_hash",
+    "decision",
+    "expected_revision"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "decision_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actor_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "approve",
+        "request_changes",
+        "reject"
+      ]
+    },
+    "expected_revision": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

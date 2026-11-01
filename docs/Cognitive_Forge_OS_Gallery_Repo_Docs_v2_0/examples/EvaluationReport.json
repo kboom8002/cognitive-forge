@@ -1,0 +1,7 @@
+{
+  "report_id": "example-report_id",
+  "run_id": "example-run_id",
+  "suite_version": "example-suite_version",
+  "status": "pass",
+  "checks": []
+}

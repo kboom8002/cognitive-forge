@@ -1,0 +1,10 @@
+{
+  "event_id": "example-event_id",
+  "event_type": "example-event_type",
+  "schema_version": "example-schema_version",
+  "occurred_at": "example-occurred_at",
+  "workspace_id": "example-workspace_id",
+  "run_id": "example-run_id",
+  "correlation_id": "example-correlation_id",
+  "payload": {}
+}

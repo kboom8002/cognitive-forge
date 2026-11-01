@@ -4,12 +4,12 @@
 
 | 구분 | 현황 |
 |---|---|
-| Next.js 앱 | ✅ 빌드 성공, 14 페이지 정적 생성 |
+| Next.js 앱 | ✅ 빌드 성공, 정적/동적 라우트 생성 |
 | Demo 페이지 (`/demo`, `/demo/apps`) | ✅ DB 없이 완전 동작 (Static) |
-| 런타임 API (`/a/[slug]`, `/api/public/*`) | ⚠️ Supabase + AI 프로바이더 필요 |
-| AI 어댑터 | ⚠️ 현재 `MockAIProvider` — 실제 OpenAI 교체 필요 |
-| DB 마이그레이션 | ✅ 11개 SQL 파일 작성 완료, 미실행 상태 |
-| 시드 데이터 | ✅ `pnpm seed:demo` 스크립트 작성 완료, 미실행 상태 |
+| 런타임 API (`/a/[slug]`, `/api/public/*`) | ✅ Supabase + AI 프로바이더 연동 완료 |
+| AI 어댑터 | ✅ `MockAIProvider`, `OpenAIAdapter`, `AnthropicAdapter`, `GeminiAdapter` 모두 구현 및 자동 분기 완료 |
+| DB 마이그레이션 | ✅ 11개 SQL 파일 작성 완료 (`001`~`011`) |
+| 시드 데이터 | ✅ `pnpm seed:demo` 스크립트 작성 완료 (Packs 3, CasePacks 15, Bridges 12, Graphs 3, Apps 4) |
 
 ---
 
@@ -26,16 +26,17 @@
 **Supabase Dashboard → SQL Editor**에서 순서대로 실행:
 
 ```
-20260502000001_extensions.sql       ← pg_crypto, uuid-ossp 등 익스텐션
-20260502000002_workspaces.sql       ← workspace, workspace_members 테이블
-20260502000003_casepacks.sql        ← casepacks, casepack_versions 테이블
-20260502000004_apps_graphs.sql      ← apps, casepack_graphs, graph_versions 테이블
-20260502000005_updated_at_trigger.sql ← 자동 updated_at 트리거
-20260502000006_indexes.sql          ← 성능 인덱스
-20260502000007_domain_packs.sql     ← domain_packs, domain_pack_assets 테이블
-20260502000008_runtime_tables.sql   ← casepack_runs, graph_runs, node_runs, handoff_events 테이블
-20260502000009_validation_tables.sql ← validation_results, runtime_trace_events, usage_events 테이블
-20260502000010_rls.sql              ← Row Level Security 정책 (반드시 마지막)
+20260502000001_extensions.sql              ← pg_crypto, uuid-ossp 등 익스텐션
+20260502000002_workspaces.sql              ← workspace, workspace_members 테이블
+20260502000003_casepacks.sql               ← casepacks, casepack_versions 테이블
+20260502000004_apps_graphs.sql             ← apps, casepack_graphs, graph_versions 테이블
+20260502000005_updated_at_trigger.sql      ← 자동 updated_at 트리거
+20260502000006_indexes.sql                 ← 성능 인덱스
+20260502000007_domain_packs.sql            ← domain_packs, domain_pack_assets 테이블
+20260502000008_runtime_tables.sql          ← casepack_runs, graph_runs, node_runs, handoff_events 테이블
+20260502000009_validation_tables.sql       ← validation_results, runtime_trace_events, usage_events 테이블
+20260502000010_rls.sql                     ← Row Level Security 정책
+20260502000011_bridges_and_graph_runs_fix.sql ← bridge_versions(RLS 포함), graph_runs 확장 컬럼 및 partial 상태 제약
 ```
 
 > **중요**: `20260502000010_rls.sql`은 반드시 마지막에 실행해야 함.
@@ -117,6 +118,7 @@ pnpm seed:demo
 - Demo Workspace 생성 (`cognitive-forge-demo`)
 - 3개 Domain Pack 삽입 (Corporate PR, Book-to-Agent, AI Training)
 - 15개 CasePack + 버전 삽입
+- 12개 Bridge + 버전 삽입 (`bridge_versions`)
 - 3개 Graph + 버전 삽입
 - 4개 App 삽입 (public visibility)
 
@@ -129,32 +131,14 @@ SELECT id, slug FROM workspaces WHERE slug = 'cognitive-forge-demo';
 
 ---
 
-## PHASE 4 — AI 어댑터 실제 연동 (중요)
+## PHASE 4 — AI 어댑터 연동 확인
 
-### 현재 상태
-`apps/web/lib/api/runtime-factory.ts` 의 `createRuntimeComponents()` 함수가
-**MockAIProvider**를 사용 중 → 실제 AI 호출이 없어 `mock-output-map.json`의 고정 응답만 반환.
-
-### 실제 OpenAI 연동 방법
-`apps/web/lib/api/runtime-factory.ts`를 수정:
-
-```typescript
-// 현재 (Mock):
-const adapter = new MockAIProvider(MOCK_OUTPUT_MAP, 0);
-
-// 변경 후 (Live OpenAI):
-import { OpenAIAdapter } from "@cognitive-forge/runtime";
-
-const adapter = process.env.AI_PROVIDER === "openai"
-  ? new OpenAIAdapter({
-      apiKey: process.env.AI_API_KEY!,
-      defaultModel: process.env.AI_DEFAULT_MODEL ?? "gpt-4o",
-    })
-  : new MockAIProvider(MOCK_OUTPUT_MAP, 0);
-```
-
-> **참고**: `OpenAIAdapter`가 `@cognitive-forge/runtime` 패키지에 아직 구현되지 않은 경우
-> Sprint 08 작업으로 별도 구현 필요.
+### 현재 상태 (구현 완료)
+`apps/web/lib/api/runtime-factory.ts` 의 `resolveAIAdapter()` 함수가 환경변수(`AI_PROVIDER`, `AI_API_KEY`, `AI_DEFAULT_MODEL`)를 감지하여 자동으로 프로바이더를 분기합니다:
+- `AI_PROVIDER=openai` + `AI_API_KEY` 설정 시 → `OpenAIAdapter`
+- `AI_PROVIDER=anthropic` + `AI_API_KEY` 설정 시 → `AnthropicAdapter`
+- `AI_PROVIDER=gemini` + `AI_API_KEY` 설정 시 → `GeminiAdapter`
+- 미설정 또는 `AI_PROVIDER=mock` 시 → `MockAIProvider(MOCK_OUTPUT_MAP, 0)` (데모/테스트 폴백)
 
 ---
 

@@ -1,0 +1,39 @@
+{
+  "version": "2.0",
+  "primary_category_rule": "주된 납품 계약으로 한 번만 분류",
+  "categories": [
+    {
+      "id": "information",
+      "label": "정보 구조화"
+    },
+    {
+      "id": "diagnosis",
+      "label": "진단"
+    },
+    {
+      "id": "design",
+      "label": "설계"
+    },
+    {
+      "id": "production",
+      "label": "제작"
+    },
+    {
+      "id": "verification",
+      "label": "검수"
+    },
+    {
+      "id": "continuous_work",
+      "label": "지속 수행"
+    }
+  ],
+  "secondary_tags": [
+    "industry",
+    "audience",
+    "language",
+    "tone",
+    "input_format",
+    "required_tool"
+  ],
+  "bundle_rule": "복합 프로젝트는 카탈로그 에이전트를 참조하며 새 중복 장르로 등록하지 않는다"
+}

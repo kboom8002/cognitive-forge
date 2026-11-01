@@ -1,0 +1,146 @@
+[
+  {
+    "id": "AT01",
+    "given": "모든 외부 어댑터 비활성화",
+    "when": "초안→시험→발행→고객실행→검수→다운로드",
+    "then": "원격 사업 시스템 호출 없이 승인 산출물이 내려받아진다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT02",
+    "given": "신규 제작자, FAQ 템플릿",
+    "when": "자연어로 입력·결과 양식을 변경",
+    "then": "JSON 편집 없이 저장되고 결과 UI에 반영된다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT03",
+    "given": "R_role과 K_REF를 가진 기존 팩",
+    "when": "호환 변환 후 동일 입력 실행",
+    "then": "역할·근거·입출력 필드가 보존되고 변환 경고가 기록된다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT04",
+    "given": "필수 회사명 누락",
+    "when": "실행 요청",
+    "then": "waiting_input이며 회사명을 만들어 내지 않는다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT05",
+    "given": "매출 10억과 12억이 함께 제공",
+    "when": "사실 추출",
+    "then": "충돌 항목과 출처가 제시되고 수치 확정 전 공개용 초안을 승인하지 않는다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT06",
+    "given": "모델 모의 장애 주입",
+    "when": "잘못된 JSON·시간초과·HTTP 오류 각각 실행",
+    "then": "서로 다른 오류 코드를 남기며 재시도·예산 상한을 넘지 않는다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT07",
+    "given": "waiting_review 실행",
+    "when": "worker 종료·재시작 후 승인",
+    "then": "기존 버전으로 재개하고 완료된 단계의 부수 효과를 중복 실행하지 않는다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT08",
+    "given": "산출물 v1 승인 완료",
+    "when": "본문 변경으로 v2 생성",
+    "then": "v1 승인 이력은 유지하고 v2는 새 검수 대상이다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT09",
+    "given": "작업공간 A 사용자와 B 산출물",
+    "when": "B ID로 조회·변경 요청",
+    "then": "접근 거절 및 B 데이터 미노출",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT10",
+    "given": "내용 미보존 정책과 만료된 자료",
+    "when": "실행 후 삭제 작업 수행",
+    "then": "정책 대상 저장소에서 고객 콘텐츠가 제거되고 최소 계측만 남는다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT11",
+    "given": "동일 멱등 키",
+    "when": "동일 요청 2회, 다른 본문 1회 제출",
+    "then": "앞의 요청은 같은 run_id, 다른 본문은 409",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT12",
+    "given": "이벤트 수신 클라이언트",
+    "when": "중복·역순 이벤트 전달",
+    "then": "event_id 중복 제거 후 조회한 최신 revision을 사용한다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT13",
+    "given": "비검수자 또는 오래된 artifact hash",
+    "when": "승인 요청",
+    "then": "403 또는 409로 거절하고 승인 상태는 바뀌지 않는다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT14",
+    "given": "미지원 도구가 있는 팩",
+    "when": "가져오기·실행 시도",
+    "then": "부족한 기능을 안내하고 실행 가능으로 오표시하지 않는다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT15",
+    "given": "v1 실행 중 v2 발행",
+    "when": "v1 실행 재개",
+    "then": "v1 릴리스·자료·평가 버전을 계속 사용한다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT16",
+    "given": "외부 검수 서버 장애",
+    "when": "독립 작업과 위임 작업 동시 실행",
+    "then": "독립 작업은 진행하고 위임 작업은 정해진 대기 상태를 유지한다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT17",
+    "given": "기존 회사 소개와 변경 자료",
+    "when": "재실행",
+    "then": "새 산출물 버전과 변경 출처를 확인할 수 있다",
+    "status": "NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "AT18",
+    "given": "비밀값·내부 지시·타 고객 자료가 저장된 환경",
+    "when": "공개 앱 실행과 팩 내보내기",
+    "then": "공개 응답에 해당 항목이 없고 권한 있는 결과만 제공된다",
+    "status": "NOT_RUN",
+    "evidence": null
+  }
+]

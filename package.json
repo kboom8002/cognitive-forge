@@ -18,8 +18,12 @@
     "db:migrate": "supabase db push",
     "db:types": "supabase gen types typescript --local --schema public > packages/core/src/types/supabase.ts",
     "fixtures:validate": "tsx scripts/validate-fixtures.ts",
+    "gallery:validate": "tsx scripts/validate-gallery-v2.ts",
     "seed:demo": "tsx scripts/seed-demo.ts",
+    "seed:gallery": "tsx scripts/seed-gallery.ts",
     "smoke:runtime": "tsx scripts/smoke-runtime.ts",
+    "smoke:api": "tsx scripts/smoke-api.ts",
+    "smoke:security": "tsx scripts/smoke-security.ts",
     "release:check": "tsx scripts/release-check.ts"
   },
   "devDependencies": {
